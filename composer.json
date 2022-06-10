@@ -11,9 +11,16 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "dompdf/dompdf": "^1.2",
+        "easycorp/easyadmin-bundle": "^3.5",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+        "knplabs/knp-paginator-bundle": "^5.3",
+        "knplabs/knp-snappy-bundle": "^1.8",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.4",
+        "sasedev/mpdf-bundle": "^2.0",
         "sensio/framework-extra-bundle": "^6.1",
+        "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
@@ -40,7 +47,9 @@
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
-        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/cssinliner-extra": "^3.3",
+        "twig/extra-bundle": "^3.3",
+        "twig/intl-extra": "^3.3",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
@@ -97,7 +106,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "require": "5.4.*"
         }
     }

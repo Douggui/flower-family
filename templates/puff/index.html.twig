@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}E-cigarette Puffs
+{% endblock %}
+
+{% block body %}
+	<main>
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs ">
+			<div class="container">
+
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>E-cigarette</li>
+						<li>Puffs</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= About MODS Section ======= -->
+		<section id="about-us" class="about-us">
+			<div class="container" data-aos="fade-up">
+				<div class="row content d-flex justify-content-center">
+					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
+						<h2>Puffs</h2>
+						<p>Les <a href="#"><strong> puffs</strong></a> sont les nouveau phénomène de la <strong>vape</strong> .Ce sont des mini <strong>cigarettes
+                        éléctrique jetables</strong> . Vous les trouverez en 20mg ,17mg ,9mg ou 0mg de nicotine.<br>
+                        Pratique pour changer régulièrement de goût , nous vous proposons un large 
+                        choix de saveurs parmis les marques LIQUIDEO ,ELFBAR et MA PETITE VAPE . Mais 
+                        également <em>deux sorte de puff avec ou sans  CBD </em>.<br>
+                        Dans un soucie d'écologie sachez que vous pouvez nous les ramener aprés utilisation afin 
+                        que nous les renvoyons aux fabricants qui se chargent de les recycler.
+							</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End About MODS Section -->
+
+		<!-- ======= Our Team Section ======= -->
+		<section id="team" class="team section-bg mt-5" data-aos="fade-up">
+			<div class="container-fluid">
+				<div class="row d-flex justify-content-center align-content-start">
+					<!-- ======= Show Product section ======= -->
+						<div class="row">
+							{% for product in products %}
+								<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+									<div class="member">
+										<div class="member-img">
+
+											<div class="portfolio-details-slider swiper">
+												<div class="swiper-wrapper ">
+													{% for image in product.images %}
+														<div class="swiper-slide ">
+
+															<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
+																<img src="/uploads/{{image.name}}" width="300" height="300" alt="{{product.product.name}}"></a>
+
+														</div>
+													{% endfor %}
+
+												</div>
+												<div class="swiper-pagination"></div>
+											</div>
+
+										</div>
+										<div class="member-info">
+											<h4>{{product.product.name}}</h4>
+											<p>{{((product.product.price)/100)|number_format(2)}}
+												€</p>
+											<button>
+												<a href=" {{path('ecigarette_show_details',{'slug':product.product.slug} )}}">Détails</a>
+											</button>
+											<button>
+												<a href="{{path('ecigarette_show_details',{'slug':product.product.slug} )}}">
+													<i class="bi bi-bag-plus-fill"></i>
+												</a>
+											</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					<!-- ======= End Show Product section ======= -->
+				</div>
+			</div>
+
+		</section>
+		<!-- End Our Team Section -->
+
+		<div class="d-flex justify-content-center mt-3 ">
+			{{ knp_pagination_render(productPagination) }}
+		</div>
+	</main>
+{% endblock %}

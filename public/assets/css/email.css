@@ -1,0 +1,99 @@
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: black;
+    color: #aaa;
+    width: 60vw;
+    margin: auto;
+}
+
+header {
+    width: 100%;
+    margin-top:20px
+}
+
+img {
+    width: 120px;
+    height: 70px;
+}
+
+.email-content {
+    width: 80%;
+    margin: auto;
+}
+
+.email-content h1 {
+    text-align: center;
+    font-size: 22px;
+
+}
+
+.email-content p {
+    text-align: center;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    color:#00EEE8
+}
+
+.email-content button a {
+    color: #000;
+}
+
+.email-content button {
+    background-color: #00EEE8;
+    padding: 13px 8px;
+    border: 1px solid #00EEE8;
+    color: #000;
+    border-radius: 8px;
+    font-size: 12px;
+
+}
+.flex{
+    display: flex;
+    
+}
+.justify-content-center{
+    justify-content: center;
+}
+.justify-content-around{
+    justify-content: space-around;
+}
+.align-items-center{
+    align-items: center;
+}
+.name{
+    color:#00EEE8;
+    font-size: 20px;
+}
+span{
+    color: #00EEE8;
+}
+footer{
+    margin-top: 10px;
+    display:flex;
+    justify-content: center;
+}
+@media screen and (max-width:778px) {
+    body{
+        width:100vw;
+        margin:5px 10px
+    }
+}
+@media screen and (max-width:468px) {
+    .email-content h1{
+        font-size: 18px;
+    
+    }
+    .email-content p{
+        font-size: 15px;
+    
+    }
+    .name{
+        font-size: 13px;
+    }
+}

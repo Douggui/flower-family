@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poster un commentaire
+{% endblock %}
+
+{% block body %}
+	<section id="contact" class="contact mt-5">
+		<div class="container">
+			<div class="section-title mt-5" data-aos="fade-up">
+				<h2>Poster un commentaire sur le produit
+					{{product.getName}}</h2>
+			</div>
+
+			{% if product.isProductFromUser(app.user) %}
+				{% if product.getCommentFromUser(app.user) is null %}
+					<div class="row mt-5 justify-content-center" data-aos="fade-up">
+
+						<div class="col-lg-8  php-email-form">
+							{{form_start(form)}}
+
+							<div class="form-group mt-3">
+								{{ form_row(form.rating,{'label':false,'attr':{'placeholder':"Votre note",'class':'form-control'}})}}
+							</div>
+							<div class="form-group mt-3">
+								
+								{{ form_row(form.content,{'label':false,'attr':{'placeholder':"Votre commentaire ",'class':'form-control'}})}}
+							</div>
+
+							<div class="text-center mt-3">
+								{{ form_row(form.submit,{'label':'Valider','attr':{'class':'col-md-3 customButton'}})}}
+							</div>
+
+
+							{{form_end(form)}}
+
+						</div>
+
+					</div>
+				{% else %}
+					<div class="section-title mt-5" data-aos="fade-up">
+						<p>Vous avez déjà laisser un commentaire sur le produit
+							{{product.getName}}</p>
+					</div>
+				{% endif %}
+			{% else %}
+				<div class="section-title mt-5" data-aos="fade-up">
+					<p>Vous n'avez pas acheté le produit
+						{{product.name}}
+						{{product.getName}}</p>
+				</div>
+			{% endif %}
+		</div>
+	</section>
+	<!-- End Contact Section -->
+
+{% endblock %}

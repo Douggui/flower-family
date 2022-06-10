@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+		<title>Document</title>
+	</head>
+	<body style="background-color:white;color:black">
+		<div class="container mt-5">
+			<div class="card text-center bg-light">
+				<div class="card-header d-flex justify-content-between">
+					<div class="d-flex flex-column align-items-start">
+						<p>Vendeur</p>
+						<p>Nom:I-CLOPE</p>
+						<p>Adresse: 5 avenue de grasse, 06370 Mouans-sartoux</p>
+						<p>N° de siret</p>
+						<p>N° de téléphone:
+						</p>
+					</div>
+					<div class="d-flex flex-column align-items-start">
+						<p>Client:{{order.user.firstName}}
+							{{order.user.lastName}}</p>
+						<p>Référence de la commande :
+							{{order.reference}}</p>
+						<p>Passé le:
+							{{order.createdAt|date('d-m-Y')}}</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Désignation</th>
+								<th scope="col">Quantité</th>
+								<th scope="col">Prix unitaire</th>
+								<th scope="col">Total TTC</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% set total= null %}
+							{% set totalProduct= null %}
+							{% for order in order.orderDetails %}
+								{% set total= total+(order.total) %}
+
+								<tr>
+									<th scope="row">{{order.product.name}}</th>
+									<td>{{order.quantity}}</td>
+									<td>{{((order.price)/100)|number_format(2)}}
+										€</td>
+									<td>{{((order.total)/100)|number_format(2)}}
+										€</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="card-footer text-muted text-end" style="tdisplay:flex;justify-content:end">
+					<div>
+						<p>Total HT :
+							{{((total -(total * 0.2))/100)|number_format(2) }}
+							€</p>
+						<p>TVA :
+							{{((total * 0.2)/100)|number_format(2)}}
+							€</p>
+						<p>Total TTC :
+							{{ (total/100)|number_format(2)}}
+							€</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une adresse
+{% endblock %}
+
+{% block body %}
+	<section id="contact" class="contact mt-5">
+		<div class="container">
+			<div class="section-title mt-5" data-aos="fade-up">
+				<h2>Modifier mon adresse</h2>
+			</div>
+
+
+			<div class="row mt-5 justify-content-center" data-aos="fade-up">
+
+				<div class="col-lg-8  php-email-form">
+					{{form_start(form)}}
+					<div class="row">
+
+						<div class="col-md-6 form-group">
+
+							{{ form_row(form.firstName,{'label':false,'attr':{'placeholder':"Votre prénom",'class':'form-control'}})}}
+						</div>
+						<div class="col-md-6 form-group mt-3 mt-md-0">
+							{{ form_row(form.lastName,{'label':false,'attr':{'placeholder':"Votre nom",'class':'form-control'}})}}
+						</div>
+					</div>
+					<div class="form-group mt-3">
+						{{ form_row(form.phone,{'label':false,'attr':{'placeholder':"Votre numéro de téléphone",'class':'form-control'}})}}
+					</div>
+					<div class="form-group mt-3">
+
+						{{ form_row(form.name,{'label':false,'attr':{'placeholder':"Nom de votre adresse : maison , travail ...",'class':'form-control'}})}}
+					</div>
+					<div class="form-group mt-3">
+						{{ form_row(form.addresse,{'label':false,'attr':{'placeholder':"Adresse ",'class':'form-control'}})}}
+					</div>
+					<div class="form-group mt-3">
+						{{ form_row(form.city,{'label':false,'attr':{'placeholder':" Ville ",'class':'form-control'}})}}
+					</div>
+					<div class="form-group mt-3">
+						{{ form_row(form.postal,{'label':false,'attr':{'placeholder':" Pays ",'class':'form-control'}})}}
+					</div>
+					<div class="text-center mt-3">
+						{{ form_row(form.submit,{'label':'Valider','attr':{'class':'col-md-3 customButton'}})}}
+					</div>
+
+
+					{{form_end(form)}}
+
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- End Contact Section -->
+
+{% endblock %}

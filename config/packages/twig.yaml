@@ -1,5 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_layout.html.twig']
+    paths:
+        # point this wherever your css files live
+        '%kernel.project_dir%/public/assets/css': css
+        '%kernel.project_dir%/public/assets/img': images
 
 when@test:
     twig:

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CBD Infusion
+{% endblock %}
+
+{% block body %}
+	<main>
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs ">
+			<div class="container">
+
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>CBD</li>
+						<li>Infusion</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= About MODS Section ======= -->
+		<section id="about-us" class="about-us">
+			<div class="container" data-aos="fade-up">
+				<div class="row content d-flex justify-content-center">
+					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
+						<h2>Infusion</h2>
+						<p>Nos infusions sont un mélange de plantes choisies en fonction de l'effet souhaité et contiennent 10% de fleurs de cganvre 100% naturelles , elles vous offriront un moment de détente privilegié plein de saveurs . </p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End About MODS Section -->
+
+		<!-- ======= Our Team Section ======= -->
+		<section id="team" class="team section-bg mt-5" data-aos="fade-up">
+			<div class="container-fluid">
+				<div class="row d-flex justify-content-center align-content-start">
+					<!-- ======= Show Product section ======= -->
+						<div class="row">
+							{% for product in products %}
+								<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+									<div class="member">
+										<div class="member-img">
+
+											<div class="portfolio-details-slider swiper">
+												<div class="swiper-wrapper ">
+													{% for image in product.images %}
+														<div class="swiper-slide ">
+
+															<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
+																<img src="/uploads/{{image.name}}" width="300" height="300" alt="{{product.product.name}}"></a>
+
+														</div>
+													{% endfor %}
+
+												</div>
+												<div class="swiper-pagination"></div>
+											</div>
+
+										</div>
+										<div class="member-info">
+											<h4>{{product.product.name}}</h4>
+											<p>{{((product.product.price)/100)|number_format(2)}}
+												€</p>
+											<button>
+												<a href=" {{path('ecigarette_show_details',{'slug':product.product.slug} )}}">Détails</a>
+											</button>
+											<button>
+												<a href="{{path('ecigarette_show_details',{'slug':product.product.slug} )}}">
+													<i class="bi bi-bag-plus-fill"></i>
+												</a>
+											</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					<!-- ======= End Show Product section ======= -->
+				</div>
+			</div>
+
+		</section>
+		<!-- End Our Team Section -->
+
+		<div class="d-flex justify-content-center mt-3 ">
+			{{ knp_pagination_render(productPagination) }}
+		</div>
+	</main>
+{% endblock %}

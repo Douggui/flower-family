@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de commande
+{% endblock %}
+
+{% block body %}
+	<main
+		id="main">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex justify-content-between align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>Détails de commande</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Contact Section ======= -->
+
+
+		<section id="contact" class="contact">
+			<div class="container ">
+				<div class="section-title " data-aos="fade-up">
+					<h2>Détails de ma commande</h2>
+
+				</div>
+				<div id="pageContent">
+					<div class="row  mt-5 justify-content-center" data-aos="fade-up">
+						<div class="col-lg-8 col-12">
+							<div class="card text-center">
+								
+								{% set total= null %}
+								{% set totalProduct= null %}
+								<div class="card-body cart">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">Produit</th>
+													<th scope="col">Prix unitaire</th>
+													<th scope="col">Quantité</th>
+													<th scope="col">total</th>
+													<th scope="col">Commentaire</th>
+
+												</tr>
+											</thead>
+											<tbody>
+											
+												{% for orderDetail in orderDetails %}
+													<tr>
+														<td scope="row d-flex flex-row justify-content-center align-items-center">
+															<div>
+																{{orderDetail.product.name}}
+																<br>{{orderDetail.specification}}
+															</div>
+														</td>
+														<td>{{((orderDetail.price)/100)|number_format(2)}} €</td>
+														<td>
+															<div class="border border-light">
+
+																<div>
+																	{{orderDetail.quantity}} 
+																</div>
+
+															</div>
+														</td>
+														<td>{{((orderDetail.total)/100)|number_format(2)}} €</td>
+														<td><a href="{{path('comment_product',{'slug':orderDetail.product.slug})}}">Commenter le produit</a></td>
+														
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+				<div id="response" class="text-center"></div>
+			</div>
+		</section>
+		<!-- End Contact Section -->
+
+	</main>
+	<!-- End #main -->
+{% endblock %}

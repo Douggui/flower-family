@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CBD Huiles
+{% endblock %}
+
+{% block body %}
+	<main>
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs ">
+			<div class="container">
+
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>CBD</li>
+						<li>Huiles</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= About MODS Section ======= -->
+		<section id="about-us" class="about-us">
+			<div class="container" data-aos="fade-up">
+				<div class="row content d-flex justify-content-center">
+					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
+						<h2>Huiles</h2>
+						<p>Le <strong>CBD</strong> sous forme d'huile est la façon la plus naturelle et éfficaces de le consommer .<br> Efficace pour soulager les douleurs , angoisses , troubles de sommeil , elle s'avère aussi d'une aide considérable pour la récuération sportive.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End About MODS Section -->
+
+		<!-- ======= Our Team Section ======= -->
+		<section id="team" class="team section-bg mt-5" data-aos="fade-up">
+			<div class="container-fluid">
+				<div class="row d-flex justify-content-center align-content-start">
+					<!-- ======= Show Product section ======= -->
+						<div class="row">
+							{% for product in products %}
+								<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+									<div class="member">
+										<div class="member-img">
+
+											<div class="portfolio-details-slider swiper">
+												<div class="swiper-wrapper ">
+													{% for image in product.images %}
+														<div class="swiper-slide ">
+
+															<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
+																<img src="/uploads/{{image.name}}" width="300" height="300" alt="{{product.product.name}}"></a>
+
+														</div>
+													{% endfor %}
+
+												</div>
+												<div class="swiper-pagination"></div>
+											</div>
+
+										</div>
+										<div class="member-info">
+											<h4>{{product.product.name}}</h4>
+											<p>{{((product.product.price)/100)|number_format(2)}}
+												€</p>
+											<button>
+												<a href=" {{path('ecigarette_show_details',{'slug':product.product.slug} )}}">Détails</a>
+											</button>
+											<button>
+												<a href="{{path('ecigarette_show_details',{'slug':product.product.slug} )}}">
+													<i class="bi bi-bag-plus-fill"></i>
+												</a>
+											</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					<!-- ======= End Show Product section ======= -->
+				</div>
+			</div>
+
+		</section>
+		<!-- End Our Team Section -->
+
+		<div class="d-flex justify-content-center mt-3 mb-3 ">
+			{{ knp_pagination_render(productPagination) }}
+		</div>
+	</main>
+{% endblock %}

@@ -1,0 +1,307 @@
+{% extends 'base.html.twig' %}
+{% block stylsheets %}
+	<link rel="stylesheet" href="{{asset("assets/vendor/fullcalendar/lib/main.css")}}">
+{% endblock %}
+{% block title %}Commande
+{% endblock %}
+
+{% block body %}
+	<main
+		id="main">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex  justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>Commande</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Contact Section ======= -->
+
+
+		<section id="contact" class="contact">
+			<div class="container ">
+				<div class="section-title " data-aos="fade-up">
+					<h2>Récapitulatif de ma commande</h2>
+
+				</div>
+				<div id="pageContent">
+					<div class="row  mt-5 justify-content-center" data-aos="fade-up">
+						<div class="col-lg-4 col-12" >
+							<h3>Veuillez choisir vos préférences</h3>
+							<div class="mt-lg-3">
+								{% for delivery in deliveryMethod %}
+									<div class="form-check mb-3">
+										<input class="form-check-input" type="radio" name="delivery" id="{{delivery.name}}" value="{{delivery.name}}">
+										<label class="form-check-label" for="{{delivery.name}}">
+											{{delivery.name}}
+										</label>
+
+									</div>
+								{% endfor %}
+							</div>
+
+							<div class="mt-lg-3 " id="addresse">
+							{% set i= 0 %}
+								{% for addresse in addresses %}
+									<div class="form-check mb-3">
+										<input class="form-check-input" type="radio" name="addresses" id="{{addresse.postal}}" value="{{addresse.postal}}">
+										<label class="form-check-label" for="{{addresse.postal}}">
+											<span id="fullAddresse{{i}}">{{addresse.getFullAddresse|replace({'[br]':'<br>'})|raw}}</span>
+										</label>
+
+									</div>
+									{% set i=i+1 %}
+								{% endfor %}
+							</div>
+							<div id="info" class="mb-3"></div>
+							<div class="loading"></div>
+							<button id="orderValidationBTN" class="mb-3">
+								<a href="{{path('order_data')}}" id="validationLink" class="text-dark">
+									Valider ma commande</a>
+							</button>
+
+
+						</div>
+						
+
+						<div class="col-lg-7 col-12">
+							<div class="card text-center">
+								<div class="card-header d-none d-lg-block">
+									<div class="info-wrap ">
+										<div class="row ">
+											<div class="col-lg-4 info d-flex  align-items-center p-2">
+												<div>
+													<i class="bi bi-stopwatch"></i>
+												</div>
+												<div>
+													<p>Expédition le jour même pour les commande passé avant 18h30</p>
+												</div>
+											</div>
+
+											<div class="col-lg-4 info mt-4 mt-lg-0 d-flex align-items-center p-2">
+												<div>
+													<i class="bi bi-currency-exchange"></i>
+												</div>
+												<div>
+													<p>Paiment à la livraison ou au click & collect</p>
+
+												</div>
+											</div>
+
+											<div class="col-lg-4 info mt-4 mt-lg-0 d-flex align-items-center p-2">
+												<div>
+													<i class="bi bi-truck"></i>
+												</div>
+												<div>
+													<p>Livraison gratuite à partir de 50€ d'achat</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% set total= null %}
+								{% set totalProduct= null %}
+								<div class="card-body cart">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">Produit</th>
+													<th scope="col">Prix unitaire</th>
+													<th scope="col">Quantité</th>
+													<th scope="col">total</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+												{% for product in products %}
+													{% set total= total+((product.quantity)*(product.product.price)) %}
+													{% set totalProduct=totalProduct+(product.quantity) %}
+													<tr>
+														<td scope="row d-flex flex-row justify-content-center align-items-center">
+															<div>
+																<img src="/uploads/{{product.image.name}}" width="100" class="img-fluid " alt="">
+															</div>
+															<div>
+																{{product.product.name}}
+																<br>{{product.specification}}
+															</div>
+														</td>
+														<td>{{((product.product.price)/100)|number_format(2)}}€</td>
+														<td>
+															<div class="border border-light">
+
+																<div>
+																	{{product.quantity}}
+																</div>
+
+															</div>
+														</td>
+														<td>{{((product.product.price)*(product.quantity)/100)|number_format(2)}}€</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+								</div>
+								<div class="card-footer text-muted text-dark">
+									En validant votre commande, vous reconnaissez avoir pris connaissance et accepté nos
+									<a href="#">
+										conditions générales de ventes</a>.
+								</div>
+							</div>
+
+							<div class=" text-end cart-details me-2">
+								<p>Total produit :
+									{{ totalProduct }}
+								</p>
+								<p>Total TTC :
+									<span id="total">{{(total/100)|number_format(2)  }}</span>
+									€
+								</p>
+							</div>
+
+						</div>
+					
+					</div>
+				</div>
+				<div id="response" class="text-center"></div>
+			</div>
+		</section>
+		<!-- End Contact Section -->
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
+{% block javascripts %}
+<script>
+	let pageContent=document.getElementById('pageContent')
+	console.log(pageContent)
+	let response=document.getElementById('response')
+	let loading=document.querySelector('.loading')
+	
+	let validationLink = document.getElementById('validationLink').href
+	console.log(validationLink)
+	let info = document.querySelector('#info')
+	let radios = document.getElementsByName('delivery')
+	let radiosAddresses = document.getElementsByName('addresses')
+	console.log(radiosAddresses)
+	let orderValidateBTN = document.getElementById('orderValidationBTN')
+	orderValidateBTN.style.display = 'none'
+	clickAndCollect = document.getElementById('click & collecte')
+	console.log(clickAndCollect)
+	let adresse = document.querySelector('#addresse')
+	let fullAddresse = ''
+	adresse.style.display = 'none'
+	let deliveryMethod = '';
+	let postal = ''
+	let data = {
+		fullAddresse,
+		deliveryMethod
+	}
+
+	for (let i = 0; i < radios.length; i++) {
+		radios[i].addEventListener('change', () => {
+		deliveryMethod = radios[i].value;
+		data.deliveryMethod = deliveryMethod
+		console.log(data.deliveryMethod)
+		if (deliveryMethod === 'livraison à domicile') {
+			info.style.display = 'none'
+			orderValidateBTN.style.display = 'none'
+			if ({{ totalTTC }} >= 50) {
+				adresse.style.display = 'block'
+			} else {
+				info.style.display = 'block'
+				info.innerHTML = 'Votre commande n\'est  pas éligible à la livraison à domicile'
+			}
+
+		} else {
+			orderValidateBTN.style.display = 'block'
+			adresse.style.display = 'none'
+			info.innerHTML = 'Votre commande sera disponible à partir de 2 heures aprés sa confirmation '
+			deliveryMethod = 'click & collect'
+			data.deliveryMethod = deliveryMethod
+			orderValidateBTN.addEventListener('click',(e)=>{
+				orderValidateBTN.style.display='none'
+				loading.classList.add('d-block')
+				console.log(data)
+				e.preventDefault()
+				e.stopPropagation()
+				
+				fetchData(validationLink,data)
+			})
+		}
+		
+	})
+	}
+	for (let i = 0; i < radiosAddresses.length; i++) {
+		radiosAddresses[i].addEventListener('change', () => {
+		postal = radiosAddresses[i].value
+		console.log(radiosAddresses[i])
+			fullAddresse = document.getElementById('fullAddresse'+[i]).innerHTML
+			console.log(fullAddresse)
+			data.deliveryMethod='livraison à domicile'
+			data.fullAddresse=fullAddresse
+			orderValidateBTN.addEventListener('click',(e)=>{
+				orderValidateBTN.style.display='none'
+				loading.classList.add('d-block')
+				console.log(data)
+				e.preventDefault()
+				e.stopPropagation()
+				
+				fetchData(validationLink,data)
+			})
+		if (postal != '06370') {
+			info.innerHTML = 'nous nous livrons pas à cette addresse,vous pouvez choisir le click & collect et passer chercher votre commande dans notre boutique '
+			info.style.display = 'block'
+			orderValidateBTN.style.display = 'none'
+			console.log(data)
+		} else {
+			console.log(data)
+			info.style.display = 'none'
+			orderValidateBTN.style.display = 'block'
+			
+		}
+		})
+	}
+
+function fetchData(url,data){
+
+	fetch(url,{
+		method:'POST',
+		headers:{
+			'X-Requested-width': 'XMLHTTPREQUEST',
+			'Content-type': 'application/json'
+		},
+		body:JSON.stringify(data)
+	}).then(response=>response.json())
+	  .then(data=>{
+		  console.log(data)
+		  if(data.status==200){
+			pageContent.style.display='none'
+		  response.innerHTML=data.message
+		  }else{
+			 pageContent.style.display='none'
+			  response.innerHTML=data.message
+		  }
+		  
+		})
+		.catch(error=>{
+			pageContent.style.display='none'
+			response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
+			
+		})
+}
+</script>
+
+{% endblock %}

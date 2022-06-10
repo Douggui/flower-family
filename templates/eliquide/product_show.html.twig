@@ -1,0 +1,328 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{productInformation.product.name}}
+{% endblock %}
+
+{% block body %}
+
+	<main>
+	<!-- ======= Breadcrumbs ======= -->
+	<section id="breadcrumbs" class="breadcrumbs ">
+		<div class="container">
+           
+			<div class="d-flex justify-content-end align-items-center">
+				
+				<ol class="mt-4">
+					<li>
+						<a href="{{path('home')}}">Accueil</a>
+					</li>
+					<li>E-cigarette</li>
+					<li>{{productInformation.subCategory}}</li>
+					<li>{{productInformation.product.name}}</li>
+				</ol>
+			</div>
+
+		</div>
+	</section>
+	<!-- End Breadcrumbs -->
+	<!-- ======= Portfolio Details Section ======= -->
+	<section id="portfolio-details" class="portfolio-details mt-5">
+		<div class="container" data-aos="fade-up">
+			<div class="section-title ">
+				<h2>{{productInformation.product.name}}</h2>
+				
+			</div>
+			<div class="row gy-4 d-flex justify-content-around align-items-center">
+
+				<div class="col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="100">
+					<div class="portfolio-details-slider swiper">
+						<div class="swiper-wrapper align-items-center">
+							{% for image in productInformation.images %}
+
+
+								<div class="swiper-slide">
+									<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="296" class="img-fluid">
+								</div>
+							{% endfor %}
+
+
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<div class="portfolio-description col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="200">
+					<h4>{{productInformation.product.name}}</h4>
+					{% if productInformation.product.comments|length >0 %}
+						{# Avg note#}
+						<div class=" row ">
+							<div class="col-12 d-flex justify-content-around align-items-center">
+							<h6>Note sur
+								{{productInformation.product.comments|length}}
+								commentaires</h6>
+							<p class="text-warning">
+								{% for i in 1..5 %}
+									{% if i<= productInformation.product.getAvgRatings %}
+										<i class="bi bi-star-fill"></i>
+									{% else %}
+										<i class="bi bi-star"></i>
+									{% endif %}
+								{% endfor %}
+							</p>
+							</div>
+						</div>
+						{#end avg note#}
+						{% endif %}
+
+					<p>
+						{{productInformation.product.description}}
+					</p>
+					<p>{{((productInformation.product.price)/100)|number_format(2)}}
+						€</p>
+					<div class="row d-flex justify-content-center">
+						{% if  productInformation.options|length >0 %}
+							<div class="col-md-6 col-xs-10">
+								<label for="color" class="form-label">Dosage nicotine</label>
+								<select class="form-select" aria-label=".form-select-sm example" id="color">
+
+									{% for option in productInformation.options %}
+										{% if option.stock.stock >0 %}
+												<option value="{{option.name}}">{{option.name}}</option>
+										{% else %}
+												<option value="{{option.name}}" disabled>{{option.name}}-indisponible</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+							<div class="col-md-6 col-xs-10">
+								<label for="quantity" class="form-label">Quantité</label>
+								<div class="input-group mb-3">
+
+									<span class="input-group-text" id="less">
+										<i class="bi bi-dash"></i>
+									</span>
+
+									<input type="number" min="1" id="quantity" class="form-control text-center noClick" value="1" aria-label="Amount (to the nearest dollar)">
+
+									<span class="input-group-text" id="plus">
+										<i class="bi bi-plus"></i>
+									</span>
+
+								</div>
+							</div>
+							<button class="col-11 col-md-12 col-ms-12">
+								<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add">Ajouter au panier
+									<i class="bi bi-bag-plus-fill"></i>
+								</a>
+							</button>
+						{% else %}
+						
+						<div class="col-11 col-md-12 col-ms-12">
+							<label for="quantity" class="form-label">Quantité</label>
+							<div class="input-group mb-3">
+
+								<span class="input-group-text" id="less">
+									<i class="bi bi-dash"></i>
+								</span>
+
+								<input type="number" min="1"  id="quantity" class="form-control text-center noClick" value="1" aria-label="Amount (to the nearest dollar)">
+
+								<span class="input-group-text" id="plus">
+									<i class="bi bi-plus"></i>
+								</span>
+
+							</div>
+						</div>
+						{% if productInformation.product.getTheStock >0 %}
+							<button class="col-11 col-md-12 col-ms-12">
+								<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add">Ajouter au panier
+									<i class="bi bi-bag-plus-fill"></i>
+								</a>
+							</button>
+						{% else %}
+							<h5> <span class="badge bg-secondary">Produit en rupture de stock</span></h5>
+						{% endif %}
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+			{% if productInformation.caracteristicDetail|length >0 %}
+			<div class="row mt-5">
+				<div class="section-title ">
+					<h3>Caractéristiques du produit</h3>
+
+				</div>
+				<div class="row d-flex justify-content-center caracteristic-product">
+					<table class="table-dark col-10 col-ms-12">
+						{% for caracteristic in productInformation.caracteristicDetail %}
+							<thead>
+								<tr>
+									<th scope="col">{{caracteristic.caracteristic.name}}</th>
+									<th scope="col">{{caracteristic.detail}}</th>
+								</tr>
+							</thead>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+
+	</section>
+	<!-- End Portfolio Details Section -->
+
+	{% if productInformation.product.comments|length >0 %}
+			<!-- Rating Section -->
+			<section id="portfolio-details" class="portfolio-details mt-5">
+				<div class="container" data-aos="fade-up">
+					<div class="section-title ">
+						<h2>Avis des clients</h2>
+
+					</div>
+					{% for comment in productInformation.product.comments %}
+						<div class="portfolio-info mb-3">
+
+							<ul>
+								<li>
+									<strong>{{comment.user.getFullName}}</strong>
+								</li>
+								<li class="text-warning">
+									{% for i in 1..5  %}
+										{% if i<= comment.rating %}
+											<i class="bi bi-star-fill"></i>
+										{% else %}
+											<i class="bi bi-star"></i>
+										{% endif %}
+									{% endfor %}
+								</li>
+								<li>
+									<blockquote>{{comment.content}}</blockquote>
+								</li>
+								
+								<li>
+									<strong>Publié le
+									</strong>:
+									{{comment.createdAt|date('d-m-Y')}}
+
+								</li>
+							</ul>
+						</div>
+					{% endfor %}
+				</div>
+
+			</section>
+			<!-- End Rating Section -->
+		{% endif %}
+
+</main>{% endblock %}{% block javascripts %}
+<script src="{{asset("assets/js/simple-notify.min.js")}}"></script>
+<script>
+	let color = document.getElementById('color')
+	let plus = document.getElementById('plus')
+	let less = document.getElementById('less')
+	let quantity = document.getElementById('quantity')
+	let addBTN = document.getElementById('add')
+	let optionColor=''
+
+	if(color!=null){
+		optionColor=color.value
+	}
+	
+
+	let finalQuantity = 1
+	let data = {
+		finalQuantity,
+		optionColor
+	}
+	if(color!=null){
+		color.addEventListener('change', () => {
+		console.log(color.value)
+		optionColor = color.value
+		data.optionColor = color.value
+		})
+	}
+	
+
+	plus.addEventListener('click', () => {
+		quantity.value ++
+		finalQuantity = quantity.value
+		data.finalQuantity = quantity.value
+	})
+	less.addEventListener('click', () => {
+		if (quantity.value > 1) {
+			quantity.value --
+		}
+		finalQuantity = quantity.value
+		data.finalQuantity = quantity.value
+	})
+	console.log(data)
+	addBTN.addEventListener('click', (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		fetch(addBTN.getAttribute('href'), {
+		method: 'ADD',
+		headers: {
+		'X-Requested-width': 'XMLHTTPREQUEST',
+		'Content-type': 'application/json'
+		},
+		body: JSON.stringify(data)
+		}).then(response => response.json()).then(data => {
+			console.log(data)
+			if(data.status==200){
+				new Notify({
+					status: data.status,
+					text: data.message + ' {{ productInformation.product.name }}',
+					effect: 'fade',
+					speed: 300,
+					customClass: '',
+					customIcon: '<i class="bi bi-bag-check-fill"></i>',
+					showIcon: true,
+					showCloseButton: true,
+					autoclose: true,
+					autotimeout: 3000,
+					gap: 20,
+					distance: 20,
+					type: 1,
+					position: 'right top'
+				})
+
+			}else{
+				new Notify({
+					status: data.status,
+					text: data.message + '    {{ productInformation.product.name }}',
+					effect: 'fade',
+					speed: 300,
+					customClass: '',
+					customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
+					showIcon: true,
+					showCloseButton: true,
+					autoclose: true,
+					autotimeout: 4000,
+					gap: 20,
+					distance: 20,
+					type: 1,
+					position: 'right top'
+				})
+
+			}
+			
+		}).catch(error=>{
+			new Notify({
+					status: 'erro',
+					text: 'une erreur est survenu veuillez réessayer ',
+					effect: 'fade',
+					speed: 300,
+					customClass: '',
+					customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
+					showIcon: true,
+					showCloseButton: true,
+					autoclose: true,
+					autotimeout: 4000,
+					gap: 20,
+					distance: 20,
+					type: 1,
+					position: 'right top'
+				})
+		})
+	})
+</script>{% endblock %}

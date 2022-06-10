@@ -1,0 +1,33 @@
+{% apply inline_css(source('@css/email.css')) %}
+<body>
+	<header>
+		<div class="flex justify-content-around align-items-center">
+			<img src="{{ email.image('@images/logo-iclope.jpg') }}" alt="Logo iclope">
+		</div>
+		<div class="name"><h1>{{ username }}</h1></div>
+	</header>
+	<div class="email-content">
+		<h1>Confirmation de votre commande
+			</h1>
+		<div class="email-message">
+			<p>Nous avons bien récu votre commande ,vous pouvez voir les détails de votre commande en cliquant sur le bouton ci-dessous
+            et en consultant la rubrique <span>mes commande</span>
+			</p>
+			<div class="flex justify-content-center">
+				<button>
+					<a href="{{url}}">
+						Détails de ma commande
+					</a>
+				</button>
+			</div>
+		</div>
+
+	</div>
+	<footer>
+		<div class="flex justify-content-around align-items-center">
+			<p> <a href="#"> CGV</a></p>
+			<p> <a href="#"> Politique de confidentialité</a></p>
+		</div>
+	</footer>
+</body>
+{% endapply %}

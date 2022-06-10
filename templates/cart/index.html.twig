@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+{% block body %}
+	<main
+		id="main">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>Panier</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Contact Section ======= -->
+
+
+		<section id="contact" class="contact">
+			<div class="container ">
+				<div class="section-title " data-aos="fade-up">
+					<h2>Récapitulatif de mon panier</h2>
+
+				</div>
+
+				<div class="row mt-5 justify-content-center" data-aos="fade-up">
+					<div class="col-lg-10 col-12">
+						<div class="card text-center">
+							<div class="card-header d-none d-lg-block">
+								<div class="info-wrap ">
+									<div class="row ">
+										<div class="col-lg-4 info d-flex  align-items-center p-2">
+											<div>
+												<i class="bi bi-stopwatch"></i>
+											</div>
+											<div>
+												<p>Expédition le jour même pour les commande passé avant 18h30</p>
+											</div>
+										</div>
+
+										<div class="col-lg-4 info mt-4 mt-lg-0 d-flex align-items-center p-2">
+											<div>
+												<i class="bi bi-currency-exchange"></i>
+											</div>
+											<div>
+												<p>Paiment à la livraison ou au click & collect</p>
+
+											</div>
+										</div>
+
+										<div class="col-lg-4 info mt-4 mt-lg-0 d-flex align-items-center p-2">
+											<div>
+												<i class="bi bi-truck"></i>
+											</div>
+											<div>
+												<p>Livraison gratuite à partir de 50€ d'achat</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% set total= null %}
+							{% set totalProduct= null %}
+							<div class="card-body cart">
+								{% if products|length >0 %}
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">Produit</th>
+												<th scope="col">Prix unitaire</th>
+												<th scope="col">Quantité</th>
+												<th scope="col">totale</th>
+												<th scope="col pe-1">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											{% for product in products %}
+												{% set total= total+((product.quantity)*(product.product.price)) %}
+												{% set totalProduct=totalProduct+(product.quantity) %}
+												<tr>
+													<td scope="row d-flex flex-row justify-content-center align-items-center">
+														<div>
+															<img src="/uploads/{{product.image.name}}" width="100" class="img-fluid " alt="">
+														</div>
+														<div>
+															{{product.product.name}}
+															<br>{{product.specification}}
+	
+														</div>
+													</td>
+													<td>{{((product.product.price)/100)|number_format(2)}}€</td>
+													<td>
+														<div class="border border-light   row">
+															<div class="col-4">
+																<a href="{{path('decrease_product',{'id':product.product.id})}}">
+																	<i class="bi bi-dash-square-fill fs-5 "></i>
+																</a>
+															</div>
+															<div class="col-4">
+																{{product.quantity}}
+															</div>
+															<div class="col-4">
+																<a href="{{path('increase_product',{'id':product.product.id})}}">
+																	<i class="bi bi-plus-square-fill fs-5"></i>
+																</a>
+															</div>
+
+														</div>
+													</td>
+													<td>{{((product.product.price)*(product.quantity)/100)|number_format(2)}}€</td>
+													<td class="pe-1">
+														<a href="{{path('remove_product',{'id':product.product.id})}}">
+															<i class="bi bi-trash-fill fs-4"></i>
+														</a>
+													</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								{% else %}
+									<p class="text-dark">Votre panier est vide</p>
+								{% endif %}
+
+							</div>
+							<div class="card-footer text-muted text-dark">
+								En validant votre commande, vous reconnaissez avoir pris connaissance et accepté nos
+								<a href="#">
+									conditions générales de ventes</a>.
+							</div>
+						</div>
+						{% if products|length >0 %}
+							<div class=" text-end cart-details me-2">
+								<p>Total produit :
+									{{ totalProduct }}
+								</p>
+								<p>Total TTC :
+									{{(total/100) |format_currency("EUR") }}</p>
+								<button>
+									<a href="{{path('order')}}">
+										Valider mon panier</a>
+								</button>
+							</div>
+						{% endif %}
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<!-- End Contact Section -->
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
