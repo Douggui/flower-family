@@ -38,11 +38,9 @@ class AccountController extends AbstractController
      */
     public function UpdatePasswordUser(EntityManagerInterface $manager,Request $request,$id,UserRepository $repo,UserPasswordHasherInterface $passwordHasher  ): Response
     {
-       
+    
        $user=$repo->findOneById($id);
-       if(!$user){
-        return $this->redirectToRoute('home');
-       }
+       
        if($user->getId()!=$this->getUser()->getId()){
         return $this->redirectToRoute('home');
        }
@@ -62,6 +60,7 @@ class AccountController extends AbstractController
                     'success',
                     'Votre mot de passe a bien été modifier'
                 );
+                return $this->redirectToRoute('account');
             }
             
             

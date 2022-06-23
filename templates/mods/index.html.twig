@@ -53,7 +53,7 @@
 														<div class="swiper-slide ">
 
 															<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
-																<img src="/uploads/{{image.name}}" width="300" height="300" alt="{{product.product.name}}"></a>
+																<img src="{{ asset('./uploads/'~ image.name) }}" width="300" height="300" alt="{{product.product.name}}"></a>
 
 														</div>
 													{% endfor %}

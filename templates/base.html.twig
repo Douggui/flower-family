@@ -32,7 +32,7 @@
 
 		<!-- Template Main CSS File -->
 		<link href="{{asset("assets/css/style.css")}}" rel="stylesheet">
-		
+
 	</head>
 	<body>
 		{% block nav %}
@@ -46,16 +46,18 @@
 		{% block footer %}
 			{% include "partials/footer.html.twig" %}
 		{% endblock %}
-		
+
 		<!-- Vendor JS Files -->
 		<script src="{{asset("assets/vendor/aos/aos.js")}}"></script>
 		<script src="{{asset("assets/vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 		<script src="{{asset("assets/vendor/glightbox/js/glightbox.min.js")}}"></script>
 		<script src="{{asset("assets/vendor/isotope-layout/isotope.pkgd.min.js")}}"></script>
-		<script src="{{asset("assets/vendor/swiper/swiper-bundle.min.js")}}"></script>
+
 		<script src="{{asset("assets/vendor/waypoints/noframework.waypoints.js")}}"></script>
 		<script src="{{asset("assets/js/simple-notify.min.js")}}"></script>
-
+		{#<script src="{{asset("assets/vendor/swiper/swiper-bundle.min.js")}}"></script>
+		<script src="{{asset("assets/vendor/swiper/swiper-bundle.min.js.map")}}"></script>#}
+		<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 		<!-- Template Main JS File -->
 		<script src="{{asset("assets/js/main.js")}}"></script>
 

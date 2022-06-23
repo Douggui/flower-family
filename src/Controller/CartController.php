@@ -51,10 +51,7 @@ class CartController extends AbstractController
             }
             
             $cart->add($id,$quantity,$color);
-            $this->addFlash(
-                'success',
-                'produit ajouté au panier'
-            );
+           
             return new JsonResponse(['message'=>'produit ajouter au panier','status'=>'success'],200);
         }else{
             

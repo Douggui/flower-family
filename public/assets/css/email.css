@@ -11,7 +11,9 @@ body {
 
 header {
     width: 100%;
-    margin-top:20px
+    margin-top:20px;
+    display:flex;
+    justify-content: space-around;
 }
 
 img {
@@ -96,4 +98,13 @@ footer{
     .name{
         font-size: 13px;
     }
+}
+.btn button{
+    width:30%;
+    margin:auto;
+}
+.btn{
+    width:100%;
+    display: flex;
+    justify-content: center;
 }

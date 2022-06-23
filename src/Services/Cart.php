@@ -2,27 +2,28 @@
 namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints\Length;
 
 Class Cart{
 
- private $session;
+ private $requestStack;
 
- public function __construct(SessionInterface $session){
-     return $this->session=$session;
+ public function __construct(RequestStack $requestStack){
+    $this->requestStack = $requestStack;
  }
 
  /*function return the cart */
  public function getCart(){
      
-    return $this->session->get('cart',[]);
+    return $this->requestStack->getSession()->get('cart',[]);
     
  }
 
 /*function used to add products to the cart */
  public function add($id,$quantity,$option)
 {
-    $cart=$this->session->get('cart',[]);
+    $cart=$this->requestStack->getSession()->get('cart',[]);
     
     /*if there is not product yet with the defined id($id) we add it with its option and quantity
      else we increse the quantity  */
@@ -46,7 +47,7 @@ Class Cart{
         ];
     } 
     
-    $this->session->set('cart', $cart);
+    $this->requestStack->getSession()->set('cart', $cart);
     
 }
 
@@ -54,14 +55,14 @@ Class Cart{
 public function removeCart(){
      
    // return $this->session->remove('cart');
-   return $this->session->set('cart',[]);
+   return $this->requestStack->getSession()->set('cart',[]);
 
 
 }
 
 /*function used to decrease the product's quantity that have the defined id ($id) */
 public function decreaseProduct($id){
-  $cart= $this->session->get('cart',[]);
+  $cart= $this->requestStack->getSession()->get('cart',[]);
 
   if($cart[$id]['quantity']>1){
       $cart[$id]['quantity']--;
@@ -69,21 +70,21 @@ public function decreaseProduct($id){
   else{
       unset($cart[$id]);
   }
-    return $this->session->set('cart',$cart);
+    return $this->requestStack->getSession()->set('cart',$cart);
 }
 
 /*function used to increase the product's quantity that have the defined id ($id) */
 public function increaseProduct($id){
-    $cart=$this->session->get('cart',[]);
+    $cart=$this->requestStack->getSession()->get('cart',[]);
     $cart[$id]['quantity']++;
-    return $this->session->set('cart',$cart);
+    return $this->requestStack->getSession()->set('cart',$cart);
 }
 
 /*function used to remove the product that have the defined id ($id) */
 public function removeProduct($id){
-    $cart=$this->session->get('cart',[]);
+    $cart=$this->requestStack->getSession()->get('cart',[]);
     unset($cart[$id]);
-   return $this->session->set('cart',$cart);
+   return $this->requestStack->getSession()->set('cart',$cart);
 }
 
 }

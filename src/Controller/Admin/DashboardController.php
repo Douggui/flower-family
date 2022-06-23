@@ -19,6 +19,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,7 +30,11 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        //return parent::index();
+        $routeBuilder = $this->container->get(AdminUrlGenerator::class);
+        $url = $routeBuilder->setController(OrderCrudController::class)->generateUrl();
+
+       return $this->redirect($url);
     }
 
     public function configureDashboard(): Dashboard
@@ -43,7 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Adresses', 'fas fa-home', Addresse::class);
-        yield MenuItem::linkToCrud('Catégories', 'fas fa-truck', Category::class);
+        yield MenuItem::linkToCrud('Catégories', 'fas fa-list-ul', Category::class);
         yield MenuItem::linkToCrud('Sous-catégories', 'fas fa-list-ul', SubCategory::class);
         yield MenuItem::linkToCrud('Produits', 'fab fa-product-hunt', Product::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Image::class);
@@ -52,9 +57,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Caractéristiques', 'fas fa-info-circle', Caracteristic::class);
         yield MenuItem::linkToCrud('Détails des caractéristiques', 'fas fa-sticky-note', CaracteristicDetail::class);
         yield MenuItem::linkToCrud('Méthode de livraison', 'fas fa-truck', DeliveryMethod::class);
-        yield MenuItem::linkToCrud('Stock', 'fas fa-layer-group', Stock::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-layer-group', Order::class);
-        yield MenuItem::linkToCrud('Détails commandes', 'fas fa-layer-group', OrderDetails::class);
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-box', Order::class);
+        yield MenuItem::linkToCrud('Détails commandes', 'fas fa-box-full', OrderDetails::class);
         
     }
 }
