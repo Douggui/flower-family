@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Entity\Stock;
 use App\Repository\ImageRepository;
 use App\Repository\ProductRepository;
-use App\Repository\StockRepository;
 use App\Services\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,7 +39,7 @@ class CartController extends AbstractController
     public function addProduct(Cart $cart,Request $request,$id): Response
     {
         $data=json_decode($request->getContent(),true);
-        if($data!=[]){
+       
             $quantity=$data['finalQuantity'];
             if(isset($data['optionColor'])){
                 $color=$data['optionColor']; 
@@ -53,15 +50,11 @@ class CartController extends AbstractController
             $cart->add($id,$quantity,$color);
            
             return new JsonResponse(['message'=>'produit ajouter au panier','status'=>'success'],200);
-        }else{
-            
-            return new JsonResponse(['message'=>'une erreur est survenue veuillez réessayer plus tard','status'=>'danger'],400);
-        
-        }
-        
-           
+          
         
     }
+
+    
      /**
      * @Route("panier/ajouter/{id}", name="increase_product" )
      */

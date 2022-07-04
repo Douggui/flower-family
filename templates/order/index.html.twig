@@ -217,6 +217,7 @@
 			if ({{ totalTTC }} >= 50) {
 				adresse.style.display = 'block'
 			} else {
+				
 				info.style.display = 'block'
 				info.innerHTML = 'Votre commande n\'est  pas éligible à la livraison à domicile'
 			}
@@ -226,6 +227,7 @@
 			info.innerHTML = ' '
 			deliveryMethod = 'click & collect'
 			data.deliveryMethod = deliveryMethod
+			data.fullAddresse=''
 			orderValidateBTN.addEventListener('click',(e)=>{
 				orderValidateBTN.style.display='none'
 				loading.classList.add('d-block')
@@ -280,12 +282,12 @@ function fetchData(url,data){
 	}).then(response=>response.json())
 	  .then(data=>{
 		  console.log(data)
-		  if(data.status==200){
+		  if(data.status=='success'){
 			pageContent.style.display='none'
 		  response.innerHTML=data.message
 		  }else{
 			 pageContent.style.display='none'
-			  response.innerHTML=data.message
+			  response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
 		  }
 		})
 		.catch(error=>{

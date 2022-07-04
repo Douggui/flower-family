@@ -1010,7 +1010,7 @@ h1::after {
   color: #000;
 }
 
-.contact .php-email-form {
+.form {
   width: 100%;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
   padding: 30px;
@@ -1018,11 +1018,11 @@ h1::after {
   border-radius: 30px;
 }
 
-.contact .php-email-form .form-group {
+.form .form-group {
   padding-bottom: 8px;
 }
 
-.contact .php-email-form .error-message {
+.form .error-message {
   display: none;
   color: #ed3c0d;
   text-align: center;
@@ -1030,11 +1030,11 @@ h1::after {
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br+br {
+.form .error-message br+br {
   margin-top: 25px;
 }
 
-.contact .php-email-form .sent-message {
+.form .sent-message {
   display: none;
   color: var(--main-color);
   text-align: center;
@@ -1061,8 +1061,8 @@ h1::after {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input,
-.contact .php-email-form textarea {
+.form input,
+.form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1072,20 +1072,22 @@ h1::after {
   border-bottom: 1px solid black;
 }
 
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+.form input:focus,
+.form textarea:focus {
   border-color: var(--second-color);
+  box-shadow: none !important;
+  background-color: var(--main-color) !important;
 }
 
-.contact .php-email-form input {
+.form input {
   height: 44px;
 }
 
-.contact .php-email-form textarea {
+.form textarea {
   padding: 10px 12px;
 }
 
-.contact .php-email-form button[type=submit] {
+.form button[type=submit] {
   background: var(--second-color);
   border: 0;
   padding: 10px 24px;
@@ -1095,22 +1097,27 @@ h1::after {
   box-shadow: none !important;
 }
 
-.contact .php-email-form input[type=checkbox] {
+.form input[type=checkbox] {
 
   height: 15px;
   border: 1.2px solid rgba(0, 0, 0, 0.25);
   border-radius: 2px;
 }
 
-.contact .php-email-form ::-webkit-input-placeholder {
+.form a{
+  color:#000;
+  text-decoration: underline;
+}
+
+.form ::-webkit-input-placeholder {
   color: rgb(52, 52, 52);
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.form button[type=submit]:hover {
   background: var(--second-color-hover);
 }
 
-.contact .php-email-form {
+.form {
   color: #000 !important;
 }
 
@@ -1291,8 +1298,19 @@ h1::after {
 }
 
 .notification {
-  z-index: 9999;
+ /* z-index: 9999;*/
+  position:absolute !important;
+  top:100px;
+  left:0;
+  right:0;
 }
+.alert {
+
+  padding: 0.4rem 0.4rem !important;
+ 
+}
+
+
 
 /*--------------------------------------------------------------
 # account
@@ -1562,12 +1580,17 @@ box-shadow: none !important;
   border-color: var(--main-color);
 }
 .form-check-input:checked {
-  background-color: var(--second-color);
-  border-color:  var(--second-color);
+  background-color: var(--second-color) !important ;
+  border-color:  var(--second-color) !important;
 }
+
 .card-body button a {
   color:#000;
 } 
 #plus,#less{
   cursor: pointer;
+}
+.table > :not(caption) > * > * {
+ border-bottom: none !important;
+
 }

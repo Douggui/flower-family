@@ -53,7 +53,7 @@
 					<div class="form-check d-flex justify-content-start">
 					
 						{{ form_row(form.agreeTerms,{'label':false,'attr':{'class':'form-check-input ','id':'flexCheckChecked'}})|raw}}
-                     <label for="{{form.agreeTerms.vars.id}}" >J'ai lu et accépté  <a href="" class="green" target="_blank"> les CGV </a>et <a href="" class="green" target="_blank">les politiques de confidentialités</a></label>
+                     <label for="{{form.agreeTerms.vars.id}}" >J'ai lu et accépté  <a href="{{path('cgv')}}" class="green" target="_blank"> les CGV </a>et <a href="{{path('privacy_policy')}}" class="green" target="_blank">la politique de confidentialité</a></label>
 					</div>
 					<div class="error-message">{{message}}</div>
 					<div class="text-center mt-3">

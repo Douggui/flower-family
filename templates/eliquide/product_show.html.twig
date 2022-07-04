@@ -34,19 +34,14 @@
 				
 			</div>
 			<div class="row gy-4 d-flex justify-content-around align-items-center">
-
 				<div class="col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="100">
 					<div class="portfolio-details-slider swiper">
 						<div class="swiper-wrapper align-items-center">
 							{% for image in productInformation.images %}
-
-
-								<div class="swiper-slide">
-									<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="296" class="img-fluid">
+								<div class="swiper-slide text-center">
+									<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="380" class="img-fluid">
 								</div>
 							{% endfor %}
-
-
 						</div>
 						<div class="swiper-pagination"></div>
 					</div>
@@ -241,7 +236,7 @@
 		body: JSON.stringify(data)
 		}).then(response => response.json()).then(data => {
 			console.log(data)
-			if(data.status==200){
+			if(data.status=='success'){
 				new Notify({
 					status: data.status,
 					text: data.message + ' {{ productInformation.product.name }}',
@@ -261,12 +256,12 @@
 
 			}else{
 				new Notify({
-					status: data.status,
-					text: data.message + '    {{ productInformation.product.name }}',
+					status: 'error',
+					text:'une erreur est survenu veuillez réessayer',
 					effect: 'fade',
 					speed: 300,
 					customClass: '',
-					customIcon: '<i class="bi bi-bag-check-fill"></i>',
+					customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
 					showIcon: true,
 					showCloseButton: true,
 					autoclose: true,

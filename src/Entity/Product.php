@@ -49,7 +49,7 @@ class Product
     private $subCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity=CaracteristicDetail::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=CaracteristicDetail::class, mappedBy="product",cascade={"remove"})
      */
     private $caracteristicDetails;
 
@@ -59,17 +59,17 @@ class Product
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Option::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Option::class, mappedBy="product",cascade={"remove"})
      */
     private $options;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="product",cascade={"remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="product",cascade={"remove"})
      */
     private $orderDetails;
 
