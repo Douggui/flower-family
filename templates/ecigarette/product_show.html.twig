@@ -69,11 +69,7 @@
 						<div class="row d-flex justify-content-center product">
 							{% if  productInformation.options|length >0 %}
 								<div class="col-md-6 col-xs-10">
-									{% if productInformation.subCategory == 'puffs' %}
-										<label for="color" class="form-label">Nicotine</label>
-									{% else %}
-										<label for="color" class="form-label">Couleur</label>
-									{% endif %}
+										<label for="color" class="form-label">{{productInformation.specification}}</label>
 									<select class="form-select" aria-label=".form-select-sm example" id="color">
 										{% for option in productInformation.options %}
 											<option value="{{option.name}}">{{option.name}}</option>

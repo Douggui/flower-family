@@ -182,16 +182,12 @@
 {% block javascripts %}
 <script>
 	let pageContent=document.getElementById('pageContent')
-	console.log(pageContent)
 	let response=document.getElementById('response')
 	let loading=document.querySelector('.loading')
-	console.log(loading)
 	let validationLink = document.getElementById('validationLink').href
-	console.log(validationLink)
 	let info = document.querySelector('#info')
 	let radios = document.getElementsByName('delivery')
 	let radiosAddresses = document.getElementsByName('addresses')
-	console.log(radiosAddresses)
 	let orderValidateBTN = document.getElementById('orderValidationBTN')
 	orderValidateBTN.style.display = 'none'
 	clickAndCollect = document.getElementById('click & collecte')
@@ -210,7 +206,6 @@
 		radios[i].addEventListener('change', () => {
 		deliveryMethod = radios[i].value;
 		data.deliveryMethod = deliveryMethod
-		console.log(data.deliveryMethod)
 		if (deliveryMethod === 'livraison à domicile') {
 			info.style.display = 'none'
 			orderValidateBTN.style.display = 'none'
@@ -228,14 +223,6 @@
 			deliveryMethod = 'click & collect'
 			data.deliveryMethod = deliveryMethod
 			data.fullAddresse=''
-			orderValidateBTN.addEventListener('click',(e)=>{
-				orderValidateBTN.style.display='none'
-				loading.classList.add('d-block')
-				console.log(data)
-				e.preventDefault()
-				e.stopPropagation()
-				fetchData(validationLink,data)
-			})
 		}
 		
 	})
@@ -243,59 +230,53 @@
 	for (let i = 0; i < radiosAddresses.length; i++) {
 		radiosAddresses[i].addEventListener('change', () => {
 		postal = radiosAddresses[i].value
-		console.log(radiosAddresses[i])
 			fullAddresse = document.getElementById('fullAddresse'+[i]).innerHTML
-			console.log(fullAddresse)
 			data.deliveryMethod='livraison à domicile'
 			data.fullAddresse=fullAddresse
-			orderValidateBTN.addEventListener('click',(e)=>{
-				orderValidateBTN.style.display='none'
-				loading.classList.add('d-block')
-				console.log(data)
-				e.preventDefault()
-				e.stopPropagation()
-				
-				fetchData(validationLink,data)
-			})
 		if (postal != '06370') {
 			info.innerHTML = 'nous nous livrons pas à cette addresse,vous pouvez choisir le click & collect et passer chercher votre commande dans notre boutique '
 			info.style.display = 'block'
 			orderValidateBTN.style.display = 'none'
 			console.log(data)
 		} else {
-			console.log(data)
 			info.style.display = 'none'
 			orderValidateBTN.style.display = 'block'
 			
 		}
 		})
 	}
-	console.log(data)
-function fetchData(url,data){
-	fetch(url,{
-		method:'POST',
-		headers:{
-			'X-Requested-width': 'XMLHTTPREQUEST',
-			'Content-type': 'application/json'
-		},
-		body:JSON.stringify(data)
-	}).then(response=>response.json())
-	  .then(data=>{
-		  console.log(data)
-		  if(data.status=='success'){
-			pageContent.style.display='none'
-		  response.innerHTML=data.message
-		  }else{
-			 pageContent.style.display='none'
-			  response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
-		  }
-		})
-		.catch(error=>{
-			pageContent.style.display='none'
-			response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
-			
-		})
-}
+	orderValidateBTN.addEventListener('click',(e)=>{
+				orderValidateBTN.style.display='none'
+				loading.classList.add('d-block')
+				console.log(data)
+				e.preventDefault()
+				e.stopPropagation()
+				
+				fetch(validationLink,{
+					method:'POST',
+					headers:{
+						'X-Requested-width': 'XMLHTTPREQUEST',
+						'Content-type': 'application/json'
+					},
+					body:JSON.stringify(data)
+				}).then(response=>response.json())
+				.then(data=>{
+					console.log(data)
+					if(data.status=='success'){
+						pageContent.style.display='none'
+					response.innerHTML=data.message
+					}else{
+						pageContent.style.display='none'
+						response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
+					}
+					})
+					.catch(error=>{
+						pageContent.style.display='none'
+						response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
+						
+				})
+			})
+
 </script>
 
 {% endblock %}

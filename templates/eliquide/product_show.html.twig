@@ -71,9 +71,8 @@
 					<div class="row d-flex justify-content-center">
 						{% if  productInformation.options|length >0 %}
 							<div class="col-md-6 col-xs-10">
-								<label for="color" class="form-label">Dosage nicotine</label>
+								<label for="color" class="form-label">{{productInformation.specification}}</label>
 								<select class="form-select" aria-label=".form-select-sm example" id="color">
-
 									{% for option in productInformation.options %}
 												<option value="{{option.name}}">{{option.name}}</option>
 									{% endfor %}
@@ -196,7 +195,6 @@
 		optionColor=color.value
 	}
 	
-
 	let finalQuantity = 1
 	let data = {
 		finalQuantity,
@@ -210,7 +208,6 @@
 		})
 	}
 	
-
 	plus.addEventListener('click', () => {
 		quantity.value ++
 		finalQuantity = quantity.value
@@ -293,4 +290,5 @@
 				})
 		})
 	})
-</script>{% endblock %}
+</script>
+{% endblock %}

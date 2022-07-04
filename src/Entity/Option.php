@@ -24,8 +24,8 @@ class Option
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Specification::class, inversedBy="options")
-     * @ORM\JoinColumn(nullable=false)
+     * ORM\ManyToOne(targetEntity=Specification::class, inversedBy="options")
+     * ORM\JoinColumn(nullable=false)
      */
     private $specification;
 
