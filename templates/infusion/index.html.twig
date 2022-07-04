@@ -24,11 +24,11 @@
 		<!-- End Breadcrumbs -->
 
 		<!-- ======= About MODS Section ======= -->
-		<section id="about-us" class="about-us">
+		<section id="about-cat" class="about-cat">
 			<div class="container" data-aos="fade-up">
 				<div class="row content d-flex justify-content-center">
 					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
-						<h2>Infusion</h2>
+						<h1>Infusion</h1>
 						<p>Nos infusions sont un mélange de plantes choisies en fonction de l'effet souhaité et contiennent 10% de fleurs de cganvre 100% naturelles , elles vous offriront un moment de détente privilegié plein de saveurs . </p>
 					</div>
 				</div>
@@ -36,42 +36,37 @@
 		</section>
 		<!-- End About MODS Section -->
 
-		<!-- ======= Our Team Section ======= -->
-		<section id="team" class="team section-bg mt-5" data-aos="fade-up">
+		<!-- ======= Products Section======= -->
+		<section  class=" section-bg mt-5" data-aos="fade-up">
 			<div class="container-fluid">
 				<div class="row d-flex justify-content-center align-content-start">
-					<!-- ======= Show Product section ======= -->
+					<!-- ======= Show Products ======= -->
 						<div class="row">
 							{% for product in products %}
-								<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-									<div class="member">
-										<div class="member-img">
-
-											<div class="portfolio-details-slider swiper">
+								<div class="col-lg-3 col-md-6 col-ms-6 col-xs-6 d-flex align-items-stretch">
+									<div class="products">
+										<div class="products-img">
+											<div class="product-image-slider swiper">
 												<div class="swiper-wrapper ">
 													{% for image in product.images %}
 														<div class="swiper-slide ">
-
-															<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
-																<img src="/uploads/{{image.name}}" width="300" height="300" alt="{{product.product.name}}"></a>
-
+															<a href="{{path('cbd_show_details',{'slug':product.product.slug})}}">
+																<img src="{{ asset('uploads/'~ image.name) }}" width="300" height="300" alt="{{product.product.name}}"></a>
 														</div>
 													{% endfor %}
-
 												</div>
 												<div class="swiper-pagination"></div>
 											</div>
-
 										</div>
-										<div class="member-info">
-											<h4>{{product.product.name}}</h4>
+										<div class="products-info">
+											<h2>{{product.product.name}}</h2>
 											<p>{{((product.product.price)/100)|number_format(2)}}
 												€</p>
 											<button>
-												<a href=" {{path('ecigarette_show_details',{'slug':product.product.slug} )}}">Détails</a>
+												<a href=" {{path('cbd_show_details',{'slug':product.product.slug} )}}">Détails</a>
 											</button>
 											<button>
-												<a href="{{path('ecigarette_show_details',{'slug':product.product.slug} )}}">
+												<a href="{{path('cbd_show_details',{'slug':product.product.slug} )}}">
 													<i class="bi bi-bag-plus-fill"></i>
 												</a>
 											</button>
@@ -80,12 +75,11 @@
 								</div>
 							{% endfor %}
 						</div>
-					<!-- ======= End Show Product section ======= -->
+					<!-- ======= End Show Products  ======= -->
 				</div>
 			</div>
-
 		</section>
-		<!-- End Our Team Section -->
+		<!-- End products Section -->
 
 		<div class="d-flex justify-content-center mt-3 ">
 			{{ knp_pagination_render(productPagination) }}

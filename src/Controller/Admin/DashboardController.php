@@ -56,7 +56,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Options', 'fas fa-info-circle', Option::class);
         yield MenuItem::linkToCrud('Caractéristiques', 'fas fa-info-circle', Caracteristic::class);
         yield MenuItem::linkToCrud('Détails des caractéristiques', 'fas fa-sticky-note', CaracteristicDetail::class);
-        yield MenuItem::linkToCrud('Méthode de livraison', 'fas fa-truck', DeliveryMethod::class);
+        yield MenuItem::linkToCrud('Mode de livraison', 'fas fa-truck', DeliveryMethod::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-box', Order::class);
         yield MenuItem::linkToCrud('Détails commandes', 'fas fa-box-full', OrderDetails::class);
         

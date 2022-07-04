@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block meta %}
+	<meta content="page panier" name="description">
+	<meta content="" name="keywords">
+{% endblock %}
 {% block title %}Panier
 {% endblock %}
 
@@ -24,13 +27,13 @@
 		</section>
 		<!-- End Breadcrumbs -->
 
-		<!-- ======= Contact Section ======= -->
+		<!-- ======= Card Section ======= -->
 
 
-		<section id="contact" class="contact">
+		<section  class="contact">
 			<div class="container ">
 				<div class="section-title " data-aos="fade-up">
-					<h2>Récapitulatif de mon panier</h2>
+					<h1>Récapitulatif de mon panier</h1>
 
 				</div>
 
@@ -40,12 +43,12 @@
 							<div class="card-header d-none d-lg-block">
 								<div class="info-wrap ">
 									<div class="row ">
-										<div class="col-lg-4 info d-flex  align-items-center p-2">
+										<div class="col-lg-4 info d-flex  align-items-center p-2 ">
 											<div>
-												<i class="bi bi-stopwatch"></i>
+												<i class="bi bi-stopwatch green"></i>
 											</div>
 											<div>
-												<p>Expédition le jour même pour les commande passé avant 18h30</p>
+												<p>Expédition le jour même pour les commandes passées avant 18h30</p>
 											</div>
 										</div>
 
@@ -54,7 +57,7 @@
 												<i class="bi bi-currency-exchange"></i>
 											</div>
 											<div>
-												<p>Paiment à la livraison ou au click & collect</p>
+												<p>Paiement à la livraison ou au click & collect</p>
 
 											</div>
 										</div>
@@ -81,7 +84,7 @@
 												<th scope="col">Prix unitaire</th>
 												<th scope="col">Quantité</th>
 												<th scope="col">totale</th>
-												<th scope="col pe-1">Action</th>
+												<th scope="col" class="d-none d-md-block">Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -89,15 +92,14 @@
 											{% for product in products %}
 												{% set total= total+((product.quantity)*(product.product.price)) %}
 												{% set totalProduct=totalProduct+(product.quantity) %}
-												<tr>
+												<tr >
 													<td scope="row d-flex flex-row justify-content-center align-items-center">
 														<div>
-															<img src="/uploads/{{product.image.name}}" width="100" class="img-fluid " alt="">
+															<img src="{{asset('uploads/'~ product.image.name)}}" width="100" class="img-fluid " alt="">
 														</div>
 														<div>
 															{{product.product.name}}
 															<br>{{product.specification}}
-	
 														</div>
 													</td>
 													<td>{{((product.product.price)/100)|number_format(2)}}€</td>
@@ -120,11 +122,12 @@
 														</div>
 													</td>
 													<td>{{((product.product.price)*(product.quantity)/100)|number_format(2)}}€</td>
-													<td class="pe-1">
+													<td class="pe-xs-5">
 														<a href="{{path('remove_product',{'id':product.product.id})}}">
 															<i class="bi bi-trash-fill fs-4"></i>
 														</a>
 													</td>
+													
 												</tr>
 											{% endfor %}
 										</tbody>
@@ -136,8 +139,8 @@
 							</div>
 							<div class="card-footer text-muted text-dark">
 								En validant votre commande, vous reconnaissez avoir pris connaissance et accepté nos
-								<a href="#">
-									conditions générales de ventes</a>.
+								<a href="#" class="green">
+									conditions générales de vente</a>.
 							</div>
 						</div>
 						{% if products|length >0 %}

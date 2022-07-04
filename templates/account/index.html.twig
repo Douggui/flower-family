@@ -4,13 +4,28 @@
 {% endblock %}
 
 {% block body %}
-	<!-- ======= Features Section ======= -->
-	<section id="features" class="features mt-5">
+<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>mon compte</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+	<!-- ======= Account Section ======= -->
+	<section class="account mt-5">
 		<div class="container">
 
 			<div class="section-title mt-5">
-				<h2>Espace membre
-					{{user.getFullName}}</h2>
+				<h1>Espace membre
+					{{user.getFullName}}</h1>
 
 			</div>
 
@@ -61,9 +76,9 @@
 												<a href="{{path('add_addresse')}}">Ajouter une adresse</a>
 											</p>
 
-											<div class="row ">
+											<div class="row gy-3">
 												{% for addresse in addresses %}
-													<div class="col-6">
+													<div class="col-12 col-md-6">
 														<div class="card">
 															<div class="card-body">
 																<h5 class="card-title">{{addresse.name}}</h5>
@@ -79,8 +94,8 @@
 																<p class="card-text">
 																	<i>Téléphone :</i>
 																	{{addresse.phone}}</p>
-																<a href="{{path('update_addresse',{'id':addresse.id})}}" class="card-link">Modifier</a>
-																<a href="{{path('delete_addresse',{'id':addresse.id})}}" class="card-link">Supprimer</a>
+																<button><a href="{{path('update_addresse',{'id':addresse.id})}}" class="card-link">Modifier</a></button>
+																<button><a href="{{path('delete_addresse',{'id':addresse.id})}}" class="card-link">Supprimer</a></button>
 															</div>
 														</div>
 													</div>
@@ -94,9 +109,9 @@
 										<div class="col-lg-12 details order-2 order-lg-1">
 											<h3>Mes commandes</h3>
 											{% if orders|length >0 %}
-										<div class="row ">
+										<div class="row gy-3 ">
 												{% for order in orders %}
-													<div class="col-6">
+													<div class="col-12 col-md-6">
 														<div class="card">
 															<div class="card-body">
 																<h5 class="card-title">Commande n°{{order.reference}}</h5>
@@ -114,8 +129,8 @@
 																<p class="card-text">
 																	<i>Total de la commande:</i>
 																	{{((order.total)/100)|number_format(2)}} €</p>
-																<a href="{{path('account_order_details',{'id':order.id})}}" class="card-link">Voir les détails</a>
-																<a href="{{path('summary_order',{'id':order.id})}}" class="card-link"><i class="bi bi-box-arrow-down me-1"></i>Facture</a>
+																<button><a href="{{path('account_order_details',{'id':order.id})}}" class="card-link">Voir les détails</a></button>
+																<button><a href="{{path('summary_order',{'id':order.id})}}" class="card-link"><i class="bi bi-box-arrow-down me-1"></i>Facture</a></button>
 															</div>
 														</div>
 													</div>
@@ -127,8 +142,6 @@
 										{% endif %}
 									</div>
 								</div>
-
-
 							</div>
 						</div>
 					</div>
@@ -138,5 +151,5 @@
 
 		</div>
 	</section>
-	<!-- End Features Section -->
+	<!-- End Account Section -->
 {% endblock %}

@@ -74,11 +74,6 @@ class Product
     private $orderDetails;
 
     /**
-     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product", orphanRemoval=true)
-     */
-    private $stocks;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isBest;
@@ -343,46 +338,10 @@ class Product
         return 0;
     }
 
-    /**
-     * @return Collection<int, Stock>
-     */
-    public function getStocks(): Collection
-    {
-        return $this->stocks;
-    }
 
-    public function addStock(Stock $stock): self
-    {
-        if (!$this->stocks->contains($stock)) {
-            $this->stocks[] = $stock;
-            $stock->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStock(Stock $stock): self
-    {
-        if ($this->stocks->removeElement($stock)) {
-            // set the owning side to null (unless already changed)
-            if ($stock->getProduct() === $this) {
-                $stock->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
     public function haveOptions(){
         if(count($this->options)>0) return true;
         return false;
-    }
-
-    public function getTheStock(){
-
-        foreach ($this->getStocks() as $stock) {
-           return $stock->getStock();
-            
-        }
     }
 
     public function getIsBest(): ?bool

@@ -1,7 +1,6 @@
 
 (function () {
   "use strict";
-
   /**
    * Easy selector helper function
    */
@@ -71,7 +70,7 @@
   }, true)
 
   /**
-   * Hero carousel indicators
+   * carousel indicators
    */
   let heroCarouselIndicators = select("#hero-carousel-indicators")
   let heroCarouselItems = select('#heroCarousel .carousel-item', true)
@@ -81,48 +80,17 @@
       heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>" :
       heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
   });
-
   /**
-   * Porfolio isotope and filter
-   */
-  window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item'
-      });
-
-      let portfolioFilters = select('#portfolio-flters li', true);
-
-      on('click', '#portfolio-flters li', function (e) {
-        e.preventDefault();
-        portfolioFilters.forEach(function (el) {
-          el.classList.remove('filter-active');
-        });
-        this.classList.add('filter-active');
-
-        portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        portfolioIsotope.on('arrangeComplete', function () {
-          AOS.refresh()
-        });
-      }, true);
-    }
-
-  });
-
-  /**
-   * Initiate portfolio lightbox 
+   * Initiate lightbox 
    */
   const portfolioLightbox = GLightbox({
     selector: '.portfolio-lightbox'
   });
 
   /**
- * Testimonials slider
+ * Bestseller slider
  */
-  new Swiper('.testimonials-slider', {
+  new Swiper('.bestseller-slider', {
     speed: 600,
     loop: true,
     autoplay: {
@@ -152,9 +120,9 @@
     }
   });
   /**
-     * Portfolio details slider
+     * product-image slider
      */
-  new Swiper('.portfolio-details-slider', {
+  new Swiper('.product-image-slider', {
     speed: 400,
     loop: true,
     autoplay: {

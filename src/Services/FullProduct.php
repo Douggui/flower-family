@@ -22,7 +22,6 @@ class FullProduct{
     }
     
     /* function return an array with all details of product($product) */
-    
     public function getFullProductInformation($product){
         $id=$product->getId();
         $options=$this->optionRepo->findByProduct($id);
@@ -40,7 +39,6 @@ class FullProduct{
     }  
     
     /*function return an associative array with  all products of a subCategory */
-    
     public function getProductsInformation($products){
         $productInformation=[];
         foreach ($products as $product) {

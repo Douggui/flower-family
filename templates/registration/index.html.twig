@@ -4,37 +4,35 @@
 {% endblock %}
 
 {% block body %}
-		<!-- ======= Breadcrumbs ======= -->
-		<section id="breadcrumbs" class="breadcrumbs ">
-			<div class="container">
+	<!-- ======= Breadcrumbs ======= -->
+	<section id="breadcrumbs" class="breadcrumbs ">
+		<div class="container">
 
-				<div class="d-flex justify-content-end align-items-center">
-					<ol class="mt-4">
-						<li>
-							<a href="{{path('home')}}">Accueil</a>
-						</li>
-						<li>Inscription</li>
-					</ol>
-				</div>
-
+			<div class="d-flex justify-content-end align-items-center">
+				<ol class="mt-4">
+					<li>
+						<a href="{{path('home')}}">Accueil</a>
+					</li>
+					<li>Inscription</li>
+				</ol>
 			</div>
-		</section>
-		<!-- End Breadcrumbs -->
+
+		</div>
+	</section>
+	<!-- End Breadcrumbs -->
 	<section id="contact" class="contact mt-5">
 		<div class="container">
 			<div class="section-title mt-5" data-aos="fade-up">
-				<h2>Inscription</h2>
+				<h1>Inscription</h1>
 			</div>
 
 
 			<div class="row mt-5 justify-content-center" data-aos="fade-up">
 
-				<div class="col-lg-7  php-email-form">
+				<div class="col-lg-7 form">
 					{{form_start(form)}}
 					<div class="row">
-
 						<div class="col-md-6 form-group">
-
 							{{ form_row(form.firstName,{'label':false,'attr':{'placeholder':"Votre prénom",'class':'form-control'}})}}
 						</div>
 						<div class="col-md-6 form-group mt-3 mt-md-0">
@@ -45,15 +43,17 @@
 						{{ form_row(form.email,{'label':false,'attr':{'placeholder':"Votre email",'class':'form-control'}})}}
 					</div>
 					<div class="form-group mt-3">
-						<p>Votre mot de passe doit contenir au moins une lette majuscule une lettre miniscule et un caractère spécial</p>
+						<p>Votre mot de passe doit contenir au moins une lettre majuscule une lettre miniscule et un caractère spécial</p>
 						{{ form_row(form.password,{'label':false,'attr':{'placeholder':"Votre mot de passe ",'class':'form-control'}})}}
 					</div>
 					<div class="form-group mt-3">
 						{{ form_row(form.confirmPassword,{'label':false,'attr':{'placeholder':" Confirmer votre mot de passe ",'class':'form-control'}})}}
 					</div>
-					<div class="form-check">
-						{{ form_row(form.agreeTerms,{'label':"J'ai lu et accépter les conditions générale",'attr':{'class':'form-check-input','id':'flexCheckChecked'}})}}
-
+					
+					<div class="form-check d-flex justify-content-start">
+					
+						{{ form_row(form.agreeTerms,{'label':false,'attr':{'class':'form-check-input ','id':'flexCheckChecked'}})|raw}}
+                     <label for="{{form.agreeTerms.vars.id}}" >J'ai lu et accépté  <a href="" class="green" target="_blank"> les CGV </a>et <a href="" class="green" target="_blank">les politiques de confidentialités</a></label>
 					</div>
 					<div class="error-message">{{message}}</div>
 					<div class="text-center mt-3">
@@ -74,18 +74,18 @@
 {% endblock %}
 {% block javascripts %}
 
-<script>
+	<script>
 
-let errorMessage = document.querySelector('.error-message')
+		let errorMessage = document.querySelector('.error-message')
 let formCheckInput = document.querySelector('.form-check-input')
 let formCheckLabel = document.querySelector('.form-check-label')
 console.log(errorMessage)
 if ({{ errors }}) {
-	formCheckLabel.style.color = 'red'
-	formCheckInput.style.borderColor = 'red'
-	errorMessage.style.display = 'block'
+formCheckLabel.style.color = 'red'
+formCheckInput.style.borderColor = 'red'
+errorMessage.style.display = 'block'
 }
-</script>
+	</script>
 
 
 {% endblock %}

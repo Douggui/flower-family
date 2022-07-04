@@ -52,7 +52,7 @@ class Order
     private $isDelivered;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder",cascade={"remove"})
      */
     private $orderDetails;
 

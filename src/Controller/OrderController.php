@@ -36,9 +36,7 @@ class OrderController extends AbstractController
      */
     public function index(AddresseRepository $addresseRepo,DeliveryMethodRepository $deliveryRepo,Request $request,Cart $cart,ProductRepository $repo,ImageRepository $imgRepo): Response
     {
-        if(!$this->getUser()){
-          return  $this->redirectToRoute('app_login');
-        }
+        
         $cart=$cart->getCart();
         if(count($cart)===0){
           return $this->redirectToRoute('home');
@@ -81,7 +79,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande/info", name="order_data",methods={"POST"})
      */
-    public function Order(PdfService $pdf,SessionInterface $session,Mail $mail,ProductRepository $repo,Request $request,Cart $cart1,EntityManagerInterface $manager,OrderDetailsRepository $orderDetailsRepo,OrderRepository $orderRepo ): Response
+    public function Order(Mail $mail,ProductRepository $repo,Request $request,Cart $cart1,EntityManagerInterface $manager): Response
     {
       $chosenAddresse='';
       $chosenDeliveryMethod='';
@@ -99,16 +97,8 @@ class OrderController extends AbstractController
           $totalTTC+=($product['product']->getPrice()*$product['quantity']);
         }
       $data=json_decode($request->getContent(),true);
-      
-      if($data!=[]){
         $chosenAddresse=$data['fullAddresse'];
         $chosenDeliveryMethod=$data['deliveryMethod'];
-        $addresse=$session->get('addresse',[]);
-        $addresse=$chosenAddresse;
-        $session->set('addresse',$addresse);
-        $deliveryMethod=$session->get('dMethod',[]);
-        $deliveryMethod=$chosenDeliveryMethod;
-        $session->set('dMethod',$deliveryMethod);
         $order=new Order();
         $date=new DateTime();
         $order->setAddresse($chosenAddresse)
@@ -131,7 +121,6 @@ class OrderController extends AbstractController
                        ->setTotal(($product['product']->getPrice()*$product['quantity']));
           $manager->persist($orderDetails);
           
-        }
         $manager->flush();
         $cart1->removeCart();
         $url='http://'.$_SERVER['HTTP_HOST'].'/compte';
@@ -148,10 +137,10 @@ class OrderController extends AbstractController
         } catch (TransportExceptionInterface $e) {
           $mail->sendMail($to,$subject,$htmlTemplate,$variables); 
         }
+        }
         return new JsonResponse(['message'=>'Nous avons bien réçu votre commande ','status'=>'success'],200);
-      }else{ 
-          return new JsonResponse(['message'=>'une erreur est survenue veuillez réessayer plus tard','status'=>'warning'],403);
-      }
+      
+    
   
   
     }

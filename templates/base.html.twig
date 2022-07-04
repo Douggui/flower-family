@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-		<meta content="" name="description">
-		<meta content="" name="keywords"> {% block stylesheets %}{% endblock %}
+		
+		{% block meta %}
+		{% endblock %}
+		
+		 {% block stylesheets %}{% endblock %}
 		<title>
 			{% block title %}{% endblock %}
 		</title>
 		<!-- Favicons -->
-		<link href="{{asset("assets/img/favicon.png")}}" rel="icon">
+		<link href="" rel="icon">
 		<link
-		href="{{asset("assets/img/apple-touch-icon.png")}}" rel="apple-touch-icon">
+		href="" rel="apple-touch-icon">
 
 		<!-- Google Fonts -->
 		<link

@@ -11,12 +11,12 @@
 		<section id="breadcrumbs" class="breadcrumbs">
 			<div class="container">
 
-				<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex justify-content-end align-items-center">
 					<ol class="mt-4">
 						<li>
 							<a href="{{path('home')}}">Accueil</a>
 						</li>
-						<li>Détails de commande</li>
+						<li>Détails de ma commande</li>
 					</ol>
 				</div>
 
@@ -30,12 +30,12 @@
 		<section id="contact" class="contact">
 			<div class="container ">
 				<div class="section-title " data-aos="fade-up">
-					<h2>Détails de ma commande</h2>
+					<h1>Détails de ma commande</h1>
 
 				</div>
 				<div id="pageContent">
 					<div class="row  mt-5 justify-content-center" data-aos="fade-up">
-						<div class="col-lg-8 col-12">
+						<div class="col-lg-8 col-11">
 							<div class="card text-center">
 								
 								{% set total= null %}
@@ -48,7 +48,7 @@
 													<th scope="col">Prix unitaire</th>
 													<th scope="col">Quantité</th>
 													<th scope="col">total</th>
-													<th scope="col">Commentaire</th>
+													<th scope="col" class="d-none d-md-block">Commentaire</th>
 
 												</tr>
 											</thead>
@@ -73,7 +73,7 @@
 															</div>
 														</td>
 														<td>{{((orderDetail.total)/100)|number_format(2)}} €</td>
-														<td><a href="{{path('comment_product',{'slug':orderDetail.product.slug})}}">Commenter le produit</a></td>
+														<td><button class="d-flex  align-items-center"><i class="bi bi-chat-right-text-fill text-black me-2"></i><a href="{{path('comment_product',{'slug':orderDetail.product.slug})}}" class="d-none d-md-block">Commenter le produit</a></button></td>
 														
 													</tr>
 												{% endfor %}

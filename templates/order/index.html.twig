@@ -32,7 +32,7 @@
 		<section id="contact" class="contact">
 			<div class="container ">
 				<div class="section-title " data-aos="fade-up">
-					<h2>Récapitulatif de ma commande</h2>
+					<h1>Récapitulatif de ma commande</h1>
 
 				</div>
 				<div id="pageContent">
@@ -154,11 +154,7 @@
 											</tbody>
 										</table>
 								</div>
-								<div class="card-footer text-muted text-dark">
-									En validant votre commande, vous reconnaissez avoir pris connaissance et accepté nos
-									<a href="#">
-										conditions générales de ventes</a>.
-								</div>
+								
 							</div>
 
 							<div class=" text-end cart-details me-2">
@@ -189,7 +185,7 @@
 	console.log(pageContent)
 	let response=document.getElementById('response')
 	let loading=document.querySelector('.loading')
-	
+	console.log(loading)
 	let validationLink = document.getElementById('validationLink').href
 	console.log(validationLink)
 	let info = document.querySelector('#info')
@@ -224,11 +220,10 @@
 				info.style.display = 'block'
 				info.innerHTML = 'Votre commande n\'est  pas éligible à la livraison à domicile'
 			}
-
 		} else {
 			orderValidateBTN.style.display = 'block'
 			adresse.style.display = 'none'
-			info.innerHTML = 'Votre commande sera disponible à partir de 2 heures aprés sa confirmation '
+			info.innerHTML = ' '
 			deliveryMethod = 'click & collect'
 			data.deliveryMethod = deliveryMethod
 			orderValidateBTN.addEventListener('click',(e)=>{
@@ -237,7 +232,6 @@
 				console.log(data)
 				e.preventDefault()
 				e.stopPropagation()
-				
 				fetchData(validationLink,data)
 			})
 		}
@@ -274,9 +268,8 @@
 		}
 		})
 	}
-
+	console.log(data)
 function fetchData(url,data){
-
 	fetch(url,{
 		method:'POST',
 		headers:{
@@ -294,7 +287,6 @@ function fetchData(url,data){
 			 pageContent.style.display='none'
 			  response.innerHTML=data.message
 		  }
-		  
 		})
 		.catch(error=>{
 			pageContent.style.display='none'

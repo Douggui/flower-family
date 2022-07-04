@@ -18,10 +18,8 @@ class Mail{
                 ->from('narjes@stilvoll.fr')
                 ->to($to)
                 ->subject($subject)
-
                 // path of the Twig template to render
                 ->htmlTemplate($htmlTemplate)
-
                 // pass variables (name => value) to the template
                 ->context(
                     $variables

@@ -8,22 +8,22 @@
 
 		<div class="header-social-links d-flex ">
 
-			<a href="#">
+			<a href="https://www.facebook.com/profile.php?id=782137941805042&ref=br_tf&epa=SEARCH_BOX" target="_blank">
 				<i class="bu bi-facebook"></i>
 			</a>
-			<a href="#">
+			<a href="https://instagram.com/iclop.mouans?igshid=YmMyMTA2M2Y=" target="_blank">
 				<i class="bu bi-instagram"></i>
 			</a>
-			<a href="mailto:bt-batiment@gmail.com">
+			<a href="mailto:iclop.mouans@gmail.com">
 				<i class="bi bi-envelope-fill"></i>
 			</a>
 		</div>
 		<div class="header-social-links d-flex">
-			<a href="#" class="d-flex justify-content-center align-items-center">
+			<a href="https://www.google.com/maps/place/5+Av.+de+Grasse,+06370+Mouans-Sartoux/@43.620511,6.9686544,17z/data=!3m1!4b1!4m5!3m4!1s0x12cc290695144789:0x5d08fa18ed370040!8m2!3d43.620511!4d6.9708484"  target="_blank" class="d-flex justify-content-center align-items-center">
 				<i class="bi bi-geo-alt-fill me-1"></i>
 				<span class="d-none d-lg-block d-md-block">5 Avenue de grasse , 06370 Mouans-Sartoux</span>
 			</a>
-			<a href="tel:0771875223">
+			<a href="tel:0766100951">
 				<i class="bi bi-telephone-fill"></i>
 			</a>
 
@@ -76,10 +76,8 @@
 				</li>
 				
 					<li class="dropdown d-none d-lg-block">
-						<a href="#">
-							<i class="bi bi-person-fill fs-4"></i>
-
-						</a>
+						
+							<i class="bi bi-person-fill fs-4 ms-4"></i>
 						<ul>
 						{% if (app.user) %}
 							<li><a href="{{path('account')}}"><i class="bi bi-person-lines-fill fs-5"></i>{{app.user.getFullName}}</a></li>
@@ -90,7 +88,6 @@
 						{% endif %}
 						</ul>
 					</li>
-				
 				<li class="d-none d-lg-block">
 					<a href="{{path('cart')}}">
 						<i class="bi bi-bag-fill fs-4"></i>

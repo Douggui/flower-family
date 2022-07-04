@@ -30,7 +30,7 @@
 	<section id="portfolio-details" class="portfolio-details mt-5">
 		<div class="container" data-aos="fade-up">
 			<div class="section-title ">
-				<h2>{{productInformation.product.name}}</h2>
+				<h1>{{productInformation.product.name}}</h1>
 				
 			</div>
 			<div class="row gy-4 d-flex justify-content-around align-items-center">
@@ -55,11 +55,6 @@
 					<h4>{{productInformation.product.name}}</h4>
 					{% if productInformation.product.comments|length >0 %}
 						{# Avg note#}
-						<div class=" row ">
-							<div class="col-12 d-flex justify-content-around align-items-center">
-							<h6>Note sur
-								{{productInformation.product.comments|length}}
-								commentaires</h6>
 							<p class="text-warning">
 								{% for i in 1..5 %}
 									{% if i<= productInformation.product.getAvgRatings %}
@@ -68,10 +63,9 @@
 										<i class="bi bi-star"></i>
 									{% endif %}
 								{% endfor %}
+								({{productInformation.product.comments|length}})
 							</p>
-							</div>
-						</div>
-						{#end avg note#}
+						{#end Avg note#}
 						{% endif %}
 
 					<p>
@@ -86,11 +80,7 @@
 								<select class="form-select" aria-label=".form-select-sm example" id="color">
 
 									{% for option in productInformation.options %}
-										{% if option.stock.stock >0 %}
 												<option value="{{option.name}}">{{option.name}}</option>
-										{% else %}
-												<option value="{{option.name}}" disabled>{{option.name}}-indisponible</option>
-										{% endif %}
 									{% endfor %}
 								</select>
 							</div>
@@ -133,15 +123,12 @@
 
 							</div>
 						</div>
-						{% if productInformation.product.getTheStock >0 %}
 							<button class="col-11 col-md-12 col-ms-12">
-								<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add">Ajouter au panier
+								<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add" class="text-dark">Ajouter au panier
 									<i class="bi bi-bag-plus-fill"></i>
 								</a>
 							</button>
-						{% else %}
-							<h5> <span class="badge bg-secondary">Produit en rupture de stock</span></h5>
-						{% endif %}
+						
                         {% endif %}
 					</div>
 				</div>
@@ -173,20 +160,16 @@
 
 	{% if productInformation.product.comments|length >0 %}
 			<!-- Rating Section -->
-			<section id="portfolio-details" class="portfolio-details mt-5">
+			<section  class=" mt-5">
 				<div class="container" data-aos="fade-up">
 					<div class="section-title ">
 						<h2>Avis des clients</h2>
-
 					</div>
 					{% for comment in productInformation.product.comments %}
-						<div class="portfolio-info mb-3">
-
-							<ul>
-								<li>
-									<strong>{{comment.user.getFullName}}</strong>
-								</li>
-								<li class="text-warning">
+						<div class="comment-info mb-3">
+								<p><b>{{comment.user.getFullName}}</b>
+								</p>
+								<p class="text-warning">
 									{% for i in 1..5  %}
 										{% if i<= comment.rating %}
 											<i class="bi bi-star-fill"></i>
@@ -194,22 +177,12 @@
 											<i class="bi bi-star"></i>
 										{% endif %}
 									{% endfor %}
-								</li>
-								<li>
-									<blockquote>{{comment.content}}</blockquote>
-								</li>
-								
-								<li>
-									<strong>Publié le
-									</strong>:
-									{{comment.createdAt|date('d-m-Y')}}
-
-								</li>
-							</ul>
+								</p>
+								<p>{{comment.content}}</p>
+								<p><b>Publié le</b>: {{comment.createdAt|date('d-m-Y')}}</p>
 						</div>
 					{% endfor %}
 				</div>
-
 			</section>
 			<!-- End Rating Section -->
 		{% endif %}
@@ -293,7 +266,7 @@
 					effect: 'fade',
 					speed: 300,
 					customClass: '',
-					customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
+					customIcon: '<i class="bi bi-bag-check-fill"></i>',
 					showIcon: true,
 					showCloseButton: true,
 					autoclose: true,

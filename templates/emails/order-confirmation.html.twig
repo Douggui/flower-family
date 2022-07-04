@@ -1,8 +1,8 @@
 {% apply inline_css(source('@css/email.css')) %}
 <body>
 	<header>
-		<div class="flex justify-content-around align-items-center">
-			<img src="{{ email.image('@images/logo-iclope.jpg') }}" alt="Logo iclope">
+		<div>
+			<img src="{{ email.image('@images/logo-iclope.jpg') }}" alt="Logo iclop">
 		</div>
 		<div class="name"><h1>{{ username }}</h1></div>
 	</header>
@@ -10,8 +10,8 @@
 		<h1>Confirmation de votre commande
 			</h1>
 		<div class="email-message">
-			<p>Nous avons bien récu votre commande ,vous pouvez voir ses détails en cliquant sur le bouton ci-dessous
-            et en consultant la rubrique <span>mes commande</span>
+			<p>Nous avons bien réçu votre commande ,vous pouvez voir ses détails en cliquant sur le bouton ci-dessous
+            et en consultant la rubrique <span>mes commandes</span>
 			</p>
 			<div class="btn">
 				<button>
@@ -23,7 +23,5 @@
 		</div>
 
 	</div>
-	<footer>
-	</footer>
 </body>
 {% endapply %}

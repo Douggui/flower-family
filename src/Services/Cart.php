@@ -32,7 +32,6 @@ Class Cart{
             $cart[$id]=[
                 'quantity'=>$cart[$id]['quantity']+=$quantity,
                 'specification'=>$option,
-                
             ];
         }else{
             $cart[$id]=[
@@ -46,7 +45,6 @@ Class Cart{
             'specification'=>$option
         ];
     } 
-    
     $this->requestStack->getSession()->set('cart', $cart);
     
 }

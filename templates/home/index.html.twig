@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block meta %}
+	<meta content="site iclope est un site de vente de e-cigarette ,e-liquide et CBD" name="description">
+	<meta content="" name="keywords">
+{% endblock %}
 {% block title %}Accueil
 {% endblock %}
 {% block body %}
@@ -18,12 +21,12 @@
 							<h2 class="h2">E-cigarette
 							</h2>
 							<p>Depuis 2009 , la cigarette éléctronique a su trouver sa place  dans le monde des fumeurs .Idéale pour un sevrage nicotinique progressif, bien plus élégante et 95% moins nocive q'une cigarette classique , elle permet également aux fumeurs de réaliser de belles économies.</p>
-							<div class="text-center">
-								<a href="" class="btn-get-started">Voir les produits</a>
+							<div >
+								<a href="{{path('mods')}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/e-cigarette1.png")}}" alt=""></div>
+							<div><img src="{{asset("assets/img/e-cigarette1.png")}}" alt="e-cigarette"></div>
 						</div>
 
 					</div>
@@ -35,13 +38,13 @@
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">E-liquide
 							</h2>
-							<p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-							<div class="text-center">
-								<a href="" class="btn-get-started">Voir les produits</a>
+							<p>Adepte de fraîcheur, de gourmandise, de fruits ou de saveurs tabac classique ou puissant, l'avantage indéniable de la vape est su'il y en a pour tous les goûts.Notre boutique vous propose un grand choix de saveurs.</p>
+							<div >
+								<a href="{{path('classique_tabac')}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/e-liquide.png")}}" alt=""></div>
+							<div><img src="{{asset("assets/img/e-liquide.png")}}" alt="e-liquide"></div>
 						</div>
 					</div>
 				</div>
@@ -52,13 +55,13 @@
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">CBD
 							</h2>
-							<p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-							<div class="text-center">
-								<a href="" class="btn-get-started">Voir les produits</a>
+							<p>Excellente alternative au THC, le CBD s'est fait une place de choix dans le traitement de divers maux et la relaxation sous forme de fleurs, d'huile ou d'infusion, I-CLOPE vous propose une séléction des meilleurs produits ou CBD.</p>
+							<div >
+								<a href="{{path('infusion')}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/cbd.png")}}" alt=""></div>
+							<div><img src="{{asset("assets/img/cbd.png")}}" alt="cbd"></div>
 						</div>
 					</div>
 				</div>
@@ -73,144 +76,119 @@
 	<!-- End Hero -->
 
 	<!-- ======= Is New Section ======= -->
-	<section id="bestseller" class="bestseller section-bg">
+	<section  class="bestseller section-bg">
 		<div class="container" data-aos="fade-up">
-
 			<div class="section-title">
 				<h2>Nos nouveautés</h2>
 			</div>
-
-			<div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+			<div class="bestseller-slider swiper" data-aos="fade-up" data-aos-delay="100">
 				<div class="swiper-wrapper">
 					{% for product in newProducts %}
-
+					
 						<div class="swiper-slide">
 							<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
-								<div class="member " data-aos="zoom-in" data-aos-delay="100">
-									<img src="/uploads/{{product.image.name}}" width="336" height="336" alt="">
-
-
-									<div class="member-info">
-										<div class="member-info-content">
-											<h4>{{product.product.name}}</h4>
-											<span>{{((product.product.price)/100)|number_format(2)}}
-												€</span>
-
+								<div class="products " data-aos="zoom-in" data-aos-delay="100">
+									<img src="{{asset('uploads/'~ product.image.name)}}" width="336" height="336" alt="{{product.image.name}}">
+									<div class="products-info">
+										<div class="products-info-content">
+											<h3>{{product.product.name}}</h3>
+											<p>{{((product.product.price)/100)|number_format(2)}}€</p>
 										</div>
 									</div>
 								</div>
 							</a>
 						</div>
-
 					{% endfor %}
-
 				</div>
 				<div class="swiper-pagination"></div>
 			</div>
-
 		</div>
 	</section>
 	<!-- End Is New Section -->
 
 	<!-- ======= BestSeller Section ======= -->
-	<section id="bestseller" class="bestseller section-bg">
+	<section  class="bestseller section-bg">
 		<div class="container" data-aos="fade-up">
-
 			<div class="section-title">
 				<h2>Nos produits les mieux vendu</h2>
 			</div>
-
-			<div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+			<div class="bestseller-slider swiper" data-aos="fade-up" data-aos-delay="100">
 				<div class="swiper-wrapper">
 					{% for product in products %}
-
 						<div class="swiper-slide">
 							<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
-								<div class="member " data-aos="zoom-in" data-aos-delay="100">
-									<img src="/uploads/{{product.image.name}}" width="336" height="336" alt="">
-
-
-									<div class="member-info">
-										<div class="member-info-content">
-											<h4>{{product.product.name}}</h4>
-											<span>{{((product.product.price)/100)|number_format(2)}}
-												€</span>
-
+								<div class="products " data-aos="zoom-in" data-aos-delay="100">
+									<img src="{{asset('uploads/'~ product.image.name)}}" width="336" height="336" alt="{{product.image.name}}">
+									<div class="products-info">
+										<div class="products-info-content">
+											<h3>{{product.product.name}}</h3>
+											<p>{{((product.product.price)/100)|number_format(2)}}€</p>
 										</div>
 									</div>
 								</div>
 							</a>
 						</div>
-
 					{% endfor %}
-
 				</div>
 				<div class="swiper-pagination"></div>
 			</div>
-
 		</div>
 	</section>
 	<!-- End BestSeller Section -->
 
-	<!-- ======= BestSeller Section ======= -->
-	<section id="bestseller" class="bestseller section-bg">
+	<!-- ======= About section ======= -->
+	<section  class=" section-bg">
 		<div class="container" data-aos="fade-up">
-
 			<div class="section-title">
-				<h2>Qui somme nous</h2>
+				<h2>Qui sommes nous</h2>
 			</div>
 			<div class="d-flex justify-content-center">
 				<div class="collg-8 col-md-10 col-ms-11">
 					<p>
-						I-clop conseille et fournit les personnes désireuses d'arrêter de fumer
-																																																																																																																																																													            depuis plus de 7 ans . Afin de proposer une alternative de severage à chacun 
-																																																																																																																																																													            , nous avons enrichi notre gamme avec des produits au CBD.<br>
-						Ce site internet est destiner à nos clients de Mouans-sartoux et alentours
-																																																																																																																																																													            ,il vous permet de passer commande , choisir le jour et l'heure de son
-																																																																																																																																																													            retrait en magasin ,vous faisant ainsi gagner un peu de temps .
+						I-CLOP conseille et fournit les personnes désireuses d'arrêter de fumer
+						 depuis plus de 7 ans . Afin de proposer une alternative de sevrage à chacun , nous avons enrichi notre gamme avec des produits au CBD.<br>
+						Ce site internet est destiné à nos clients de Mouans-sartoux et alentours
+						,il vous permet de passer commande , choisir le jour et l'heure de son
+						retrait en magasin ,vous faisant ainsi gagner un peu de temps .
+					</p>
+					<p>Pour ceux et celles qui ne peuvent venir aux horaires d'ouverture , nous avons mis en place 
+					un service de livraison  à domicile entre 20h et 21h30 , pour toute commande passée avant 18h30 sur notre site et d'un montant minimum de 50€ .Paiment en CB ou éspèces à la livraison.
 					</p>
 					<p>
-						Pour ceux et celles qui ne peuvent venir aux horaires d'ouverture , nous avons mis en place 
-																																																																																																																																																								                un service de livraison  à domicile entre 20h et 21h30 , pour toute commande passée
-																																																																																																																																																								                avant 18h30 sur notre site et d'un montant minimum de 50€ .Paiment en CB ou éspèces
-																																																																																																																																																								                à la livraison.
-					</p>
-					<p>
-						Si vous souhaitez vous lancer dans la vape où le CBD , n'hésitez pas à passer au magasin où nous serons 
-																																																																																																																																																								                plus à même de vous trouver le matériel , les produits adaptés à votre profit et vous dispenser les 
-																																																																																																																																																								                les conseils indisponsable pour bien débuter.
+						Si vous souhaitez vous lancer dans la vape où le CBD , n'hésitez pas à passer au magasin où nous serons  plus à même de vous trouver le matériel , les produits adaptés à votre profil et vous dispenser les 
+						les conseils indispensables pour bien débuter.
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- ======= Services Section ======= -->
-	<section id="services" class="services section-bg ">
+	<section  class="services section-bg ">
 		<div class="container" data-aos="fade-up">
 
 			<div class="row">
 				<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-					<div class="icon-box iconbox-blue">
+					<div class="icon-box ">
 						<div class="icon">
 							<i class="bi bi-stopwatch"></i>
 						</div>
 						<h4>Rapidité de livraison</h4>
-						<p>Éxpédition le jour même pour les commande passé avant 18h30</p>
+						<p>Éxpédition le jour même pour les commandes passées avant 18h30</p>
 					</div>
 				</div>
 
 				<div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-					<div class="icon-box iconbox-orange ">
+					<div class="icon-box">
 						<div class="icon">
 							<i class="bi bi-currency-exchange"></i>
 						</div>
-						<h4>Paiment sécurisé</h4>
-						<p>Paiement avec carte bleue ou espèce à la livraison ou au click & collecte</p>
+						<h4>Paiement sécurisé</h4>
+						<p>Paiement en carte bleue ou espèces à la livraison ou au click & collecte</p>
 					</div>
 				</div>
 
 				<div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-					<div class="icon-box iconbox-pink">
+					<div class="icon-box">
 						<div class="icon">
 							<i class="bi bi-truck"></i>
 						</div>

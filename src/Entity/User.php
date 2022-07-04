@@ -68,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="ce champ ne pas pas être vide ",groups={"registration"})
      * @Assert\EqualTo(propertyPath="password"  ,message="les deux mot de passe ne sont pas identique",groups={"registration"})
      */
     private $confirmPassword;
@@ -116,12 +115,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $addresses;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user",cascade={"remove"})
      */
     private $orders;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user",cascade={"remove"})
      */
     private $comments;
 

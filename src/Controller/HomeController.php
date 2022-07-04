@@ -35,7 +35,7 @@ class HomeController extends AbstractController
             ];
         }
         
-        
+        //dd($productIsNew);
         return $this->render('home/index.html.twig', [
             'products'=>$productInformation,
             'newProducts'=>$productIsNew
