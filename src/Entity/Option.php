@@ -45,10 +45,7 @@ class Option
     {
         $this->products = new ArrayCollection();
         $this->stocks = new ArrayCollection();
-    }
-
-    
-    
+    } 
 
     public function getId(): ?int
     {
@@ -79,9 +76,6 @@ class Option
         return $this;
     }
 
-
-
-   
     public function __toString()
     {
         return $this->name;

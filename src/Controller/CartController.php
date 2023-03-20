@@ -54,7 +54,7 @@ class CartController extends AbstractController
            // dd($optionRepo->findOneBy(['product'=>$product,'name'=>$color]));
             // $option=$optionRepo->findOneBy(['products'=>$product,'name'=>$color]);
             $option=$optionRepo->getProductOption($product,$color);
-            $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
+            $stock=$stockRepo->findOneBy(['product'=>$product,'optionName'=>$option])->getStock();
             $cartProduct=$cart->getCart();
             
             $cart->add($id,$quantity,$color,$stock);
@@ -68,7 +68,6 @@ class CartController extends AbstractController
         
     }
 
-    
      /**
      * @Route("panier/ajouter/{id}/{option?}", name="increase_product" )
      */
@@ -76,7 +75,7 @@ class CartController extends AbstractController
     {
        
         $option=$optionRepo->getProductOption($product,$option);
-        $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
+        $stock=$stockRepo->findOneBy(['product'=>$product,'optionName'=>$option])->getStock();
         //dd($stock,$option);
         $quantity=null;
         $cart1=$cart->getCart();

@@ -6,7 +6,7 @@
 {% block link %}
 <link rel="canonical" href="{{app.request.uri}}" />
 {% endblock %}
-{% block title %}{{category.name}} {{subCategory.name}} flower family
+{% block title %} {{subCategory.name}}
 {% endblock %}
 
 {% block body %}
@@ -37,7 +37,7 @@
 					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
 						<h1 class="text-uppercase">{{subCategory}}</h1>
 						
-						<p>{{ subCategory.description }}</p>
+						<p>{{ subCategory.description|raw }}</p>
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 					<!-- ======= Show Products ======= -->
 						<div class="row">
 							{% for product in products %}
-								<div class="col-lg-3 col-md-6 col-ms-6 col-xs-6 d-flex align-items-stretch">
+								<div class="col-lg-3 col-md-4 col-sm-6 col-6 d-flex align-items-stretch">
 									<div class="products">
 										<div class="products-img">
 											<div class="product-image-slider swiper">
@@ -95,7 +95,7 @@
 		<!-- End products Section -->
 
 		<!-- ======= Paginator ======= -->
-		<div class="d-flex justify-content-center mt-3 mb-3">
+		<div class="d-flex justify-content-center pagination">
 			{{ knp_pagination_render(productPagination) }}
 		</div>
 		<!-- End Paginator  -->

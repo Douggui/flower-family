@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
-
+{% block meta %}
+<meta content="{{productInformation.product.metaDescription}}" name="description">
+<meta content="flower family|{{category}}|{{subCategory}}|{{productInformation.product.metaKeywords}}" name="keywords">
+{% endblock %}
+{% block link %}
+<link rel="canonical" href="{{app.request.uri}}" />
+{% endblock %}
 {% block title %}
 	{{productInformation.product.name}}
 {% endblock %}
 
 {% block body %}
-
+	
 	<main>
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs ">
@@ -17,7 +23,7 @@
 						<li>
 							<a href="{{path('home')}}">Accueil</a>
 						</li>
-						<li>E-cigarette</li>
+						<li>{{category}}</li>
 						<li>{{productInformation.subCategory}}</li>
 						<li>{{productInformation.product.name}}</li>
 					</ol>
@@ -31,17 +37,17 @@
 		<section id="portfolio-details" class="portfolio-details mt-5">
 			<div class="container" data-aos="fade-up">
 				<div class="section-title ">
-					<h2>{{productInformation.product.name}}</h2>
+					<h1>{{productInformation.product.name}}</h1>
 
 				</div>
-				<div class="row gy-4 d-flex justify-content-around align-items-center">
+				<div class="row d-flex justify-content-around align-items-center">
 
 					<div class="col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="100">
 						<div class="portfolio-details-slider swiper">
 							<div class="swiper-wrapper align-items-center">
 								{% for image in productInformation.images %}
-									<div class="swiper-slide">
-										<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="296" class="img-fluid">
+									<div class="swiper-slide text-center">
+										<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="300" class="img-fluid">
 									</div>
 								{% endfor %}
 
@@ -51,7 +57,7 @@
 						</div>
 					</div>
 					<div class="portfolio-description col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="200">
-						<h4>{{productInformation.product.name}}</h4>
+						
 						{# Avg note#}
 						{% if productInformation.product.comments|length >0 %}
 							{% include "partials/rating.html.twig" with {'comments': productInformation.product.comments ,'avgRatings':productInformation.product.getAvgRatings } %}
@@ -59,7 +65,7 @@
 						{#end avg note#}
 						
 						<p>
-							{{productInformation.product.description}}
+							{{productInformation.product.description|raw}}
 						</p>
 						<p>{{((productInformation.product.price)/100)|number_format(2)}}
 							€</p>
@@ -72,9 +78,7 @@
 									<select class="form-select" aria-label=".form-select-sm example" id="color">
 
 										{% for option in productInformation.options %}
-										<pre>
-											{{ dump(option[0].name) }}
-										</pre>
+										
 										
 											{% if option.stock >0 %}
 												<option value="{{option[0].name}}" data-qte={{option.stock}}>{{option[0].name}}</option>
@@ -141,7 +145,7 @@
 				{% if productInformation.caracteristicDetail|length >0 %}
 					<div class="row mt-5">
 						<div class="section-title ">
-							<h3>Caractéristiques du produit</h3>
+							<h2>Caractéristiques du produit</h2>
 
 						</div>
 						<div class="row d-flex justify-content-center caracteristic-product">

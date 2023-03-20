@@ -67,6 +67,7 @@ class OptionRepository extends ServiceEntityRepository
     public function getProductOptions(Product $product)
     {
         return $this->createQueryBuilder('o')
+                    ->select('o')
                     ->join('o.products','p')
                     ->where('p.id = :id')
                     ->setParameter('id',$product->getId())

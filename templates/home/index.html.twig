@@ -19,43 +19,43 @@
 				class="carousel-inner" role="listbox">
 
 				<!-- Slide 1 -->
-				<div class="carousel-item active" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-2.jpg);">
-					<div class="carousel-container d-flex justify-content-between align-items-center">
+				<div class="carousel-item active" style="background-image:url(/assets/img/flower-family-2.jpg);">
+					<div class="carousel-container d-flex justify-content-between align-items-end">
 
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">E-cigarette
 							</h2>
 							<p>Depuis 2009 , la cigarette éléctronique a su trouver sa place  dans le monde des fumeurs .Idéale pour un sevrage nicotinique progressif, bien plus élégante et 95% moins nocive q'une cigarette classique , elle permet également aux fumeurs de réaliser de belles économies.</p>
 							<div >
-								<a href="{{path('mods',{page:1})}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('products',{page:1,category:'ecigarette',subCategory:'mods'})}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Slide 2 -->
-				<div class="carousel-item" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-3.jpg);">
-					<div class="carousel-container d-flex justify-content-between align-items-center">
+				<div class="carousel-item" style="background-image:url(/assets/img/flower-family-3.jpg);">
+					<div class="carousel-container d-flex justify-content-between align-items-end">
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">E-liquide
 							</h2>
 							<p>Adepte de fraîcheur, de gourmandise, de fruits ou de saveurs tabac classique ou puissant, l'avantage indéniable de la vape est su'il y en a pour tous les goûts.Notre boutique vous propose un grand choix de saveurs.</p>
 							<div >
-								<a href="{{path('classique_tabac',{page:1})}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('products',{page:1,category:'eliquide',subCategory:'gourmand'})}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Slide 3 -->
-				<div class="carousel-item" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-min.jpg);">
-					<div class="carousel-container d-flex justify-content-between align-items-center">
+				<div class="carousel-item" style="background-image:url(/assets/img/flower-family-min.jpg);">
+					<div class="carousel-container d-flex justify-content-between align-items-end">
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">CBD
 							</h2>
 							<p>Excellente alternative au THC, le CBD s'est fait une place de choix dans le traitement de divers maux et la relaxation sous forme de fleurs, d'huile ou d'infusion, flower familyE vous propose une séléction des meilleurs produits ou CBD.</p>
 							<div >
-								<a href="{{path('infusion',{page:1})}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('products',{page:1,category:'cbd',subCategory:'infusion'})}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 	<!-- End Is New Section -->
 
 	<!-- ======= BestSeller Section ======= -->
-	<section  class="bestseller section-bg mt-5">
+	<section  class="bestseller section-bg">
 		<div class="container" data-aos="fade-up">
 			<div class="section-title">
 				<h2>Nos produits les mieux vendu</h2>
@@ -197,4 +197,9 @@
 		</div>
 	</section>
 	<!-- End Services Section -->
+	
+
 {% endblock %}
+{# <script>
+	const route = {{ app.request.get('_route') }}
+</script> #}

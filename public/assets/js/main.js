@@ -165,14 +165,20 @@
       mirror: false
     })
   });
-
+console.log(location.pathname );
   let header=select('#header');
   
   window.addEventListener('scroll',()=>{
     header.style.backgroundColor='#fff';
     
    if(window.scrollY===0 ){
-    header.style.backgroundColor='transparent';
+    if(location.pathname === '/'){
+      header.style.backgroundColor='rgba(0,0,0,0.7)';
+   
+    }else{
+
+      header.style.backgroundColor='#fff';
+    }
    
   }
    
