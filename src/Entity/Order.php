@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Stmt\Const_;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -13,6 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
+    const  ISPENDING     = 'En attente de paiment';
+    const  PAID          = 'Payé';
+    const  CANCELED      = 'Annulé';
+    const  INPREPARATION = 'En préparation';
+    const  SENT          = 'Livré';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -65,6 +71,26 @@ class Order
      * ORM\Column(type="string", length=255)
      */
     private $invoice;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $CheckoutSessionId;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaid;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $stripeUrl;
 
     public function __construct()
     {
@@ -198,6 +224,54 @@ class Order
     public function setInvoice(string $invoice): self
     {
         $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    public function getCheckoutSessionId(): ?string
+    {
+        return $this->CheckoutSessionId;
+    }
+
+    public function setCheckoutSessionId(string $CheckoutSessionId): self
+    {
+        $this->CheckoutSessionId = $CheckoutSessionId;
+
+        return $this;
+    }
+
+    public function isIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(?bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStripeUrl(): ?string
+    {
+        return $this->stripeUrl;
+    }
+
+    public function setStripeUrl(?string $stripeUrl): self
+    {
+        $this->stripeUrl = $stripeUrl;
 
         return $this;
     }

@@ -18,26 +18,33 @@ class OrderType extends AbstractType
         $user=$options['user'];
         //dd($user);
         $builder
-        ->add('Addresse',EntityType::class,[
-            'label' => 'Choisissez votre adresse de livraison',
-            //'choice_label' => 'addresse',
-             //'choices'=>$user->getAddresses(),
+        ->add('DeliveryMethod',EntityType::class,[
+            'label' => 'Choisissez votre mode  de livraison',
+            'choice_label' => 'name',
             'required' => true,
+            'class' => DeliveryMethod::class, // avec quelle classe faire le lien pour le formulaire ( chercher les propriétés à afficher dans le formulaire)
+            'multiple' => false,
+            'expanded' => true,
+            
+        ])
+        ->add('Addresse',EntityType::class,[
+            'label' => 'Choisissez votre adresse de livraison', 
+            'choices' => $user->getAddresses(),        
             'class' => Addresse::class, // avec quelle classe faire le lien pour le formulaire ( chercher les propriétés à afficher dans le formulaire)
             'multiple' => false,
             'expanded' => true, // on veut des radio bouton
+            'required'=>false
+            
            
         ])
-        ->add('DeliveryMethod',EntityType::class,[
-            'label' => 'Choisissez votre mode  de livraison',
-                'choice_label' => 'name',
-                'required' => true,
-                'class' => DeliveryMethod::class, // avec quelle classe faire le lien pour le formulaire ( chercher les propriétés à afficher dans le formulaire)
-                'multiple' => false,
-                'expanded' => true,
-        ])
+       
            
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class,[
+                'label'=>'Valider ma commande',
+                'attr'=>[
+                    //'class'=>'customButton'
+                ]
+            ])
         ;
     }
 

@@ -2,11 +2,12 @@
 # General
 --------------------------------------------------------------*/
 :root {
-  --main-color: #aaa;
+  --main-color: #1e2e1b;
   --main-color-rgba: rgba(170, 170, 170, 0.587);
-  --second-color: #00EEE8;
-  --second-color-rgba: #00eee6e8;
-  --second-color-hover: #01cec7;
+  --second-color: #E6EEE4;
+  --third-color:#74A46A;
+  --second-color-rgba: #c5dcc1e7;
+  --second-color-hover: #cce7c7;
  --green:#00473F;
 }
 .green{
@@ -19,16 +20,16 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: var(--main-color);
-  background-color: #000;
+  background-color: #fff !important;
 }
 
 a {
-  color: var(--second-color);
+  color: var(--third-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--second-color-hover);
+  color: var(--main-color);
   text-decoration: none;
 }
 
@@ -42,21 +43,27 @@ h6 {
 }
 
 button {
-  background: var(--second-color);
+  background: var(--third-color);
   border: 0;
   padding: 10px 24px;
-  color: #fff;
+  color: var(--main-color);
   transition: 0.4s;
-  /*border-radius: 50px;*/
+  border-radius: 5px;
+  transition:color 0.8s ease;
+}
+
+.auth{
+  background: var(--second-color-hover);
 }
 
 button a {
-  color: #000;
+  color: var(--main-color);
 }
 
 button a:hover {
-  color: #000;
+  color: var(--second-color);
 }
+
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -68,22 +75,21 @@ button a:hover {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: var(--second-color);
+  background: var(--third-color);
   width: 40px;
   height: 40px;
   border-radius: 50px;
-  transition: all 0.4s;
+  transition: all 0.5s;
 }
 
 .back-to-top i {
   font-size: 28px;
-  color: #000;
+  color: #2c4826;
   line-height: 0;
 }
 
 .back-to-top:hover {
   background: var(--second-color-hover);
-  color: #fff;
 }
 
 .back-to-top.active {
@@ -104,29 +110,30 @@ button a:hover {
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: #000;
+  background:transparent;
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.5s ease;
 }
 
 #header .logo {
-  font-size: 28px;
+  font-size: 15px;
   margin: 0;
   padding: 0;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 80;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 #header .logo a {
-  color: var(--main-color);
+  color: var(--third-color);
 }
 
-#header .logo a span {
-  color: var(--second-color);
+#header .logo  p{
+  color: var(--third-color) !important;
+
 }
 
 
@@ -197,7 +204,7 @@ button a:hover {
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   font-weight: 600;
-  color: var(--main-color);
+  color: var(--third-color) ;
   white-space: nowrap;
   text-transform: uppercase;
   transition: 0.3s;
@@ -209,18 +216,9 @@ button a:hover {
   line-height: 0;
   margin-left: 5px;
 }
-
 .navbar a .bx {
   font-size: 20px;
 }
-
-.navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
-.navbar li:hover>a {
-  color: var(--second-color);
-}
-
 .navbar .dropdown ul {
   display: block;
   position: absolute;
@@ -231,7 +229,7 @@ button a:hover {
   z-index: 99;
   opacity: 0;
   visibility: hidden;
-  background: #212020;
+  background: var(--third-color);
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   transition: 0.3s;
   border-top: 2px solid var(--second-color);
@@ -292,7 +290,7 @@ button a:hover {
 * Mobile Navigation 
 */
 .mobile-nav-toggle {
-  color: var(--main-color);
+  color: var(--third-color);
   font-size: 28px;
   cursor: pointer;
   display: none;
@@ -300,7 +298,7 @@ button a:hover {
   transition: 0.5s;
 }
 .mobile-nav-toggle.bi-x {
-  color: #fff;
+  color: var(--second-color);
 }
 @media (max-width: 991px) {
   .mobile-nav-toggle {
@@ -323,7 +321,7 @@ button a:hover {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.6);
   transition: 0.3s;
   z-index: 999;
 }
@@ -342,7 +340,7 @@ button a:hover {
   bottom: 15px;
   left: 15px;
   padding: 10px 0;
-  background-color: #212020;
+  background-color: var(--third-color);
   overflow-y: auto;
   transition: 0.3s;
 }
@@ -351,13 +349,13 @@ button a:hover {
 .navbar-mobile a:focus {
   padding: 10px 20px;
   font-size: 15px;
-  color: var(--main-color);
+  color: var(--main-color) ;
 }
 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: var(--second-color);
+  color: var(--second-color) ;
 }
 
 .navbar-mobile .dropdown ul {
@@ -368,7 +366,7 @@ button a:hover {
   z-index: 99;
   opacity: 1;
   visibility: visible;
-  background: #212020;
+  background: var(--third-color);
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 }
 
@@ -409,8 +407,9 @@ button a:hover {
 #hero .carousel-inner,
 #hero .carousel-item,
 #hero .carousel-item::before {
-  background-size: cover;
-  background-position: center;
+  background-size:100% 100%;
+  margin: 0  !important;
+  background-position:center center;
   background-repeat: no-repeat;
   position: absolute;
   top: 0;
@@ -435,11 +434,12 @@ button a:hover {
   background: transparent;
   padding: 20px;
   color: var(--second-color);
+  font-weight: bold;
   /*border-top: 5px solid var(--second-color);*/
 }
 
 #hero .carousel-content h2 {
-  color: #fff;
+  color: var(--second-color);
   margin-bottom: 20px;
   font-size: 28px;
   font-weight: 700;
@@ -456,15 +456,16 @@ button a:hover {
   transition: 0.5s;
   line-height: 1;
   margin: 10px;
-  color: #fff;
+  color: var(--main-color);
   -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
-  border: 2px solid var(--second-color);
+  background-color: var(--third-color);
+  border: 2px solid var(--main-color);
 }
 
 #hero .btn-get-started:hover {
   background: var(--second-color);
-  color: #000;
+  color: var(--main-color);
   text-decoration: none;
 }
 
@@ -583,12 +584,13 @@ section {
 }
 
 .section-bg {
-  background-color: #000;
+  background-color: var(--second-color);
 }
 
 .section-title {
   text-align: center;
   padding-bottom: 30px;
+  color: var(--third-color);
 }
 .h2::after {
   content: "";
@@ -597,11 +599,14 @@ section {
   width: 80px;
   height: 3px;
   background: var(--second-color);
-  /*bottom: 0;*/
   margin-top:10px;
   left: calc(6% - 25px);
 }
-
+@media (max-width: 500px) {
+  .h2::after {
+    left: calc(15% - 20px);
+  }
+}
 h1 {
   font-size: 32px;
   font-weight: bold;
@@ -631,16 +636,16 @@ h1::after {
 --------------------------------------------------------------*/
 .breadcrumbs {
   padding: 15px 0;
-  background: var(--second-color);
+  background: var(--second-color-rgba);
   min-height: 40px;
-  margin-top: 72px;
+  margin-top: 130px;
 }
 
 .breadcrumbs h2 {
   margin-top: 20px;
   font-size: 26px;
   font-weight: 300;
-  color: #000;
+  color: var(--main-color);
 }
 
 .breadcrumbs ol {
@@ -649,11 +654,11 @@ h1::after {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #000;
+  color:var(--main-color);
 }
 
 .breadcrumbs ol a {
-  color: #000;
+  color: var(--main-color);
 }
 
 .breadcrumbs ol li+li {
@@ -663,13 +668,13 @@ h1::after {
 .breadcrumbs ol li+li::before {
   display: inline-block;
   padding-right: 10px;
-  color: #000;
+  color: var(--main-color);
   content: "/";
 }
 
 @media (max-width: 991px) {
   .breadcrumbs {
-    margin-top: 70px;
+    margin-top: 140px;
   }
 
   .breadcrumbs .d-flex {
@@ -692,8 +697,9 @@ h1::after {
   text-align: center;
   padding: 70px 20px 80px 20px;
   transition: all ease-in-out 0.3s;
-  background: var(--main-color);
-  color: var(--second-color);
+  background: var(--second-color-hover);
+  color: var(--main-color);
+  border-radius: 10px;
 }
 
  .icon-box .icon {
@@ -725,7 +731,7 @@ h1::after {
 }
 .icon-box:hover i {
   border-color: #fff;
-  color: var(--second-color-hover);
+  color: var(--main-color);
 }
 
 /*--------------------------------------------------------------
@@ -779,7 +785,7 @@ h1::after {
 .bestseller .products {
   text-align: center;
   margin-bottom: 20px;
-  background: #000;
+  background: transparent;
   position: relative;
   overflow: hidden;
 }
@@ -806,14 +812,14 @@ h1::after {
   font-weight: 700;
   margin-bottom: 2px;
   font-size: 18px;
-  color: #000;
+  color: var(--main-color);
 }
 
 .bestseller .products .products-info-content p {
   font-style: italic;
   display: block;
   font-size: 13px;
-  color: #000;
+  color: var(--main-color);
 }
 
 .bestseller .products .social {
@@ -844,7 +850,7 @@ h1::after {
 }
 
 .bestseller .products:hover .products-info {
-  background: linear-gradient(0deg, rgba(0, 238, 232, 0.9) 0%, rgba(0, 238, 232, 0.8) 20%, rgba(0, 212, 255, 0) 100%);
+  background: linear-gradient(0deg, rgba(116, 164, 106,0.8) 0%, rgba(116, 164, 106,0.8) 20%, rgba(0, 212, 255, 0) 100%);
   opacity: 1;
   transition: 0.4s;
 }
@@ -979,11 +985,11 @@ h1::after {
 
 .contact .info i {
   font-size: 20px;
-  color: var(--second-color);
+  color: var(--main-color);
   float: left;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--second-color);
+  border: 1px solid var(--main-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1014,8 +1020,8 @@ h1::after {
   width: 100%;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
   padding: 30px;
-  background: var(--main-color);
-  border-radius: 30px;
+  background: var(--second-color-hover);
+  border-radius: 20px;
 }
 
 .form .form-group {
@@ -1055,8 +1061,8 @@ h1::after {
   width: 24px;
   height: 24px;
   margin: 0 10px -6px 0;
-  border: 3px solid var(--second-color);
-  border-top-color: #eee;
+  border: 3px solid var(--main-color);
+  border-top-color: var(--second-color);
   -webkit-animation: animate-loading 1s linear infinite;
   animation: animate-loading 1s linear infinite;
 }
@@ -1066,17 +1072,17 @@ h1::after {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
-  color: #000;
-  background-color: var(--main-color);
+  color: var(--main-color);
+  background-color: var(--second-color-hover);
   border: inherit;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--main-color);
 }
 
 .form input:focus,
 .form textarea:focus {
-  border-color: var(--second-color);
+  border-color: var(--third-color);
   box-shadow: none !important;
-  background-color: var(--main-color) !important;
+  background-color: var(--second-color) !important;
 }
 
 .form input {
@@ -1091,21 +1097,21 @@ h1::after {
   background: var(--second-color);
   border: 0;
   padding: 10px 24px;
-  color: #000;
-  transition: 0.4s;
-  border-radius: inherit !important;
+  color: var(--main-color);
+  transition: 0.4s ease;
+  border-radius: 5px;
   box-shadow: none !important;
 }
 
 .form input[type=checkbox] {
-
+background: var(--second-color);
   height: 15px;
-  border: 1.2px solid rgba(0, 0, 0, 0.25);
+  border: 1.2px solid var(--main-color);
   border-radius: 2px;
 }
 
 .form a{
-  color:#000;
+  color:var(--main-color);
   text-decoration: underline;
 }
 
@@ -1114,11 +1120,11 @@ h1::after {
 }
 
 .form button[type=submit]:hover {
-  background: var(--second-color-hover);
+  background: var(--second-color);
 }
 
 .form {
-  color: #000 !important;
+  color: var(--main-color) !important;
 }
 
 
@@ -1148,8 +1154,9 @@ h1::after {
 #footer {
   color: #fff;
   font-size: 14px;
-  background: url("../img/fumee.jpg");
-  background-size: cover;
+  background: linear-gradient(to right,rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url("../img/flower-family1.jpg");
+  background-size: 100% 100%;
+  background-position:center center;
   background-repeat: no-repeat;
 }
 
@@ -1178,7 +1185,7 @@ h1::after {
   line-height: 24px;
   margin-bottom: 0;
   font-family: "Roboto", sans-serif;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--second-color);
 }
 
 #footer .footer-top h4 {
@@ -1237,8 +1244,8 @@ h1::after {
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  background: var(--third-color);
+  color: var(--second-color);
   line-height: 1;
   padding: 8px 0;
   margin-right: 4px;
@@ -1250,9 +1257,14 @@ h1::after {
 }
 
 #footer .social-links a:hover {
-  background: var(--second-color);
-  color: #fff;
+  color: var(--main-color);
   text-decoration: none;
+}
+.copyright a {
+  color:var(--third-color);
+}
+.copyright a:hover {
+  color:var(--main-color);
 }
 
 @media (max-width: 768px) {
@@ -1299,8 +1311,7 @@ h1::after {
 
 .notification {
  /* z-index: 9999;*/
-  position:absolute !important;
-  top:100px;
+  top:130px;
   left:0;
   right:0;
 }
@@ -1334,12 +1345,12 @@ h1::after {
 }
 
  .nav-link:hover {
-  color: var(--second-color) !important;
+  color: var(--third-color) !important;
 }
 
  .nav-link.active {
-  color: var(--second-color) !important;
-  border-color: var(--second-color) !important;
+  color: var(--third-color) !important;
+  border-color: var(--third-color) !important;
   background-color: inherit !important;
 }
 
@@ -1373,13 +1384,27 @@ h1::after {
 # Card
 --------------------------------------------------------------*/
 .card {
-  background-color: var(--main-color) !important;
+  background-color: var(--second-color) !important;
+}
+.card .bi{
+color:var(--main-color);
+}
+.card .bi:hover{
+  color:#1e2e1be1;
 }
 .card-text,
 .card-title {
-  color: #000 !important;
+  color: var(--main-color) !important;
 }
-
+.card-link{
+  color:var(--second-color) !important;
+}
+.card-link:hover{
+  color:var(--second-color-hover);
+}
+.card-p-link{
+  color:var(--third-color)
+}
 .card-count {
   position: absolute;
   display: block;
@@ -1392,14 +1417,13 @@ h1::after {
   width: 20px;
   font-size: 0.7rem;
   text-align: center;
-  color: #000;
+  color: var(--main-color);
   line-height: 20px;
-  background: #aaa;
-  border: 1px solid #000;
+  background: var(--third-color);
+  
 }
-.card-count:hover,
-.bi-person-fill:hover .card-count {
-  background: var(--second-color);
+.bi-person-fill{
+  color: var(--third-color);
 }
 
 /*--------------------------------------------------------------
@@ -1452,9 +1476,11 @@ h1::after {
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 5px;
-  background: #000;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  background: var(--second-color);
   text-align: center;
+}
+.products:hover{
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 
  .products .products-img {
@@ -1478,16 +1504,18 @@ h1::after {
   line-height: 26px;
   color: var(--main-color);
 }
-
+.products .products-info button {
+  background-color: var(--third-color);
+  transition: all 0.6s ease;
+}
  .products .products-info button a {
-  color: #000;
+  color: var(--main-color);
 }
 
  .products .products-info button:hover {
   background-color: var(--second-color-hover);
 }
 .caracteristic-product tr {
-
   border-bottom: 1px solid white;
 }
 
@@ -1508,7 +1536,7 @@ h1::after {
 }
 
 .cart tr {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid var(--main-color);
 }
 
 .cart tbody td:nth-child(1) {
@@ -1580,8 +1608,8 @@ box-shadow: none !important;
   border-color: var(--main-color);
 }
 .form-check-input:checked {
-  background-color: var(--second-color) !important ;
-  border-color:  var(--second-color) !important;
+  background-color: var(--main-color) !important ;
+  border-color:  var(--main-color) !important;
 }
 
 .card-body button a {
@@ -1593,4 +1621,39 @@ box-shadow: none !important;
 .table > :not(caption) > * > * {
  border-bottom: none !important;
 
+}
+.table-dark{
+  color:var(--main-color) !important;
+}
+.form-select{
+box-shadow: none !important;
+}
+.form-select:focus,
+.form-select:active,
+.form-select:hover
+{
+  border: #528946;
+}
+.form-select option:hover,
+.form-select option:focus
+{
+background: var(--third-color);
+}
+button[type=submit] {
+  background: var(--third-color);
+  border: 0;
+  padding: 10px 24px;
+  color: var(--main-color);
+  transition: 0.4s ease;
+  border-radius: 5px;
+  box-shadow: none !important;
+}
+button[type=submit]:hover {
+  background: var(--second-color);
+  border: 0;
+  padding: 10px 24px;
+  color: var(--main-color);
+  transition: 0.4s ease;
+  border-radius: 5px;
+  box-shadow: none !important;
 }

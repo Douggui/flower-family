@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
-
+{% block meta %}
+<meta content="{{productInformation.product.description}}" name="description">
+<meta content="flower family|E-liquide|{{productInformation.product.name}}" name="keywords">
+{% endblock %}
+{% block link %}
+<link rel="canonical" href="{{app.request.uri}}" />
+{% endblock %}
 {% block title %}
-	{{productInformation.product.name}}
+	{{productInformation.product.name}} flower family
 {% endblock %}
 
 {% block body %}
@@ -68,7 +74,7 @@
 					</p>
 					<p>{{((productInformation.product.price)/100)|number_format(2)}}
 						€</p>
-					<div class="row d-flex justify-content-center">
+					<div class="row d-flex justify-content-center product">
 						{% if  productInformation.options|length >0 %}
 							<div class="col-md-6 col-xs-10">
 								<label for="color" class="form-label">{{productInformation.specification}}</label>

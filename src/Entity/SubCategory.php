@@ -45,6 +45,21 @@ class SubCategory
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $meta_description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $meta_keywords;
+
     public function __construct()
     {
         $this->specifications = new ArrayCollection();
@@ -173,5 +188,41 @@ class SubCategory
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription(string $meta_description): self
+    {
+        $this->meta_description = $meta_description;
+
+        return $this;
+    }
+
+    public function getMetaKeywords(): ?string
+    {
+        return $this->meta_keywords;
+    }
+
+    public function setMetaKeywords(string $meta_keywords): self
+    {
+        $this->meta_keywords = $meta_keywords;
+
+        return $this;
     }
 }

@@ -1,42 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
-		<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-		<title>Document</title>
+		<title>Facture</title>
 	</head>
 	<body style="background-color:white;color:black">
-		<div class="container mt-5">
+		<div >
 			<div class="card text-center bg-light">
-				<div class="card-header d-flex justify-content-between">
-					<div class="d-flex flex-column align-items-start">
-						<p>Vendeur</p>
-						<p>Nom:I-CLOPE</p>
+				<div style="display:flex;">
+					<div >
+						<p style="background-color:#74A46A;padding:5px 0px 5px 5px;">Vendeur</p>
+						<p>Nom:flower family</p>
 						<p>Adresse: 5 avenue de grasse, 06370 Mouans-sartoux</p>
-						<p>N° de siret</p>
-						<p>N° de téléphone:
-						</p>
+						<p>N° de siret: 80100741000013</p>
+						<p>N° de téléphone: 07 66 10 09 51</p>
 					</div>
-					<div class="d-flex flex-column align-items-start">
-						<p>Client:{{order.user.firstName}}
-							{{order.user.lastName}}</p>
-						<p>Référence de la commande :
-							{{order.reference}}</p>
-						<p>Passé le:
-							{{order.createdAt|date('d-m-Y')}}</p>
+					<div >
+						<p style="background-color:#74A46A;padding:5px 0px 5px 5px;">Client</p>
+						<p>Nom :{{order.user.getFullName}} </p>
+						<p>Référence de la commande : {{order.reference}}</p>
+						<p>Passé le: {{order.createdAt|date('d-m-Y')}}</p>
 					</div>
 				</div>
 				<div class="card-body">
-					<table class="table">
+					<table class="table"  width="100%" style="border-collapse:collapse;">
 						<thead>
-							<tr>
-								<th scope="col">Désignation</th>
-								<th scope="col">Quantité</th>
-								<th scope="col">Prix unitaire</th>
-								<th scope="col">Total TTC</th>
+							<tr style="background-color:#74A46A;">
+								<th scope="col" style="border:1px solid black;padding:5px">Désignation</th>
+								<th scope="col" style="border:1px solid black;padding:5px">Quantité</th>
+								<th scope="col" style="border:1px solid black;padding:5px">Prix unitaire</th>
+								<th scope="col" style="border:1px solid black;padding:5px">Total TTC</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -46,19 +42,19 @@
 								{% set total= total+(order.total) %}
 
 								<tr>
-									<th scope="row">{{order.product.name}}</th>
-									<td>{{order.quantity}}</td>
-									<td>{{((order.price)/100)|number_format(2)}}
+									<th  style="border:1px solid black;padding:5px">{{order.product.name}}</th>
+									<td style="border:1px solid black;padding:5px">{{order.quantity}}</td>
+									<td style="border:1px solid black;padding:5px">{{((order.price)/100)|number_format(2)}}
 										€</td>
-									<td>{{((order.total)/100)|number_format(2)}}
+									<td style="border:1px solid black;padding:5px">{{((order.total)/100)|number_format(2)}}
 										€</td>
 								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
 				</div>
-				<div class="card-footer text-muted text-end" style="tdisplay:flex;justify-content:end">
-					<div>
+				<div  style="display:flex;justify-content:end;width:100%;">
+					<div style="width:30%;">
 						<p>Total HT :
 							{{((total -(total * 0.2))/100)|number_format(2) }}
 							€</p>

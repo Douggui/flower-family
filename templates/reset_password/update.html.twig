@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
+{% block meta %}
+	  <meta name="robots" content="noindex, nofollow">
+{% endblock %}
 
-{% block title %}Inscription
+{% block title %}Inscription flower family
 {% endblock %}
 
 {% block body %}
@@ -9,11 +12,9 @@
 			<div class="section-title mt-5" data-aos="fade-up">
 				<h1>Réinitialisation de mot de passe</h1>
 			</div>
+			<div class="row mt-5 d-flex justify-content-center" data-aos="fade-up">
 
-
-			<div class="row mt-5 justify-content-center" data-aos="fade-up">
-
-				<div class="col-lg-8  php-email-form">
+				<div class="col-md-6 m-3 form">
 					{{form_start(form)}}
 
 					<div class="form-group mt-3">

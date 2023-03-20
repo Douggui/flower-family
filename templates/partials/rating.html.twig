@@ -1,0 +1,16 @@
+{% if comments|length >0 %}
+    {# Avg note#}
+        <div class="fs-6 text-end">
+           <span>{{comments|length}} avis</span>
+            <span class="text-warning">
+                {% for i in 1..5 %}
+                    {% if i<= avgRatings %}
+                        <i class="bi bi-star-fill"></i>
+                    {% else %}
+                        <i class="bi bi-star"></i>
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </div>
+    {#end avg note#}
+{% endif %}

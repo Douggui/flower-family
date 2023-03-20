@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
+{% block meta %}
+	  <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
 {% block stylsheets %}
 	<link rel="stylesheet" href="{{asset("assets/vendor/fullcalendar/lib/main.css")}}">
 {% endblock %}
-{% block title %}Commande
+{% block title %}Commande flower family
 {% endblock %}
 
 {% block body %}
@@ -29,53 +33,32 @@
 		<!-- ======= Contact Section ======= -->
 
 
-		<section id="contact" class="contact">
-			<div class="container ">
+		<section id="contact" class="contact container">
+			<div class="container">
 				<div class="section-title " data-aos="fade-up">
-					<h1>Récapitulatif de ma commande</h1>
+					<h1>Information de livraison de ma commande</h1>
 
 				</div>
-				<div id="pageContent">
-					<div class="row  mt-5 justify-content-center" data-aos="fade-up">
-						<div class="col-lg-4 col-12" >
-							<h3>Veuillez choisir vos préférences</h3>
-							<div class="mt-lg-3">
-								{% for delivery in deliveryMethod %}
-									<div class="form-check mb-3">
-										<input class="form-check-input" type="radio" name="delivery" id="{{delivery.name}}" value="{{delivery.name}}">
-										<label class="form-check-label" for="{{delivery.name}}">
-											{{delivery.name}}
-										</label>
+				<div>
+					<div class="row  mt-5 justify-content-center" >
+						
+						<div class="col-lg-5 col-12" data-aos="fade-right" data-aos-delay='300'>
+							{% set formHTML %}
+								{{form_start(form)}}
+								
+								{{form_row(form.DeliveryMethod)}}
+								{% if totalTTC > 50 %}
 
-									</div>
-								{% endfor %}
-							</div>
+									{{form_row(form.Addresse,{'attr':{'class':'visually-hidden'}})}}
 
-							<div class="mt-lg-3 " id="addresse">
-							{% set i= 0 %}
-								{% for addresse in addresses %}
-									<div class="form-check mb-3">
-										<input class="form-check-input" type="radio" name="addresses" id="{{addresse.postal}}" value="{{addresse.postal}}">
-										<label class="form-check-label" for="{{addresse.postal}}">
-											<span id="fullAddresse{{i}}">{{addresse.getFullAddresse|replace({'[br]':'<br>'})|raw}}</span>
-										</label>
-
-									</div>
-									{% set i=i+1 %}
-								{% endfor %}
-							</div>
-							<div id="info" class="mb-3"></div>
-							<div class="loading"></div>
-							<button id="orderValidationBTN" class="mb-3">
-								<a href="{{path('order_data')}}" id="validationLink" class="text-dark">
-									Valider ma commande</a>
-							</button>
-
+								{% endif %}
+								{{form_end(form)}}
+							{% endset %}
+							{{formHTML | replace({'[br]': '<br>','&lt;div&gt;':'','&lt;/div&gt;':''}) | raw}}
 
 						</div>
-						
 
-						<div class="col-lg-7 col-12">
+						<div class="col-lg-7 col-12 mt-4" data-aos="fade-left" data-aos-delay='300'>
 							<div class="card text-center">
 								<div class="card-header d-none d-lg-block">
 									<div class="info-wrap ">
@@ -181,101 +164,30 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-	let pageContent=document.getElementById('pageContent')
-	let response=document.getElementById('response')
-	let loading=document.querySelector('.loading')
-	let validationLink = document.getElementById('validationLink').href
-	let info = document.querySelector('#info')
-	let radios = document.getElementsByName('delivery')
-	let radiosAddresses = document.getElementsByName('addresses')
-	let orderValidateBTN = document.getElementById('orderValidationBTN')
-	orderValidateBTN.style.display = 'none'
-	clickAndCollect = document.getElementById('click & collecte')
-	console.log(clickAndCollect)
-	let adresse = document.querySelector('#addresse')
-	let fullAddresse = ''
-	adresse.style.display = 'none'
-	let deliveryMethod = '';
-	let postal = ''
-	let data = {
-		fullAddresse,
-		deliveryMethod
+	
+	let addresses=document.getElementById('order_Addresse')
+	console.log(addresses.children[0])
+	addresses.children[0].remove()
+	{# addresses.classList.add('visually-hidden') #}
+	let order_DeliveryMethod=document.getElementsByName('order[DeliveryMethod]')
+	console.log(order_DeliveryMethod.length)
+	let delivery='';
+	if(delivery='livraison à domicile'){
+		addresses.classList.remove('visually-hidden')
 	}
-
-	for (let i = 0; i < radios.length; i++) {
-		radios[i].addEventListener('change', () => {
-		deliveryMethod = radios[i].value;
-		data.deliveryMethod = deliveryMethod
-		if (deliveryMethod === 'livraison à domicile') {
-			info.style.display = 'none'
-			orderValidateBTN.style.display = 'none'
-			if ({{ totalTTC }} >= 50) {
-				adresse.style.display = 'block'
-			} else {
-				
-				info.style.display = 'block'
-				info.innerHTML = 'Votre commande n\'est  pas éligible à la livraison à domicile'
-			}
-		} else {
-			orderValidateBTN.style.display = 'block'
-			adresse.style.display = 'none'
-			info.innerHTML = ' '
-			deliveryMethod = 'click & collect'
-			data.deliveryMethod = deliveryMethod
-			data.fullAddresse=''
-		}
+	for(let i=0 ; i< order_DeliveryMethod.length; i++){
 		
-	})
-	}
-	for (let i = 0; i < radiosAddresses.length; i++) {
-		radiosAddresses[i].addEventListener('change', () => {
-		postal = radiosAddresses[i].value
-			fullAddresse = document.getElementById('fullAddresse'+[i]).innerHTML
-			data.deliveryMethod='livraison à domicile'
-			data.fullAddresse=fullAddresse
-		if (postal != '06370') {
-			info.innerHTML = 'nous nous livrons pas à cette addresse,vous pouvez choisir le click & collect et passer chercher votre commande dans notre boutique '
-			info.style.display = 'block'
-			orderValidateBTN.style.display = 'none'
-			console.log(data)
-		} else {
-			info.style.display = 'none'
-			orderValidateBTN.style.display = 'block'
-			
-		}
+		order_DeliveryMethod[i].addEventListener('change',()=>{
+			console.log(order_DeliveryMethod[i].closest('div.form-check'))
+			delivery=order_DeliveryMethod[i].closest('div.form-check').children[1].innerHTML
+			if(delivery=="livraison à domicile"){
+				addresses.classList.remove('visually-hidden')
+			}else{
+				addresses.classList.add('visually-hidden')
+			}
 		})
+		
 	}
-	orderValidateBTN.addEventListener('click',(e)=>{
-				orderValidateBTN.style.display='none'
-				loading.classList.add('d-block')
-				console.log(data)
-				e.preventDefault()
-				e.stopPropagation()
-				
-				fetch(validationLink,{
-					method:'POST',
-					headers:{
-						'X-Requested-width': 'XMLHTTPREQUEST',
-						'Content-type': 'application/json'
-					},
-					body:JSON.stringify(data)
-				}).then(response=>response.json())
-				.then(data=>{
-					console.log(data)
-					if(data.status=='success'){
-						pageContent.style.display='none'
-					response.innerHTML=data.message
-					}else{
-						pageContent.style.display='none'
-						response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
-					}
-					})
-					.catch(error=>{
-						pageContent.style.display='none'
-						response.innerHTML='une erreur est survenu ,veuillez réessayer plus tard'
-						
-				})
-			})
 
 </script>
 

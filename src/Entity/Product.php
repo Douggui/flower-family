@@ -83,6 +83,22 @@ class Product
      */
     private $isNew;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $meta_description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product", orphanRemoval=true)
+     */
+    private $stocks;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $meta_keywords;
+
     public function __construct()
     {
         $this->caracteristicDetails = new ArrayCollection();
@@ -212,6 +228,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($image->getProduct() === $this) {
                 $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduct() === $this) {
+                $stock->setProduct(null);
             }
         }
 
@@ -368,7 +414,37 @@ class Product
         return $this;
     }
 
-    
+    public function getMetaDescription(): ?string
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription(string $meta_description): self
+    {
+        $this->meta_description = $meta_description;
+
+        return $this;
+    }
+
+    public function getMetaKeywords(): ?string
+    {
+        return $this->meta_keywords;
+    }
+
+    public function setMetaKeywords(string $meta_keywords): self
+    {
+        $this->meta_keywords = $meta_keywords;
+
+        return $this;
+    }
+
+    public function getTheStock(){
+
+        foreach ($this->getStocks() as $stock) {
+           return $stock->getStock();
+            
+        }
+    }
 
    
 

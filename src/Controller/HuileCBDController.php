@@ -24,7 +24,7 @@ class HuileCBDController extends AbstractController
         $data=$repo->findBySubCategory($idSubCategory->getId());
         
         //* paginate the products($data) */ 
-        $products=$paginator->pagination($data,$page,27);
+        $products=$paginator->pagination($data,$page,28);
 
         
         return $this->render('huile_cbd/index.html.twig', [

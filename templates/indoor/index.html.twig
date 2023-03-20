@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}CBD Fleur Indoor
+{% block meta %}
+<meta content="Nos fleurs de CBD sont sélectionner avec soin pour leurs propriétés relaxantes , leurs odeurs aussi puissantes qu'apaisantes" name="description">
+<meta content="flower family|CBD|fleur indoor" name="keywords">
+{% endblock %}
+{% block link %}
+<link rel="canonical" href="{{app.request.uri}}" />
+{% endblock %}
+{% block title %}CBD Fleur Indoor flower family
 {% endblock %}
 
 {% block body %}
@@ -29,7 +35,7 @@
 				<div class="row content d-flex justify-content-center">
 					<div class="col-lg-8 col-ms-12 text-center" data-aos="fade-up">
 						<h1>Fleurs Indoor</h1>
-						<p>Nos fleurs de <strong>CBD</strong> sont sélectionner avec soin pour leurs propriétés relaxantes , leurs odeurs aussi puissantes qu'apaisantes.<br>On distinque les variétés Indoor cultivée en intérieur , des variétés <a href="{{path('greenhouse')}}"><strong>Greenhouse</strong></a>  cultivées sous terre .<br>Ce que nous appelons <a href="{{path('trim')}}"><strong> Trim</strong></a> équivaut au chutes lors de la manicure des fleurs.</p>
+						<p></p>
 					</div>
 				</div>
 			</div>

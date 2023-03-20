@@ -1,12 +1,11 @@
 <?php
 namespace App\Services;
 
-use App\Entity\Product;
 use App\Repository\CaracteristicDetailRepository;
 use App\Repository\ImageRepository;
 use App\Repository\OptionRepository;
 use App\Repository\SpecificationRepository;
-use Knp\Component\Pager\PaginatorInterface;
+
 
 class FullProduct{
     

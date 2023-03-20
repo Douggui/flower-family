@@ -29,7 +29,7 @@ class PuffController extends AbstractController
         $data=$repo->findBySubCategory($idSubCategory->getId());
 
          /* paginate the products($data) */ 
-         $products=$paginator->pagination($data,$page,12);
+         $products=$paginator->pagination($data,$page,28);
         
         return $this->render('puff/index.html.twig', [
             'products'=>$fullProduct->getProductsInformation($products),

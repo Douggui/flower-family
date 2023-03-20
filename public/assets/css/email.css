@@ -3,8 +3,8 @@ html {
 }
 
 body {
-    background-color: black;
-    color: #aaa;
+    background-color: #E6EEE4;
+    color: #1e2e1b;
     margin: auto;
 }
 
@@ -39,18 +39,18 @@ img {
 
 a {
     text-decoration: none;
-    color:#00EEE8
+    color:#1e2e1b;
 }
 
 .email-content button a {
-    color: #000;
+    color: #1e2e1b;
 }
 
 .email-content button {
-    background-color: #00EEE8;
+    background-color: #74A46A;
     padding: 13px 8px;
-    border: 1px solid #00EEE8;
-    color: #000;
+    border: 1px solid #74A46A;
+    color: #1e2e1b;
     border-radius: 8px;
     font-size: 12px;
 
@@ -69,12 +69,12 @@ a {
     align-items: center;
 }
 .name{
-    color:#00EEE8;
+    color:#1e2e1b;
     font-size: 20px;
     margin-left:20px;
 }
 span{
-    color: #00EEE8;
+    color: #1e2e1b;
 }
 footer{
     margin-top: 10px;

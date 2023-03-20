@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      * @Assert\NotBlank(message="ce champ ne pas pas être vide ",groups={"registration"})
      * @Assert\Length(
      * min = 8,
@@ -124,6 +124,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $googleId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookId;
+    
+  
+
+    
+
     public function __construct()
     {
         $this->resetPasswords = new ArrayCollection();
@@ -189,7 +203,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -432,4 +446,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): self
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(?string $facebookId): self
+    {
+        $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    
 }

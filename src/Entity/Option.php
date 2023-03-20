@@ -34,6 +34,11 @@ class Option
      */
     private $product;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Stock::class, mappedBy="productOption", cascade={"persist", "remove"})
+     */
+    private $stock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +84,28 @@ class Option
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($stock === null && $this->stock !== null) {
+            $this->stock->setProductOption(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($stock !== null && $stock->getProductOption() !== $this) {
+            $stock->setProductOption($this);
+        }
+
+        $this->stock = $stock;
+
+        return $this;
     }
    
 }

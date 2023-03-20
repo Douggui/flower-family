@@ -6,6 +6,8 @@
 parameters:
     pdf_directory: '%kernel.project_dir%/public/invoicings'
     timezone: '%env(APP_TIMEZONE)%'
+    stripe_public_key: '%env(STRIPE_PUBLIC_KEY)%'
+    stripe_private_key: '%env(STRIPE_PRIVATE_KEY)%'
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-	<meta content="site iclope est un site de vente de e-cigarette ,e-liquide et CBD" name="description">
-	<meta content="" name="keywords">
+	<meta content="flower family est un site de vente de e-cigarette ,e-liquide et CBD situer dans la ville de mouans-sartoux.Il propose une large gamme de produit 
+	disponible en magasin ,éligible au click et collect pour tous les clients et à la livraison à domicile pour les habitants de mouans-sartoux" name="description">
+	<meta content="flower family|e-cigarette,CBD|e-liquide|e-commerce|commande en ligne|livraison gratuite|produit de qualité" name="keywords">
 {% endblock %}
-{% block title %}Accueil
+{% block link %}
+<link rel="canonical" href="" />
+{% endblock %}
+{% block title %}Accueil flower family
 {% endblock %}
 {% block body %}
+
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -14,7 +19,7 @@
 				class="carousel-inner" role="listbox">
 
 				<!-- Slide 1 -->
-				<div class="carousel-item active" style="background-image: url(/assets/img/fumee.jpg);">
+				<div class="carousel-item active" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-2.jpg);">
 					<div class="carousel-container d-flex justify-content-between align-items-center">
 
 						<div class="carousel-content animate__animated animate__fadeInLeft">
@@ -22,46 +27,36 @@
 							</h2>
 							<p>Depuis 2009 , la cigarette éléctronique a su trouver sa place  dans le monde des fumeurs .Idéale pour un sevrage nicotinique progressif, bien plus élégante et 95% moins nocive q'une cigarette classique , elle permet également aux fumeurs de réaliser de belles économies.</p>
 							<div >
-								<a href="{{path('mods')}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('mods',{page:1})}}" class="btn-get-started">Voir les produits</a>
 							</div>
 						</div>
-						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/e-cigarette1.png")}}" alt="e-cigarette"></div>
-						</div>
-
 					</div>
 				</div>
 
 				<!-- Slide 2 -->
-				<div class="carousel-item" style="background-image: url(/assets/img/fumee.jpg);">
+				<div class="carousel-item" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-3.jpg);">
 					<div class="carousel-container d-flex justify-content-between align-items-center">
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">E-liquide
 							</h2>
 							<p>Adepte de fraîcheur, de gourmandise, de fruits ou de saveurs tabac classique ou puissant, l'avantage indéniable de la vape est su'il y en a pour tous les goûts.Notre boutique vous propose un grand choix de saveurs.</p>
 							<div >
-								<a href="{{path('classique_tabac')}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('classique_tabac',{page:1})}}" class="btn-get-started">Voir les produits</a>
 							</div>
-						</div>
-						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/e-liquide.png")}}" alt="e-liquide"></div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Slide 3 -->
-				<div class="carousel-item" style="background-image: url(/assets/img/fumee.jpg);">
+				<div class="carousel-item" style="background-image:linear-gradient(to right,rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),url(/assets/img/flower-family-min.jpg);">
 					<div class="carousel-container d-flex justify-content-between align-items-center">
 						<div class="carousel-content animate__animated animate__fadeInLeft">
 							<h2 class="h2">CBD
 							</h2>
-							<p>Excellente alternative au THC, le CBD s'est fait une place de choix dans le traitement de divers maux et la relaxation sous forme de fleurs, d'huile ou d'infusion, I-CLOPE vous propose une séléction des meilleurs produits ou CBD.</p>
+							<p>Excellente alternative au THC, le CBD s'est fait une place de choix dans le traitement de divers maux et la relaxation sous forme de fleurs, d'huile ou d'infusion, flower familyE vous propose une séléction des meilleurs produits ou CBD.</p>
 							<div >
-								<a href="{{path('infusion')}}" class="btn-get-started">Voir les produits</a>
+								<a href="{{path('infusion',{page:1})}}" class="btn-get-started">Voir les produits</a>
 							</div>
-						</div>
-						<div class="carousel-content-img d-none d-md-block d-flex jutify-content-end animate__animated animate__fadeInRight">
-							<div><img src="{{asset("assets/img/cbd.png")}}" alt="cbd"></div>
 						</div>
 					</div>
 				</div>
@@ -86,7 +81,7 @@
 					{% for product in newProducts %}
 					
 						<div class="swiper-slide">
-							<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
+							<a href="{{path('product_show_details',{'slug':product.product.slug,category:product.product.subCategory.category.name , subCategory:product.product.subCategory.name})}}">
 								<div class="products " data-aos="zoom-in" data-aos-delay="100">
 									<img src="{{asset('uploads/'~ product.image.name)}}" width="336" height="336" alt="{{product.image.name}}">
 									<div class="products-info">
@@ -107,7 +102,7 @@
 	<!-- End Is New Section -->
 
 	<!-- ======= BestSeller Section ======= -->
-	<section  class="bestseller section-bg">
+	<section  class="bestseller section-bg mt-5">
 		<div class="container" data-aos="fade-up">
 			<div class="section-title">
 				<h2>Nos produits les mieux vendu</h2>
@@ -116,10 +111,10 @@
 				<div class="swiper-wrapper">
 					{% for product in products %}
 						<div class="swiper-slide">
-							<a href="{{path('ecigarette_show_details',{'slug':product.product.slug})}}">
+							<a href="{{path('product_show_details',{'slug':product.product.slug,category:product.product.subCategory.category.name , subCategory:product.product.subCategory.name})}}">
 								<div class="products " data-aos="zoom-in" data-aos-delay="100">
 									<img src="{{asset('uploads/'~ product.image.name)}}" width="336" height="336" alt="{{product.image.name}}">
-									<div class="products-info">
+									<div class="products-info d-flex justify-content-center">
 										<div class="products-info-content">
 											<h3>{{product.product.name}}</h3>
 											<p>{{((product.product.price)/100)|number_format(2)}}€</p>
@@ -137,7 +132,7 @@
 	<!-- End BestSeller Section -->
 
 	<!-- ======= About section ======= -->
-	<section  class=" section-bg">
+	<section  class="">
 		<div class="container" data-aos="fade-up">
 			<div class="section-title">
 				<h2>Qui sommes nous</h2>
@@ -145,7 +140,7 @@
 			<div class="d-flex justify-content-center">
 				<div class="collg-8 col-md-10 col-ms-11">
 					<p>
-						I-CLOP conseille et fournit les personnes désireuses d'arrêter de fumer
+						flower family conseille et fournit les personnes désireuses d'arrêter de fumer
 						 depuis plus de 7 ans . Afin de proposer une alternative de sevrage à chacun , nous avons enrichi notre gamme avec des produits au CBD.<br>
 						Ce site internet est destiné à nos clients de Mouans-sartoux et alentours
 						,il vous permet de passer commande , choisir le jour et l'heure de son
@@ -163,7 +158,7 @@
 		</div>
 	</section>
 	<!-- ======= Services Section ======= -->
-	<section  class="services section-bg ">
+	<section  class="services">
 		<div class="container" data-aos="fade-up">
 
 			<div class="row">

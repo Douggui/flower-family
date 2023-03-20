@@ -24,7 +24,7 @@ class TrimController extends AbstractController
          $data=$repo->findBySubCategory($idSubCategory->getId());
          
          /* paginate the products($data) */ 
-        $products=$paginator->pagination($data,$page,27);
+        $products=$paginator->pagination($data,$page,28 );
  
         return $this->render('trim/index.html.twig', [
             'products'=>$fullProduct->getProductsInformation($products),

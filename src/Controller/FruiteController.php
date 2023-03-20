@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FruiteController extends AbstractController
 {
     /**
-     * @Route("/e-liquide/fruite", name="fruite")
+     * @Route("/e-liquide/fruite/{page}", name="fruite")
      */
     public function index(Paginator $paginator,FullProduct $fullProduct,$page=1,SubCategoryRepository $subCatRepo,ProductRepository $repo): Response
     {
@@ -25,7 +25,7 @@ class FruiteController extends AbstractController
         $data=$repo->findBySubCategory($idSubCategory->getId());
         
         /* paginate the products($data) */ 
-        $products=$paginator->pagination($data,$page,27);
+        $products=$paginator->pagination($data,$page,28);
         
         return $this->render('fruite/index.html.twig', [
             'products'=>$fullProduct->getProductsInformation($products),

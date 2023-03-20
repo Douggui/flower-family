@@ -25,21 +25,21 @@
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
-		<!-- ======= Prpduct Details Section ======= -->
-		<section  class=" mt-5">
+		<!-- ======= Portfolio Details Section ======= -->
+		<section id="portfolio-details" class="portfolio-details mt-5">
 			<div class="container" data-aos="fade-up">
 				<div class="section-title ">
-					<h1>{{productInformation.product.name}}</h1>
+					<h2>{{productInformation.product.name}}</h2>
 
 				</div>
 				<div class="row gy-4 d-flex justify-content-around align-items-center">
 
 					<div class="col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="100">
-						<div class="product-image-slider swiper">
+						<div class="portfolio-details-slider swiper">
 							<div class="swiper-wrapper align-items-center">
 								{% for image in productInformation.images %}
-									<div class="swiper-slide text-center" >
-										<img src="{{asset('uploads/'~ image.name)}}" alt="{{productInformation.product.name}}" height="380" class="img-fluid">
+									<div class="swiper-slide">
+										<img src="/uploads/{{image.name}}" alt="{{productInformation.product.name}}" width="296" class="img-fluid">
 									</div>
 								{% endfor %}
 
@@ -48,44 +48,51 @@
 							<div class="swiper-pagination"></div>
 						</div>
 					</div>
-					<div class="product col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="200">
-						<h2>description</h2>
+					<div class="portfolio-description col-lg-4 col-ms-10" data-aos="fade-up" data-aos-delay="200">
+						<h4>{{productInformation.product.name}}</h4>
+						{# Avg note#}
 						{% if productInformation.product.comments|length >0 %}
-							{# Avg note#}
-									<p class="text-warning">
-										{% for i in 1..5 %}
-											{% if i<= productInformation.product.getAvgRatings %}
-												<i class="bi bi-star-fill"></i>
-											{% else %}
-												<i class="bi bi-star"></i>
-											{% endif %}
-										{% endfor %}
-										({{productInformation.product.comments|length}})
-									</p>
-							{#end Avg note#}
+							{% include "partials/rating.html.twig" with {'comments': productInformation.product.comments ,'avgRatings':productInformation.product.getAvgRatings } %}
 						{% endif %}
-						<p>{{productInformation.product.description}}</p>
-						<p>{{((productInformation.product.price)/100)|number_format(2)}}€</p>
-						<div class="row d-flex justify-content-center product">
+						{#end avg note#}
+						
+						<p>
+							{{productInformation.product.description}}
+						</p>
+						<p>{{((productInformation.product.price)/100)|number_format(2)}}
+							€</p>
+						<div class="row d-flex justify-content-center">
 							{% if  productInformation.options|length >0 %}
+							
 								<div class="col-md-6 col-xs-10">
-										<label for="color" class="form-label">{{productInformation.specification}}</label>
+									<label for="color" class="form-label">{{productInformation.specification}}</label>
+									
 									<select class="form-select" aria-label=".form-select-sm example" id="color">
+
 										{% for option in productInformation.options %}
-											<option value="{{option.name}}">{{option.name}}</option>
+										
+											{% if option.stock.stock >0 %}
+												<option value="{{option.name}}" data-qte={{option.stock.stock}}>{{option.name}}</option>
+											{% else %}
+												<option value="{{option.name}}" disabled>{{option.name}}-indisponible</option>
+											{% endif %}
 										{% endfor %}
 									</select>
 								</div>
 								<div class="col-md-6 col-xs-10">
 									<label for="quantity" class="form-label">Quantité</label>
 									<div class="input-group mb-3">
+
 										<span class="input-group-text" id="less">
 											<i class="bi bi-dash"></i>
 										</span>
-										<input type="number" min="1" id="quantity" class="form-control text-center noClick" value="1" >
+
+										<input type="number" min="1" id="quantity" class="form-control text-center noClick" value="1" aria-label="Amount (to the nearest dollar)">
+
 										<span class="input-group-text" id="plus">
 											<i class="bi bi-plus"></i>
 										</span>
+
 									</div>
 								</div>
 								<button class="col-11 col-md-12 col-ms-12">
@@ -97,22 +104,32 @@
 								<div class="col-11 col-md-12 col-ms-12">
 									<label for="quantity" class="form-label">Quantité</label>
 									<div class="input-group mb-3">
+
 										<span class="input-group-text" id="less">
 											<i class="bi bi-dash"></i>
 										</span>
-										<input type="number" min="1" id="quantity" class="form-control text-center noClick" value="1" >
+
+										<input type="number" min="1" id="quantity" class="form-control text-center noClick" value="1" data-qte={{productInformation.product.getTheStock}} aria-label="Amount (to the nearest dollar)">
+
 										<span class="input-group-text" id="plus">
 											<i class="bi bi-plus"></i>
 										</span>
+
 									</div>
 								</div>
-								<div class="load"></div>
-								<button class="col-11 col-md-12 col-ms-12">
-									<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add">Ajouter au panier
-										<i class="bi bi-bag-plus-fill"></i>
-									</a>
-								</button>
+								{% if productInformation.product.getTheStock >0 %}
+									<button class="col-11 col-md-12 col-ms-12">
+										<a href="{{path('cart_add_product',{'id':productInformation.product.id})}}" id="add">Ajouter au panier
+											<i class="bi bi-bag-plus-fill"></i>
+										</a>
+									</button>
+									
+									{% else %}
+										<p> <span class="badge bg-secondary">En rupture de stock</span></p>
+								{% endif %}
 							{% endif %}
+							<div class="loading"></div>
+
 						</div>
 					</div>
 				</div>
@@ -139,7 +156,7 @@
 			</div>
 
 		</section>
-		<!-- End Product Details Section -->
+		<!-- End Portfolio Details Section -->
 		{% if productInformation.product.comments|length >0 %}
 			<!-- Rating Section -->
 			<section  class=" mt-5">
@@ -173,111 +190,117 @@
 {% block javascripts %}
 	<script src="{{asset("assets/js/simple-notify.min.js")}}"></script>
 	<script>
-		let color = document.getElementById('color');
-let plus = document.getElementById('plus');
-let less = document.getElementById('less');
-let quantity = document.getElementById('quantity');
-let addBTN = document.getElementById('add');
-let loading=document.querySelector('.loading')
-console.log(loading)
-let optionColor = '';
-if (color != null) {
-optionColor = color.value;
-}
-let finalQuantity = 1;
-let data = {
-finalQuantity,
-optionColor
-}
-if (color != null) {
-color.addEventListener('change', (e) => {
-optionColor = color.value;
-data.optionColor = color.value;
-})
-}
-plus.addEventListener('click', () => {
-quantity.value ++;
-finalQuantity = quantity.value;
-data.finalQuantity = quantity.value;
-console.log(data);
-})
-less.addEventListener('click', () => {
-if (parseInt(quantity.value) > 1) {
-quantity.value --
-}
-finalQuantity = quantity.value
-data.finalQuantity = quantity.value
-})
-console.log(data)
-addBTN.addEventListener('click', (e) => {
-e.preventDefault()
-e.stopPropagation()
+	let color = document.getElementById('color');
+	let plus = document.getElementById('plus');
+	let less = document.getElementById('less');
+	let quantity = document.getElementById('quantity');
+	let addBTN = document.getElementById('add');
+	let spinner = document.querySelector('.loading');
+	console.log(spinner);
+	let productId={{productInformation.product.id}}
+	console.log(productId)
+	let qteWanted
+	let optionColor = '';
+		if (color != null) {
+			qteWanted=parseInt(document.getElementsByTagName("option")[0].dataset.qte);
+			optionColor = color.value;
+		}else{
+			qteWanted=quantity.dataset.qte
+			console.log('qte: '+qteWanted)
+		}
+	console.log(qteWanted)
+	let finalQuantity = 1;
+	let data = {
+		finalQuantity,
+		optionColor,
+		productId
+	}
+	if (color != null) {
+		color.addEventListener('change', (e) => {
+		qteWanted=parseInt(e.target.options[e.target.selectedIndex].dataset.qte);
+		if(quantity.value >qteWanted){
+			quantity.value=qteWanted
+		}
+		optionColor = color.value;
+		data.optionColor = color.value;
 
-fetch(addBTN.getAttribute('href'), {
-method: 'ADD',
-headers: {
-'X-Requested-width': 'XMLHTTPREQUEST',
-'Content-type': 'application/json'
-},
-body: JSON.stringify(data)
-}).then(response => response.json()).then(data => {
-console.log(data)
-if (data.status == 'success') {
-new Notify({
-status: data.status,
-text: data.message + '   {{ productInformation.product.name }}',
-effect: 'fade',
-speed: 300,
-customClass: '',
-customIcon: '<i class="bi bi-bag-check-fill"></i>',
-showIcon: true,
-showCloseButton: true,
-autoclose: true,
-autotimeout: 3000,
-gap: 20,
-distance: 20,
-type: 1,
-position: 'right top'
-})
+	})
+	}
 
-} else {
-new Notify({
-status: 'error',
-text: 'une erreur est survenu veuillez réessayer',
-effect: 'fade',
-speed: 300,
-customClass: '',
-customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
-showIcon: true,
-showCloseButton: true,
-autoclose: true,
-autotimeout: 4000,
-gap: 20,
-distance: 20,
-type: 1,
-position: 'right top'
-})
 
-}
+	plus.addEventListener('click', () => {
+		console.log(plus)
+		if(parseInt(quantity.value) +1  <= qteWanted){
+			quantity.value ++;
+			finalQuantity = quantity.value;
+			data.finalQuantity = quantity.value;
+			console.log(data);
+		}
 
-}).catch(error => {
-new Notify({
-status: 'erro',
-text: 'une erreur est survenu veuillez réessayer ',
-effect: 'fade',
-speed: 300,
-customClass: '',
-customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
-showIcon: true,
-showCloseButton: true,
-autoclose: true,
-autotimeout: 4000,
-gap: 20,
-distance: 20,
-type: 1,
-position: 'right top'
-})
-})
-})
+	})
+	less.addEventListener('click', () => {
+		if (parseInt(quantity.value) > 1) {
+			quantity.value --
+		}
+		finalQuantity = quantity.value
+		data.finalQuantity = quantity.value
+	})
+	console.log(data)
+	addBTN.addEventListener('click', (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		spinner.style.display="block";
+		addBTN.parentElement.style.display='none';
+		fetch(addBTN.getAttribute('href'), {
+		method: 'ADD',
+		headers: {
+		'X-Requested-width': 'XMLHTTPREQUEST',
+		'Content-type': 'application/json'
+		},
+		body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(data => {
+			//console.log(data)
+			spinner.style.display='none';
+			addBTN.parentElement.style.display='block';
+			new Notify({
+				status: data.status,
+				text: data.message,
+				effect: 'fade',
+				speed: 300,
+				customClass: '',
+				customIcon: '<i class="bi bi-bag-check-fill"></i>',
+				showIcon: true,
+				showCloseButton: true,
+				autoclose: true,
+				autotimeout: 3000,
+				gap: 20,
+				distance: 20,
+				type: 1,
+				position: 'right top'
+			})
+
+		
+
+		}).catch(error => {
+			new Notify({
+			status: 'error',
+			text: 'une erreur est survenu veuillez réessayer ',
+			effect: 'fade',
+			speed: 300,
+			customClass: '',
+			customIcon: '<i class="bi bi-emoji-frown-fill"></i>',
+			showIcon: true,
+			showCloseButton: true,
+			autoclose: true,
+			autotimeout: 4000,
+			gap: 20,
+			distance: 20,
+			type: 1,
+			position: 'right top'
+			})
+		})
+	})
 	</script>
 {% endblock %}

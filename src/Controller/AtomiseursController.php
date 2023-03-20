@@ -28,7 +28,7 @@ class AtomiseursController extends AbstractController
         $data=$repo->findBySubCategory($idSubCategory->getId());
         
         /* paginate the products($data) */ 
-        $products=$paginator->pagination($data,$page,1);
+        $products=$paginator->pagination($data,$page,28);
         
         return $this->render('atomiseurs/index.html.twig', [
             'products'=>$fullProduct->getProductsInformation($products),

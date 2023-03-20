@@ -14,14 +14,10 @@ class PdfService{
 
     public function createPDF($htmlTemplate)
     {
-        
         $this->dompdf->loadHtml($htmlTemplate);
-        
         // Render the HTML as PDF
         $this->dompdf->render();
         $this->dompdf->output();
-
-
     }
     public function showPDF($htmlTemplate){
         

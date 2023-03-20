@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Mon compte
+{% block meta %}
+ <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block title %}Mon compte flower family
 {% endblock %}
 
 {% block body %}
@@ -61,10 +63,12 @@
 												<i>Nom :
 												</i>
 												{{user.getFullName}}</p>
-											<p>
-												<a href="{{path('account_update_password',{'id':user.id})}}">Modifier mon mot de passe
-												</a>
-											</p>
+											{% if user.password != null %}
+												<p>
+													<a href="{{path('account_update_password',{'id':user.id})}}" class="card-p-link">Modifier mon mot de passe
+													</a>
+												</p>
+											{% endif %}
 										</div>
 									</div>
 								</div>
@@ -73,7 +77,7 @@
 										<div class="col-lg-12 details order-2 order-lg-1">
 											<h3>Mes adresses</h3>
 											<p class="fst-italic">
-												<a href="{{path('add_addresse')}}">Ajouter une adresse</a>
+												<a href="{{path('add_addresse')}}" >Ajouter une adresse</a>
 											</p>
 
 											<div class="row gy-3">
@@ -117,7 +121,7 @@
 																<h5 class="card-title">Commande n°{{order.reference}}</h5>
 																<p class="card-text">
 																	<i>Commande passer le :</i>
-																	{{order.createdAt|date('d-m-Y')}}</p>
+																	{{order.createdAt|date('d-m-Y',"Europe/Paris")}} </p>
 																<p class="card-text">
 																	<i>Mode de livraison:</i>
 																	{{order.deliveryMethod}}</p>
@@ -129,8 +133,20 @@
 																<p class="card-text">
 																	<i>Total de la commande:</i>
 																	{{((order.total)/100)|number_format(2)}} €</p>
-																<button><a href="{{path('account_order_details',{'id':order.id})}}" class="card-link">Voir les détails</a></button>
-																<button><a href="{{path('summary_order',{'id':order.id})}}" class="card-link"><i class="bi bi-box-arrow-down me-1"></i>Facture</a></button>
+																{% if order.isDelivered==false %}
+																	<p>{{order.status}}</p>
+																{% endif %}
+
+																{% if order.isPaid ==false %}
+																	<p><span class="badge bg-secondary me-5">en attente de paiment</span><a href="{{order.stripeUrl}}" class="text-dark text-decoration-underline">payer</a></p>
+																{% else %}
+																	<button><a href="{{path('account_order_details',{'id':order.id})}}" class="card-link">Voir les détails</a></button>
+																	<button><a href="{{path('summary_order',{'id':order.id})}}" class="card-link"><i class="bi bi-box-arrow-down me-1"></i>Facture</a></button>
+																{% endif %}
+																
+																{% if order.isDelivered ==true %}
+																<p ><span class="badge bg-secondary"> Livré</span></p>
+																{% endif %}
 															</div>
 														</div>
 													</div>

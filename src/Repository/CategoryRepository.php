@@ -47,6 +47,16 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function getCategoriesWithSubCategories()
+    {
+        return $this->createQueryBuilder('c')
+                    ->join('c.subCategories','subCategory')
+                    ->addSelect('subCategory')
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

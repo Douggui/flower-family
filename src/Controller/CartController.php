@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
-use App\Repository\ImageRepository;
-use App\Repository\ProductRepository;
 use App\Services\Cart;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Product;
+use App\Repository\ImageRepository;
+use App\Repository\StockRepository;
+use App\Repository\OptionRepository;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
@@ -36,10 +39,11 @@ class CartController extends AbstractController
     /**
      * @Route("panier/{id}", name="cart_add_product",methods={"ADD"} )
      */
-    public function addProduct(Cart $cart,Request $request,$id): Response
+    public function addProduct(Cart $cart,Request $request,$id,ProductRepository $repo,StockRepository $stockRepo,OptionRepository $optionRepo): Response
     {
         $data=json_decode($request->getContent(),true);
-       
+        if($data!=[]){
+            $productId=$data['productId'];
             $quantity=$data['finalQuantity'];
             if(isset($data['optionColor'])){
                 $color=$data['optionColor']; 
@@ -47,20 +51,51 @@ class CartController extends AbstractController
                 $color='';
             }
             
-            $cart->add($id,$quantity,$color);
-           
-            return new JsonResponse(['message'=>'produit ajouter au panier','status'=>'success'],200);
-          
+            $product=$repo->findOneById($productId);
+            $option=$optionRepo->findOneBy(['product'=>$product,'name'=>$color]);
+            $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
+            $cartProduct=$cart->getCart();
+            
+            $cart->add($id,$quantity,$color,$stock);
+            
+            return new JsonResponse(['message'=>'produit '.$product->getName().' ajouter au panier','status'=>'success'],200);
+        }else{
+            
+            return new JsonResponse(['message'=>'une erreur est survenue veuillez réessayer plus tard','status'=>'danger'],400);
+        
+        }
         
     }
 
     
      /**
-     * @Route("panier/ajouter/{id}", name="increase_product" )
+     * @Route("panier/ajouter/{id}/{option?}", name="increase_product" )
      */
-    public function increaseProduct(Cart $cart,$id): Response
+    public function increaseProduct(?string $option,Cart $cart,int $id,Product $product,StockRepository $stockRepo,OptionRepository $optionRepo): Response
     {
-        $cart->increaseProduct($id);
+       
+        $option=$optionRepo->findOneBy(['product'=>$product,'name'=>$option]);
+        $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
+        //dd($stock,$option);
+        $quantity=null;
+        $cart1=$cart->getCart();
+        //dd($cart);
+        $i=0;
+       while ($i < count($cart1)) {
+        $quantity=$cart1[$id]['quantity'];
+        $i++;
+       }
+        //dd($quantity);
+        if(($quantity+1) <= $stock){
+            $cart->increaseProduct($id);
+        }else{
+            $this->addFlash(
+                'danger',
+                'Impossible d\'augmenter la quantité ,stock insuffisant',
+            );
+            return $this->redirectToRoute('cart');
+        }
+        //$cart->increaseProduct($id);
         
         return $this->redirectToRoute('cart');
     }

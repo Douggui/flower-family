@@ -16,7 +16,7 @@ class Mail{
     public function sendMail($to,$subject,$htmlTemplate,$variables){
         $email = (new TemplatedEmail())
                 ->from('narjes@stilvoll.fr')
-                ->cc('narjes@gmail.com')
+                ->cc('narjes.dougui@gmail.com')
                 ->to($to)
                 ->subject($subject)
                 // path of the Twig template to render

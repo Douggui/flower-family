@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block meta %}
+	  <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block stylsheets %}
+	<link rel="stylesheet" href="{{asset("assets/vendor/fullcalendar/lib/main.css")}}">
+{% endblock %}
+{% block title %}Informations de commande flower family
+{% endblock %}
+
+{% block body %}
+	<main
+		id="main ">
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex  justify-content-end align-items-center">
+					<ol class="mt-4">
+						<li>
+							<a href="{{path('home')}}">Accueil</a>
+						</li>
+						<li>Commande</li>
+					</ol>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Contact Section ======= -->
+        <div class="container mt-5 mb-5">
+            <div class="section-title " data-aos="fade-up">
+					<h1>Vérifier vos informations et valider votre commande</h1>
+
+            </div>
+            <div class='row' data-aos="fade-up">
+                <div class="col-md-6 col-12">
+                <p>Mode de livraison: {{order.deliveryMethod}} </p>
+                {% if order.addresse != null %}
+                <p>adresse de livraison:{{order.addresse}}</p>
+                
+                {% endif %}
+            
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="card-body cart">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Produit</th>
+                                    <th scope="col">Prix unitaire</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set totalProduct = null %}
+                                {% for product in products %}
+                                    
+                                    {% set totalProduct=totalProduct+(product.quantity) %}
+                                    <tr>
+                                        <td scope="row d-flex flex-row justify-content-center align-items-center">
+                                            <div>
+                                                <img src="/uploads/{{product.image.name}}" width="100" class="img-fluid " alt="">
+                                            </div>
+                                            <div>
+                                                {{product.product.name}}
+                                                <br>{{product.specification}}
+                                            </div>
+                                        </td>
+                                        <td>{{((product.product.price)/100)|number_format(2)}}€</td>
+                                        <td>
+                                            <div class="border border-light text-center">
+
+                                                <div>
+                                                    {{product.quantity}}
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                        <td>{{((product.product.price)*(product.quantity)/100)|number_format(2)}}€</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" text-end cart-details me-2">
+                        <p>Total produit :
+                            {{ totalProduct }}
+                        </p>
+                        <p>Total TTC :
+                            <span id="total">{{(total)|number_format(2)  }}</span>
+                            €
+                        </p>
+                        
+                        <button class="col-12"><a href="{{stripeUrl}}">Valider</a></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-	<meta content="page panier" name="description">
-	<meta content="" name="keywords">
+	 <meta name="robots" content="noindex, nofollow">
 {% endblock %}
-{% block title %}Panier
+{% block title %}Panier flower family
 {% endblock %}
 
 {% block body %}
@@ -43,12 +42,12 @@
 							<div class="card-header d-none d-lg-block">
 								<div class="info-wrap ">
 									<div class="row ">
-										<div class="col-lg-4 info d-flex  align-items-center p-2 ">
+										<div class="col-lg-4 info d-flex  align-items-center p-2">
 											<div>
-												<i class="bi bi-stopwatch green"></i>
+												<i class="bi bi-stopwatch"></i>
 											</div>
 											<div>
-												<p>Expédition le jour même pour les commandes passées avant 18h30</p>
+												<p>Expédition le jour même pour les commande passé avant 18h30</p>
 											</div>
 										</div>
 
@@ -57,7 +56,7 @@
 												<i class="bi bi-currency-exchange"></i>
 											</div>
 											<div>
-												<p>Paiement à la livraison ou au click & collect</p>
+												<p>Paiment à la livraison ou au click & collect</p>
 
 											</div>
 										</div>
@@ -75,6 +74,8 @@
 							</div>
 							{% set total= null %}
 							{% set totalProduct= null %}
+							{% set validCart = true %}
+							{% set stock = null %}
 							<div class="card-body cart">
 								{% if products|length >0 %}
 									<table class="table">
@@ -84,7 +85,7 @@
 												<th scope="col">Prix unitaire</th>
 												<th scope="col">Quantité</th>
 												<th scope="col">totale</th>
-												<th scope="col" class="d-none d-md-block">Action</th>
+												<th scope="col pe-1">Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -92,14 +93,15 @@
 											{% for product in products %}
 												{% set total= total+((product.quantity)*(product.product.price)) %}
 												{% set totalProduct=totalProduct+(product.quantity) %}
-												<tr >
+												<tr>
 													<td scope="row d-flex flex-row justify-content-center align-items-center">
 														<div>
-															<img src="{{asset('uploads/'~ product.image.name)}}" width="100" class="img-fluid " alt="">
+															<img src="/uploads/{{product.image.name}}" width="100" class="img-fluid " alt="">
 														</div>
 														<div>
 															{{product.product.name}}
 															<br>{{product.specification}}
+	
 														</div>
 													</td>
 													<td>{{((product.product.price)/100)|number_format(2)}}€</td>
@@ -114,20 +116,27 @@
 																{{product.quantity}}
 															</div>
 															<div class="col-4">
-																<a href="{{path('increase_product',{'id':product.product.id})}}">
+																<a href="{{path('increase_product',{'id':product.product.id,'option':product.specification})}}">
 																	<i class="bi bi-plus-square-fill fs-5"></i>
 																</a>
 															</div>
 
 														</div>
+														{% set stock = product.product.getTheStock %}
+													
+														{% if product.quantity > stock %}
+															{% set validCart = false %}
+															<p class="text-danger">la quantité choisie n'est plus disponible,quantité disponible : {{stock}} </p>
+														{% endif %}
 													</td>
+													
+													
 													<td>{{((product.product.price)*(product.quantity)/100)|number_format(2)}}€</td>
-													<td class="pe-xs-5">
+													<td class="pe-1">
 														<a href="{{path('remove_product',{'id':product.product.id})}}">
 															<i class="bi bi-trash-fill fs-4"></i>
 														</a>
 													</td>
-													
 												</tr>
 											{% endfor %}
 										</tbody>
@@ -139,8 +148,8 @@
 							</div>
 							<div class="card-footer text-muted text-dark">
 								En validant votre commande, vous reconnaissez avoir pris connaissance et accepté nos
-								<a href="{{path('cgv')}}" class="text-black text-decoration-underline">
-									conditions générales de vente</a>.
+								<a href="#">
+									conditions générales de ventes</a>.
 							</div>
 						</div>
 						{% if products|length >0 %}
@@ -150,10 +159,16 @@
 								</p>
 								<p>Total TTC :
 									{{(total/100) |format_currency("EUR") }}</p>
-								<button>
-									<a href="{{path('order')}}">
-										Valider mon panier</a>
-								</button>
+								{% if validCart == false %}
+								
+								<p class="text-danger">Certain produit ne sont plus disponible, veuillez mettre à jour votre panier avant d'accéder au paiment </p>
+								{% endif %}
+								{% if  validCart == true %}
+									<button>
+										<a href="{{path('order')}}">
+											Valider mon panier</a>
+									</button>
+								{% endif %}
 							</div>
 						{% endif %}
 					</div>

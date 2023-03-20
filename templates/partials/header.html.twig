@@ -2,77 +2,40 @@
 {% for product in(app.session.get('cart')) %}
 	{% set total= total+(product.quantity) %}
 {% endfor %}
+{% if app.request.get('_rout')  == 'home' %}
+<style>
+#header {
+  background: transparent;
+}
+</style>
+{% endif %}
+
 
 <header id="header" class="fixed-top">
-	<div class="container d-flex align-items-center justify-content-between pb-2">
-
-		<div class="header-social-links d-flex ">
-
-			<a href="https://www.facebook.com/profile.php?id=782137941805042&ref=br_tf&epa=SEARCH_BOX" target="_blank">
-				<i class="bu bi-facebook"></i>
-			</a>
-			<a href="https://instagram.com/iclop.mouans?igshid=YmMyMTA2M2Y=" target="_blank">
-				<i class="bu bi-instagram"></i>
-			</a>
-			<a href="mailto:iclop.mouans@gmail.com">
-				<i class="bi bi-envelope-fill"></i>
-			</a>
-		</div>
-		<div class="header-social-links d-flex">
-			<a href="https://www.google.com/maps/place/5+Av.+de+Grasse,+06370+Mouans-Sartoux/@43.620511,6.9686544,17z/data=!3m1!4b1!4m5!3m4!1s0x12cc290695144789:0x5d08fa18ed370040!8m2!3d43.620511!4d6.9708484"  target="_blank" class="d-flex justify-content-center align-items-center">
-				<i class="bi bi-geo-alt-fill me-1"></i>
-				<span class="d-none d-lg-block d-md-block">5 Avenue de grasse , 06370 Mouans-Sartoux</span>
-			</a>
-			<a href="tel:0766100951">
-				<i class="bi bi-telephone-fill"></i>
-			</a>
-
-		</div>
-
-	</div>
 	<div class="container d-flex align-items-center">
-		<a href="index.php" class="logo me-auto me-lg-0">
-			<img src="{{asset("assets/img/logo-iclope.jpg")}}" alt="" class="img-fluid" width="90" height="70"></a>
+		<a href="{{path('home')}}" class="logo me-auto me-lg-0 d-flex flex-column justify-content-center">
+			<img src="{{asset("assets/img/flower-familypng.png")}}" alt="" class="img-fluid inline-block" width="90">
+			<p>by I-CLOP</p>
+			</a>
 
 		<nav id="navbar" class="navbar order-last order-lg-0 d-flex justify-content-center">
 			<ul>
 				<li>
 					<a href="{{path('home')}}" class="active">Accueil</a>
 				</li>
-				<li class="dropdown">
-					<a href="#">E-CIGARETTE
-						<i class="bi bi-chevron-down"></i>
-					</a>
-					<ul>
-						<li><a href="{{path('mods')}}">MODS</a></li>
-						<li><a href="{{path('pods')}}">PODS</a></li>
-						<li><a href="{{path('puff')}}">PUFFS</a></li>
-						<li><a href="{{path('atomiseurs')}}">ATOMISEURS</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#">E-LIQUIDE
-						<i class="bi bi-chevron-down"></i>
-					</a>
-					<ul>
-						<li><a href="{{path('classique_tabac')}}">CLASSIQUE TABAC</a></li>
-						<li><a href="{{path('gourmand')}}">GOURMAND</a></li>
-						<li><a href="{{path('fruite')}}">FRUITÉ</a></li>
-						<li><a href="{{path('frais_givre')}}">FRAIS GIVRÉ</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#">CBD
-						<i class="bi bi-chevron-down"></i>
-					</a>
-					<ul>
-						<li><a href="{{path('infusion')}}">INFUSIONS</a></li>
-						<li><a href="{{path('resine')}}">RÉSINE</a></li>
-						<li><a href="{{path('huile_cbd')}}">HUILES</a></li>
-						<li><a href="{{path('trim')}}">TRIM</a></li>
-						<li><a href="{{path('indoor')}}">FLEURS INDOOR</a></li>
-						<li><a href="{{path('greenhouse')}}">FLEURS GREENHOUSE</a></li>
-					</ul>
+				{% for category in categories() %}
+					<li class="dropdown">
+						<a href="#">{{category.name}}
+							<i class="bi bi-chevron-down"></i>
+						</a>
+						<ul>
+						{% for subCategory in  category.subCategories %}
+							<li><a href="{{path('products',{page:1 , category:category.name ,  subCategory: subCategory.name })}}" class="text-uppercase">{{ subCategory.name }}</a></li>
+						{% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
+				
 				</li>
 				
 					<li class="dropdown d-none d-lg-block">
@@ -97,31 +60,31 @@
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>
-		<div class="navbar d-block d-lg-none">
-		 <div class="list-unstyled  header-social-links d-flex">
-		<li class="dropdown">
-						<a href="#">
-							<i class="bi bi-person-fill fs-4"></i>
+		<div class="navbar d-block d-lg-none ">
+			<div class="list-unstyled  header-social-links d-flex">
+				<li class="dropdown">
+					<a href="#">
+						<i class="bi bi-person-fill fs-4"></i>
 
-						</a>
-						<ul>
-						{% if (app.user) %}
-							<li><a href="{{path('account')}}"><i class="bi bi-person-lines-fill fs-5"></i>{{app.user.getFullName}}</a></li>
-							<li><a href="{{path('app_logout')}}"><i class="bi bi-person-x-fill fs-5"></i>Déconnexion</a></li>
-						{% else %}
-							<li><a href="{{path('app_login')}}"><i class="bi bi-person-check-fill fs-5"></i>Connexion</a></li>
-							<li><a href="{{path('registration')}}"><i class="bi bi-person-plus-fill fs-5"></i>Inscription</a></li>
-						{% endif %}
-						</ul>
-					</li>
-				
+					</a>
+					<ul>
+					{% if (app.user) %}
+						<li><a href="{{path('account')}}"><i class="bi bi-person-lines-fill fs-5"></i>{{app.user.getFullName}}</a></li>
+						<li><a href="{{path('app_logout')}}"><i class="bi bi-person-x-fill fs-5"></i>Déconnexion</a></li>
+					{% else %}
+						<li><a href="{{path('app_login')}}"><i class="bi bi-person-check-fill fs-5"></i>Connexion</a></li>
+						<li><a href="{{path('registration')}}"><i class="bi bi-person-plus-fill fs-5"></i>Inscription</a></li>
+					{% endif %}
+					</ul>
+				</li>
+					
 				<li>
 					<a href="{{path('cart')}}">
 						<i class="bi bi-bag-fill fs-4"></i>
 						<span class="card-count">{{total}}</span>
 					</a>
 				</li>
-				</div>
+			</div>
 		</div>
 	</div>
 </header>

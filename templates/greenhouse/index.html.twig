@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}CBD Fleur Greenhouse
+{% block meta %}
+<meta content="Nos fleurs de CBD sont sélectionner avec soin pour leurs propriétés relaxantes , leurs odeurs aussi puissantes qu'apaisantes" name="description">
+<meta content="flower family|CBD|fleur greenhouse" name="keywords">
+{% endblock %}
+{% block link %}
+<link rel="canonical" href="{{app.request.uri}}" />
+{% endblock %}
+{% block title %}CBD Fleur Greenhouse flower family
 {% endblock %}
 
 {% block body %}

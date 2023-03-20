@@ -21,24 +21,31 @@ Class Cart{
  }
 
 /*function used to add products to the cart */
- public function add($id,$quantity,$option)
+ public function add($id,$quantity,$option,$stock)
 {
-    $cart=$this->requestStack->getSession()->get('cart',[]);
+    // $cart=$this->requestStack->getSession()->get('cart',[]);
+    $cart=$this->getCart();
+
     
     /*if there is not product yet with the defined id($id) we add it with its option and quantity
-     else we increse the quantity  */
-    if (!empty($cart[$id]) ) {
-        if($cart[$id]['specification']==$option){
+     else we increase the quantity  */
+     if (!empty($cart[$id]) ) {
+        if(($cart[$id]['quantity']+$quantity)<=$stock){
             $cart[$id]=[
                 'quantity'=>$cart[$id]['quantity']+=$quantity,
                 'specification'=>$option,
+                
             ];
         }else{
             $cart[$id]=[
-                'quantity'=> $quantity,
-                'specification'=>$option
+                'quantity'=>$cart[$id]['quantity']=$stock,
+                'specification'=>$option,
+                
             ];
-        }     
+            
+        }
+        
+        
     }else{
         $cart[$id]=[
             'quantity'=> $quantity,
@@ -52,8 +59,7 @@ Class Cart{
 /*function used to remove cart */
 public function removeCart(){
      
-   // return $this->session->remove('cart');
-   return $this->requestStack->getSession()->set('cart',[]);
+   return $this->requestStack->getSession()->remove('cart');
 
 
 }

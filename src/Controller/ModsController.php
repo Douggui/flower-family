@@ -2,34 +2,55 @@
 
 namespace App\Controller;
 
-use App\Entity\CaracteristicDetail;
-use App\Entity\Comment;
-use App\Entity\Option;
-use App\Entity\Product;
-use App\Form\CommentType;
-use App\Repository\CaracteristicDetailRepository;
-use App\Repository\CaracteristicRepository;
-use App\Repository\ImageRepository;
-use App\Repository\OptionRepository;
-use App\Repository\ProductRepository;
-use App\Repository\SubCategoryRepository;
-use App\Services\FullCart;
-use App\Services\FullProduct;
-use App\Services\Paginator;
+
 use DateTime;
+use App\Entity\Comment;
+use App\Entity\Product;
+use App\Entity\Category;
+use App\Entity\SubCategory;
+use App\Form\CommentType;
+use App\Repository\CategoryRepository;
+use App\Services\Paginator;
+use App\Services\FullProduct;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\SubCategoryRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModsController extends AbstractController
 {
     /**
+     * @Route("/{category}/{subCategory}/{page}", name="products")
+     */
+    public function products($category,$subCategory ,Paginator $paginator,FullProduct $fullProduct,$page=1,SubCategoryRepository $subCatRepo,ProductRepository $repo , CategoryRepository $categoryRepository): Response
+    {
+        $category=$categoryRepository->findOneByName($category);
+        $subCategory=$subCatRepo->findOneByName($subCategory);
+        
+        if(!$category || !$subCategory) return $this->redirectToRoute('home');
+        /* find the id of the subCategory*/
+        $idSubCategory=$subCatRepo->findOneByName($subCategory->getName());
+        
+        /* find all products relate to the subCategory */
+        $data=$repo->findBySubCategory($idSubCategory->getId());
+        
+        /* paginate the products($data) */ 
+        $products=$paginator->pagination($data,$page,28);
+        
+        return $this->render('mods/index.html.twig', [
+            'products'=>$fullProduct->getProductsInformation($products),
+            'productPagination'=>$products,
+            'category'=>$category,
+            'subCategory'=>$subCategory,
+        ]);
+    }
+    /**
      * @Route("/e-cigarette/mods/{page}", name="mods")
      */
-    public function index(Paginator $paginator,FullProduct $fullProduct,$page=1,SubCategoryRepository $subCatRepo,ProductRepository $repo): Response
+    public function index(Paginator $paginator,FullProduct $fullProduct,int $page=1,SubCategoryRepository $subCatRepo,ProductRepository $repo): Response
     {
         /* find the id of the subCategory*/
         $idSubCategory=$subCatRepo->findOneByName('mods');
@@ -38,7 +59,7 @@ class ModsController extends AbstractController
         $data=$repo->findBySubCategory($idSubCategory->getId());
         
         /* paginate the products($data) */ 
-        $products=$paginator->pagination($data,$page,27);
+        $products=$paginator->pagination($data,$page,28);
         
         return $this->render('mods/index.html.twig', [
             'products'=>$fullProduct->getProductsInformation($products),
@@ -46,14 +67,19 @@ class ModsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/ecigarette/produit-details/{slug}", name="ecigarette_show_details")
+     * @Route("/{category}/{subCategory}/details-produit/{slug}", name="product_show_details")
      */
-    public function ProductShow(FullProduct $fullProduct,Product $product): Response
+    public function ProductShow(string $category,string $subCategory,FullProduct $fullProduct,string $slug,ProductRepository $productRepository): Response
     {   
+       
+        $product=$productRepository->findOneBySlug($slug);
+        if(!$product) return $this->redirectToRoute('home');
         return $this->render('ecigarette/product_show.html.twig', [
-            /* return all the informations of product found by the param converter to twig*/
+            /* return all the informations of product found by the param converter to twig */
             
-            'productInformation'=>$fullProduct->getFullProductInformation($product)
+            'productInformation'=>$fullProduct->getFullProductInformation($product),
+            'category'=>$category,
+            'subCategory'=>$subCategory,
         ]);
     }
     /**

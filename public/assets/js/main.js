@@ -166,4 +166,16 @@
     })
   });
 
+  let header=select('#header');
+  
+  window.addEventListener('scroll',()=>{
+    header.style.backgroundColor='#fff';
+    
+   if(window.scrollY===0 ){
+    header.style.backgroundColor='transparent';
+   
+  }
+   
+  })
+ 
 })()

@@ -57,8 +57,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Caractéristiques', 'fas fa-info-circle', Caracteristic::class);
         yield MenuItem::linkToCrud('Détails des caractéristiques', 'fas fa-sticky-note', CaracteristicDetail::class);
         yield MenuItem::linkToCrud('Mode de livraison', 'fas fa-truck', DeliveryMethod::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-box', Order::class);
-        yield MenuItem::linkToCrud('Détails commandes', 'fas fa-box-full', OrderDetails::class);
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-box', Order::class)->setDefaultSort(['createdAt'=>'DESC']);
+        yield MenuItem::linkToCrud('Détails commandes', 'fas fa-box', OrderDetails::class)->setDefaultSort(['myOrder.createdAt'=>'DESC']);
+        yield MenuItem::linkToCrud('Stock', 'fas fa-box-full', Stock::class);
         
     }
 }

@@ -24,8 +24,8 @@ class OrderDetailsCrudController extends AbstractCrudController
             AssociationField::new('product')->setLabel('produit'),
             TextField::new('specification')->setLabel('spécification'),
             IntegerField::new('quantity')->setLabel('quantité'),
-            MoneyField::new('price')->setCurrency('EUR')->setLabel('P.U'),
-            MoneyField::new('total')->setCurrency('EUR')->setLabel('P.T'),
+            MoneyField::new('price')->setCurrency('EUR')->setLabel('Prix.U'),
+            MoneyField::new('total')->setCurrency('EUR')->setLabel('Prix.T/produit'),
         ];
     }
     

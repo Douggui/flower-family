@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UpdatePasswordType;
 use App\Repository\AddresseRepository;
 use App\Repository\OrderDetailsRepository;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,11 +22,12 @@ class AccountController extends AbstractController
     /**
      * @Route("/compte", name="account")
      */
-    public function index(AddresseRepository $repo): Response
+    public function index(AddresseRepository $repo,OrderRepository $repoOrder): Response
     {
        $addresses=$repo->findByUser($this->getUser());
-       $orders=$this->getUser()->getOrders();
-      
+       //$orders=$this->getUser()->getOrders();
+    $orders=$repoOrder->findBy(['user'=>$this->getUser()],['createdAt'=>'DESC']);
+    //dd($order);
        //dd($addresses);
         return $this->render('account/index.html.twig', [
             'user'=>$this->getUser(),
