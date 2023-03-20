@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<main>
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs ">
@@ -25,6 +26,7 @@
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
+
 		<!-- ======= Portfolio Details Section ======= -->
 		<section id="portfolio-details" class="portfolio-details mt-5">
 			<div class="container" data-aos="fade-up">
@@ -70,11 +72,14 @@
 									<select class="form-select" aria-label=".form-select-sm example" id="color">
 
 										{% for option in productInformation.options %}
+										<pre>
+											{{ dump(option[0].name) }}
+										</pre>
 										
-											{% if option.stock.stock >0 %}
-												<option value="{{option.name}}" data-qte={{option.stock.stock}}>{{option.name}}</option>
+											{% if option.stock >0 %}
+												<option value="{{option[0].name}}" data-qte={{option.stock}}>{{option[0].name}}</option>
 											{% else %}
-												<option value="{{option.name}}" disabled>{{option.name}}-indisponible</option>
+												<option value="{{option[0].name}}" disabled>{{option[0].name}}-indisponible</option>
 											{% endif %}
 										{% endfor %}
 									</select>
@@ -284,6 +289,8 @@
 		
 
 		}).catch(error => {
+			spinner.style.display='none';
+			addBTN.parentElement.style.display='block';
 			new Notify({
 			status: 'error',
 			text: 'une erreur est survenu veuillez réessayer ',

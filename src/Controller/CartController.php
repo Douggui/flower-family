@@ -50,9 +50,10 @@ class CartController extends AbstractController
             }else{
                 $color='';
             }
-            
             $product=$repo->findOneById($productId);
-            $option=$optionRepo->findOneBy(['product'=>$product,'name'=>$color]);
+           // dd($optionRepo->findOneBy(['product'=>$product,'name'=>$color]));
+            // $option=$optionRepo->findOneBy(['products'=>$product,'name'=>$color]);
+            $option=$optionRepo->getProductOption($product,$color);
             $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
             $cartProduct=$cart->getCart();
             
@@ -74,7 +75,7 @@ class CartController extends AbstractController
     public function increaseProduct(?string $option,Cart $cart,int $id,Product $product,StockRepository $stockRepo,OptionRepository $optionRepo): Response
     {
        
-        $option=$optionRepo->findOneBy(['product'=>$product,'name'=>$option]);
+        $option=$optionRepo->getProductOption($product,$option);
         $stock=$stockRepo->findOneBy(['product'=>$product,'productOption'=>$option])->getStock();
         //dd($stock,$option);
         $quantity=null;

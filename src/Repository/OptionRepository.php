@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Option;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\Product;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Option>
@@ -63,7 +64,32 @@ class OptionRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    public function getProductOptions(Product $product)
+    {
+        return $this->createQueryBuilder('o')
+                    ->join('o.products','p')
+                    ->where('p.id = :id')
+                    ->setParameter('id',$product->getId())
+                    ->join('o.stocks','s')
+                    ->addSelect('s.stock')
+                    ->andWhere('s.product = :id')
+                    ->setParameter('id',$product->getId())
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+     public function getProductOption(Product $product , string $option)
+     {
+        return $this->createQueryBuilder('o')
+                    ->join('o.products','p')
+                    ->where('p.id = :id')
+                    ->setParameter('id',$product->getId())
+                    ->andWhere('o.name = :name')
+                    ->setParameter('name' , $option)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+                    ;
+     }
     /*
     public function findOneBySomeField($value): ?Option
     {

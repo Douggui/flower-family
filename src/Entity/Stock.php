@@ -29,9 +29,10 @@ class Stock
     private $product;
 
     /**
-     * @ORM\OneToOne(targetEntity=Option::class, inversedBy="stock", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Option::class, inversedBy="stocks")
      */
-    private $productOption;
+    private $optionName;
+
 
     public function getId(): ?int
     {
@@ -62,21 +63,28 @@ class Stock
         return $this;
     }
 
-    public function getProductOption(): ?Option
+
+
+    public function setProductStock($product,$specification,$quantity)
     {
-        return $this->productOption;
+        $this->stock = $this->stock - $quantity ;
+    }
+    public function __toString()
+    {
+        return $this->stock;
     }
 
-    public function setProductOption(?Option $productOption): self
+    public function getOptionName(): ?Option
     {
-        $this->productOption = $productOption;
+        return $this->optionName;
+    }
+
+    public function setOptionName(?Option $optionName): self
+    {
+        $this->optionName = $optionName;
 
         return $this;
     }
 
-    // public function setProductStock($product,$specification,$quantity)
-    // {
-    //     $this->stock = $this->stock - $quantity ;
-    // }
    
 }

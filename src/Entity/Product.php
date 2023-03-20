@@ -61,7 +61,7 @@ class Product
     /**
      * @ORM\OneToMany(targetEntity=Option::class, mappedBy="product",cascade={"remove"})
      */
-    private $options;
+    //private $options;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="product",cascade={"remove"})
@@ -99,14 +99,21 @@ class Product
      */
     private $meta_keywords;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="products")
+     */
+    private $options;
+
+   
+
     public function __construct()
     {
         $this->caracteristicDetails = new ArrayCollection();
         $this->images = new ArrayCollection();
-        $this->options = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+        $this->options = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -263,36 +270,10 @@ class Product
 
         return $this;
     }
+  
    
-    /**
-     * @return Collection<int, Option>
-     */
-    public function getOptions(): Collection
-    {
-        return $this->options;
-    }
 
-    public function addOption(Option $option): self
-    {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-            $option->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOption(Option $option): self
-    {
-        if ($this->options->removeElement($option)) {
-            // set the owning side to null (unless already changed)
-            if ($option->getProduct() === $this) {
-                $option->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
+    
     public function __toString()
     {
         return $this->name;
@@ -384,12 +365,6 @@ class Product
         return 0;
     }
 
-
-    public function haveOptions(){
-        if(count($this->options)>0) return true;
-        return false;
-    }
-
     public function getIsBest(): ?bool
     {
         return $this->isBest;
@@ -446,6 +421,36 @@ class Product
         }
     }
 
+   
+    
+    public function haveOptions(){
+        if(count($this->options)>0) return true;
+        return false;
+    }
+
+    /**
+     * @return Collection<int, Option>
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        $this->options->removeElement($option);
+
+        return $this;
+    }
    
 
 }

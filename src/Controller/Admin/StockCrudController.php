@@ -21,7 +21,7 @@ class StockCrudController extends AbstractCrudController
 
             NumberField::new('stock'),
             AssociationField::new('product')->setLabel('produit'),
-            AssociationField::new('productOption')->setLabel('option')
+            AssociationField::new('optionName')->setLabel('option')
         ];
     }
     

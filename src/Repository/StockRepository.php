@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Stock;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\Option;
+use App\Entity\Product;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Stock>
@@ -103,10 +105,19 @@ class StockRepository extends ServiceEntityRepository
         }
        
     }
-
     
+    public function getStockOfProduct(Product $product)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('s')
+                    ->join('s.product','p')
+                    ->where('s.product = :id ')
+                    ->setParameter('id',$product->getId())
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
     
-
     /*
     public function findOneBySomeField($value): ?Stock
     {

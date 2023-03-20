@@ -23,10 +23,9 @@ Class Cart{
 /*function used to add products to the cart */
  public function add($id,$quantity,$option,$stock)
 {
-    // $cart=$this->requestStack->getSession()->get('cart',[]);
+
     $cart=$this->getCart();
 
-    
     /*if there is not product yet with the defined id($id) we add it with its option and quantity
      else we increase the quantity  */
      if (!empty($cart[$id]) ) {

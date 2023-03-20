@@ -21,10 +21,11 @@ class OptionCrudController extends AbstractCrudController
         return [
             
             TextField::new('name')->setLabel('nom'),
-            /*AssociationField::new('specification')->setLabel('spécification'),*/
-            AssociationField::new('product')->setLabel('produit'),
+            //AssociationField::new('specification')->setLabel('spécification'),
+            //AssociationField::new('product')->setLabel('produit'),
             
         ];
     }
+    
     
 }

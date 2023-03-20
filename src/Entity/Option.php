@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,14 +32,23 @@ class Option
     private $specification;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="options")
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="options")
      */
-    private $product;
+    private $products;
 
     /**
-     * @ORM\OneToOne(targetEntity=Stock::class, mappedBy="productOption", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="optionName")
      */
-    private $stock;
+    private $stocks;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
+    }
+
+    
+    
 
     public function getId(): ?int
     {
@@ -68,17 +79,7 @@ class Option
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
 
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
 
    
     public function __toString()
@@ -86,26 +87,62 @@ class Option
         return $this->name;
     }
 
-    public function getStock(): ?Stock
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
     {
-        return $this->stock;
+        return $this->products;
     }
 
-    public function setStock(?Stock $stock): self
+    public function addProduct(Product $product): self
     {
-        // unset the owning side of the relation if necessary
-        if ($stock === null && $this->stock !== null) {
-            $this->stock->setProductOption(null);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addOption($this);
         }
-
-        // set the owning side of the relation if necessary
-        if ($stock !== null && $stock->getProductOption() !== $this) {
-            $stock->setProductOption($this);
-        }
-
-        $this->stock = $stock;
 
         return $this;
     }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeOption($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setOptionName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getOptionName() === $this) {
+                $stock->setOptionName(null);
+            }
+        }
+
+        return $this;
+    }
+
    
 }
